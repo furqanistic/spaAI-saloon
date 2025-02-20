@@ -3,8 +3,15 @@ import {
   ArrowRight,
   ChevronLeft,
   ChevronRight,
+  Clock,
+  Heart,
   Pause,
   Play,
+  Sparkles,
+  Star,
+  TrendingUp,
+  Trophy,
+  Zap,
 } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 
@@ -21,12 +28,14 @@ const ImageSlider = () => {
       title: 'Transform Your Med Spa Experience',
       description: 'AI-powered solutions that elevate every client interaction',
       tag: 'Platform Overview',
-      color: 'from-[#38b5ff]/80 to-blue-600/80',
+      color: 'from-fuchsia-600/90 to-purple-800/90',
+      accent: 'bg-fuchsia-400',
+      icon: Sparkles,
       cta: 'Explore Platform',
       stats: [
-        { label: 'Client Satisfaction', value: '98%' },
-        { label: 'Time Saved', value: '40%' },
-        { label: 'Revenue Growth', value: '2.5x' },
+        { label: 'Client Satisfaction', value: '98%', icon: Star },
+        { label: 'Time Saved', value: '40%', icon: Clock },
+        { label: 'Revenue Growth', value: '2.5x', icon: TrendingUp },
       ],
     },
     {
@@ -35,12 +44,14 @@ const ImageSlider = () => {
       title: 'Intelligent Client Management',
       description: 'Build lasting relationships with data-driven insights',
       tag: 'Smart Features',
-      color: 'from-blue-600/80 to-purple-600/80',
+      color: 'from-purple-800/90 to-indigo-900/90',
+      accent: 'bg-purple-400',
+      icon: Heart,
       cta: 'See Features',
       stats: [
-        { label: 'Client Retention', value: '95%' },
-        { label: 'Booking Rate', value: '85%' },
-        { label: 'Reviews', value: '4.9★' },
+        { label: 'Client Retention', value: '95%', icon: Heart },
+        { label: 'Booking Rate', value: '85%', icon: Zap },
+        { label: 'Reviews', value: '4.9★', icon: Trophy },
       ],
     },
     {
@@ -49,12 +60,14 @@ const ImageSlider = () => {
       title: 'Seamless Automation',
       description: 'Let AI handle the routine while you focus on growth',
       tag: 'Automation',
-      color: 'from-purple-600/80 to-pink-600/80',
+      color: 'from-indigo-900/90 to-pink-800/90',
+      accent: 'bg-pink-400',
+      icon: Zap,
       cta: 'Learn More',
       stats: [
-        { label: 'Tasks Automated', value: '75%' },
-        { label: 'Response Time', value: '2min' },
-        { label: 'Efficiency', value: '3x' },
+        { label: 'Tasks Automated', value: '75%', icon: Zap },
+        { label: 'Response Time', value: '2min', icon: Clock },
+        { label: 'Efficiency', value: '3x', icon: TrendingUp },
       ],
     },
   ]
@@ -107,16 +120,24 @@ const ImageSlider = () => {
   const nextSlide = () => paginate(1)
   const prevSlide = () => paginate(-1)
 
+  const CurrentIcon = slides[currentIndex].icon
+
   return (
     <div
       className='relative w-full h-screen overflow-hidden bg-gray-900'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
+      {/* Decorative Elements */}
+      <div className='absolute inset-0 overflow-hidden'>
+        <div className='absolute top-0 left-0 w-64 h-64 bg-purple-500/20 rounded-full filter blur-3xl transform -translate-x-32 -translate-y-32'></div>
+        <div className='absolute bottom-0 right-0 w-96 h-96 bg-pink-500/20 rounded-full filter blur-3xl transform translate-x-32 translate-y-32'></div>
+      </div>
+
       {/* Progress Bar */}
       {isPlaying && !isHovered && (
         <motion.div
-          className='absolute top-0 left-0 h-1 bg-white z-20 origin-left'
+          className={`absolute top-0 left-0 h-1 ${slides[currentIndex].accent} z-20 origin-left`}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 5, ease: 'linear' }}
@@ -179,32 +200,38 @@ const ImageSlider = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}
                   >
-                    <motion.span
-                      className='inline-block px-4 py-1 bg-white/10 backdrop-blur-sm text-white rounded-full text-sm font-medium'
+                    <motion.div
+                      className='flex items-center space-x-2'
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3 }}
                     >
-                      {slides[currentIndex].tag}
-                    </motion.span>
+                      <CurrentIcon className='w-5 h-5 text-white' />
+                      <span className='inline-block px-4 py-1 bg-white/10 backdrop-blur-sm text-white rounded-full text-sm font-medium'>
+                        {slides[currentIndex].tag}
+                      </span>
+                    </motion.div>
+
                     <motion.h2
-                      className='text-3xl md:text-5xl lg:text-6xl font-bold text-white'
+                      className='text-4xl md:text-6xl lg:text-7xl font-bold text-white'
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.4 }}
                     >
                       {slides[currentIndex].title}
                     </motion.h2>
+
                     <motion.p
-                      className='text-lg md:text-xl text-white/90 max-w-xl'
+                      className='text-xl md:text-2xl text-white/90 max-w-xl'
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.5 }}
                     >
                       {slides[currentIndex].description}
                     </motion.p>
+
                     <motion.button
-                      className='group inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full text-white font-medium transition-all duration-300'
+                      className={`group inline-flex items-center gap-2 px-8 py-4 ${slides[currentIndex].accent} rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25`}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.6 }}
@@ -223,25 +250,36 @@ const ImageSlider = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4 }}
                   >
-                    {slides[currentIndex].stats.map((stat, index) => (
-                      <motion.div
-                        key={stat.label}
-                        className='text-center p-4 rounded-2xl bg-white/10 backdrop-blur-sm'
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 + index * 0.1 }}
-                      >
-                        <motion.p
-                          className='text-2xl md:text-3xl font-bold text-white mb-1'
-                          initial={{ scale: 0.5 }}
-                          animate={{ scale: 1 }}
-                          transition={{ delay: 0.6 + index * 0.1 }}
+                    {slides[currentIndex].stats.map((stat, index) => {
+                      const StatIcon = stat.icon
+                      return (
+                        <motion.div
+                          key={stat.label}
+                          className='text-center p-6 rounded-2xl bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors group'
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.5 + index * 0.1 }}
                         >
-                          {stat.value}
-                        </motion.p>
-                        <p className='text-sm text-white/80'>{stat.label}</p>
-                      </motion.div>
-                    ))}
+                          <motion.div
+                            className='inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 mb-4 group-hover:scale-110 transition-transform'
+                            initial={{ scale: 0.5 }}
+                            animate={{ scale: 1 }}
+                            transition={{ delay: 0.6 + index * 0.1 }}
+                          >
+                            <StatIcon className='w-6 h-6 text-white' />
+                          </motion.div>
+                          <motion.p
+                            className='text-3xl md:text-4xl font-bold text-white mb-2'
+                            initial={{ scale: 0.5 }}
+                            animate={{ scale: 1 }}
+                            transition={{ delay: 0.6 + index * 0.1 }}
+                          >
+                            {stat.value}
+                          </motion.p>
+                          <p className='text-sm text-white/80'>{stat.label}</p>
+                        </motion.div>
+                      )
+                    })}
                   </motion.div>
                 </div>
               </div>
@@ -256,12 +294,12 @@ const ImageSlider = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={prevSlide}
-          className='w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors flex items-center justify-center text-white'
+          className='w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors flex items-center justify-center text-white'
         >
-          <ChevronLeft className='w-5 h-5 md:w-6 md:h-6' />
+          <ChevronLeft className='w-6 h-6 md:w-8 md:h-8' />
         </motion.button>
 
-        <div className='flex space-x-2'>
+        <div className='flex space-x-3'>
           {slides.map((_, index) => (
             <motion.button
               key={index}
@@ -271,9 +309,9 @@ const ImageSlider = () => {
                 setDirection(index > currentIndex ? 1 : -1)
                 setCurrentIndex(index)
               }}
-              className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
+              className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 ${
                 index === currentIndex
-                  ? 'bg-white scale-125'
+                  ? slides[currentIndex].accent + ' scale-125'
                   : 'bg-white/50 hover:bg-white/70'
               }`}
             />
@@ -284,26 +322,58 @@ const ImageSlider = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={nextSlide}
-          className='w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors flex items-center justify-center text-white'
+          className='w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors flex items-center justify-center text-white'
         >
-          <ChevronRight className='w-5 h-5 md:w-6 md:h-6' />
+          <ChevronRight className='w-6 h-6 md:w-8 md:h-8' />
         </motion.button>
 
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => setIsPlaying(!isPlaying)}
-          className={`w-10 h-10 md:w-12 md:h-12 rounded-full ${
+          className={`w-12 h-12 md:w-14 md:h-14 rounded-full ${
             isPlaying ? 'bg-white/20' : 'bg-white/10'
           } backdrop-blur-sm hover:bg-white/20 transition-colors flex items-center justify-center text-white`}
         >
           {isPlaying ? (
-            <Pause className='w-5 h-5 md:w-6 md:h-6' />
+            <Pause className='w-6 h-6 md:w-8 md:h-8' />
           ) : (
-            <Play className='w-5 h-5 md:w-6 md:h-6' />
+            <Play className='w-6 h-6 md:w-8 md:h-8' />
           )}
         </motion.button>
       </div>
+
+      {/* Decorative floating elements */}
+      <motion.div
+        className='absolute top-20 right-20 w-24 h-24 opacity-20'
+        animate={{
+          y: [0, -20, 0],
+          rotate: [0, 45, 0],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      >
+        <div className='w-full h-full rounded-full bg-gradient-to-r from-purple-500 to-pink-500 blur-xl' />
+      </motion.div>
+
+      <motion.div
+        className='absolute bottom-40 left-20 w-16 h-16 opacity-20'
+        animate={{
+          y: [0, 20, 0],
+          rotate: [0, -45, 0],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          delay: 1,
+        }}
+      >
+        <div className='w-full h-full rounded-full bg-gradient-to-r from-fuchsia-500 to-purple-500 blur-xl' />
+      </motion.div>
     </div>
   )
 }

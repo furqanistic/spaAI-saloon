@@ -28,14 +28,40 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeSubmenu, setActiveSubmenu] = useState(null)
+  const [visible, setVisible] = useState(true)
+  const [prevScrollPos, setPrevScrollPos] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
+      const currentScrollPos = window.scrollY
+
+      // Add a threshold to prevent tiny scroll movements from triggering the hide/show
+      const isScrollingDown =
+        currentScrollPos > prevScrollPos && currentScrollPos > 50
+
+      // Update visibility based on scroll direction and position
+      setVisible(currentScrollPos < 10 || !isScrollingDown)
+
+      // Update scrolled state for background effect
+      setScrolled(currentScrollPos > 20)
+
+      // Save the current scroll position
+      setPrevScrollPos(currentScrollPos)
     }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+
+    // Add throttling to prevent too many updates
+    let timeoutId = null
+    const throttledScroll = () => {
+      if (timeoutId) clearTimeout(timeoutId)
+      timeoutId = setTimeout(handleScroll, 100)
+    }
+
+    window.addEventListener('scroll', throttledScroll)
+    return () => {
+      window.removeEventListener('scroll', throttledScroll)
+      if (timeoutId) clearTimeout(timeoutId)
+    }
+  }, [prevScrollPos])
 
   useEffect(() => {
     const handleResize = () => {
@@ -103,9 +129,16 @@ const Navbar = () => {
   return (
     <motion.nav
       initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className={`fixed w-full z-50 transition-all duration-500 ${
-        scrolled ? 'bg-white/95 backdrop-blur-lg shadow-lg' : 'bg-transparent'
+      animate={{
+        opacity: visible ? 1 : 0,
+        y: visible ? 0 : -100,
+      }}
+      transition={{
+        opacity: { duration: 0.3, ease: 'easeInOut' },
+        y: { duration: 0.4, ease: 'easeInOut' },
+      }}
+      className={`fixed w-full z-50 transform-gpu ${
+        scrolled ? 'bg-white/95 backdrop-blur-lg shadow-lg' : 'bg-white/95'
       }`}
     >
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
@@ -218,11 +251,7 @@ const Navbar = () => {
                     icon: <DollarSign className='w-4 h-4' />,
                     path: '/pricing',
                   },
-                  {
-                    title: 'Resources',
-                    icon: <BookMarked className='w-4 h-4' />,
-                    path: '#',
-                  },
+
                   {
                     title: 'About',
                     icon: <Users className='w-4 h-4' />,
@@ -231,7 +260,7 @@ const Navbar = () => {
                   {
                     title: 'Contact',
                     icon: <Phone className='w-4 h-4' />,
-                    path: '#',
+                    path: '/contact',
                   },
                 ].map((item) => (
                   <NavigationMenuItem key={item.title}>
@@ -258,13 +287,37 @@ const Navbar = () => {
                 <NavigationMenuItem>
                   <motion.div
                     whileHover={{ scale: 1.05 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-                    className='relative group'
+                    whileTap={{ scale: 0.98 }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 400,
+                      damping: 10,
+                      mass: 0.8,
+                    }}
+                    className='relative group inline-block'
                   >
-                    <div className='absolute inset-0 bg-gradient-to-r from-[#38b5ff] to-[#3888ff] rounded-lg blur group-hover:blur-md transition-all duration-300'></div>
-                    <Button className='relative bg-gradient-to-r from-[#38b5ff] to-[#3888ff] hover:opacity-90 text-white font-medium px-4 xl:px-6 text-sm xl:text-base shadow-lg'>
-                      Book Demo
-                    </Button>
+                    {/* Glow effect container */}
+                    <div className='absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-600 rounded-lg opacity-75 blur transition-all duration-300 group-hover:opacity-100 group-hover:blur-lg' />
+
+                    {/* Button content */}
+                    <button className='relative px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg text-white font-semibold shadow-lg transition-all duration-300 group-hover:shadow-xl'>
+                      <span className='flex items-center justify-center space-x-2'>
+                        <span>Book Demo</span>
+                        <svg
+                          className='w-4 h-4 transition-transform duration-300 group-hover:translate-x-1'
+                          fill='none'
+                          stroke='currentColor'
+                          viewBox='0 0 24 24'
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth={2}
+                            d='M9 5l7 7-7 7'
+                          />
+                        </svg>
+                      </span>
+                    </button>
                   </motion.div>
                 </NavigationMenuItem>
               </NavigationMenuList>
@@ -402,7 +455,7 @@ const Navbar = () => {
                   {
                     title: 'Contact',
                     icon: <Phone className='w-4 h-4' />,
-                    path: '#',
+                    path: '/contact',
                   },
                 ].map((item) => (
                   <Link to={item.path} key={item.title}>

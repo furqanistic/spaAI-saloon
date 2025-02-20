@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { Quote, Star } from 'lucide-react'
+import { Circle, Pentagon, Quote, Sparkles, Star, Triangle } from 'lucide-react'
 import React, { useRef, useState } from 'react'
 
 const TestimonialSection = () => {
@@ -7,6 +7,7 @@ const TestimonialSection = () => {
   const [isDragging, setIsDragging] = useState(false)
   const scrollRef = useRef(null)
 
+  // Keep existing testimonials array...
   const testimonials = [
     {
       name: 'Sarah Anderson',
@@ -107,11 +108,11 @@ const TestimonialSection = () => {
   }
 
   return (
-    <div className='relative min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-indigo-900 py-20 overflow-hidden'>
-      {/* Animated Background Elements */}
+    <div className='relative min-h-screen bg-gradient-to-br from-purple-950 via-fuchsia-900 to-pink-900 py-20 overflow-hidden'>
+      {/* Enhanced Animated Background Elements */}
       <div className='absolute inset-0 overflow-hidden'>
-        <div className='absolute w-[500px] h-[500px] -top-48 -left-24 bg-blue-400/10 rounded-full blur-3xl' />
-        <div className='absolute w-[500px] h-[500px] -bottom-48 -right-24 bg-indigo-400/10 rounded-full blur-3xl' />
+        <div className='absolute w-96 h-96 -top-48 -left-24 bg-pink-400/10 rounded-full blur-3xl' />
+        <div className='absolute w-96 h-96 -bottom-48 -right-24 bg-purple-400/10 rounded-full blur-3xl' />
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
@@ -122,19 +123,51 @@ const TestimonialSection = () => {
             repeat: Infinity,
             ease: 'linear',
           }}
-          className='absolute top-1/4 left-1/3 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl'
+          className='absolute top-1/4 left-1/3 w-96 h-96 bg-fuchsia-500/5 rounded-full blur-3xl'
         />
+
+        {/* Floating Decorative Elements */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              y: [0, -20, 0],
+              x: [0, 10, 0],
+              rotate: [0, 180, 360],
+            }}
+            transition={{
+              duration: 8 + i,
+              repeat: Infinity,
+              ease: 'linear',
+              delay: i * 0.5,
+            }}
+            className='absolute'
+            style={{
+              top: `${20 + i * 15}%`,
+              left: `${10 + i * 15}%`,
+            }}
+          >
+            {i % 3 === 0 ? (
+              <Pentagon className='w-6 h-6 text-pink-300/20' />
+            ) : i % 3 === 1 ? (
+              <Circle className='w-4 h-4 text-purple-300/20' />
+            ) : (
+              <Triangle className='w-5 h-5 text-fuchsia-300/20' />
+            )}
+          </motion.div>
+        ))}
       </div>
 
       <div className='container mx-auto px-4 relative z-10'>
-        {/* Header */}
+        {/* Enhanced Header */}
         <div className='text-center max-w-3xl mx-auto mb-20'>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             className='inline-block'
           >
-            <span className='px-4 py-1.5 bg-blue-500/10 text-blue-300 rounded-full text-sm font-medium border border-blue-400/20 backdrop-blur-sm'>
+            <span className='px-4 py-1.5 bg-pink-500/10 text-pink-300 rounded-full text-sm font-medium border border-pink-400/20 backdrop-blur-sm flex items-center gap-2'>
+              <Sparkles className='w-4 h-4' />
               CUSTOMER STORIES
             </span>
           </motion.div>
@@ -146,11 +179,13 @@ const TestimonialSection = () => {
             className='text-5xl md:text-6xl font-bold text-white mt-8 mb-6'
           >
             Loved by innovators
-            <span className='block text-blue-400 mt-2'>worldwide</span>
+            <span className='block bg-gradient-to-r from-pink-400 via-fuchsia-400 to-purple-400 bg-clip-text text-transparent mt-2'>
+              worldwide
+            </span>
           </motion.h2>
         </div>
 
-        {/* Main Testimonial Display */}
+        {/* Enhanced Main Testimonial Display */}
         <AnimatePresence mode='wait'>
           <motion.div
             key={currentIndex}
@@ -160,11 +195,11 @@ const TestimonialSection = () => {
             className='max-w-6xl mx-auto mb-16'
           >
             <div className='relative'>
-              <div className='absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center'>
+              <div className='absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center'>
                 <Quote className='w-10 h-10 text-white transform -scale-x-100' />
               </div>
 
-              <div className='bg-white/5 backdrop-blur-xl rounded-3xl p-12 border border-white/10'>
+              <div className='bg-white/5 backdrop-blur-xl rounded-3xl p-12 border border-white/10 shadow-lg shadow-purple-500/10'>
                 <div className='grid md:grid-cols-2 gap-12 items-center'>
                   <div className='space-y-8'>
                     <div className='flex items-center space-x-1'>
@@ -172,7 +207,7 @@ const TestimonialSection = () => {
                         (_, i) => (
                           <Star
                             key={i}
-                            className='w-5 h-5 text-yellow-400 fill-yellow-400'
+                            className='w-5 h-5 text-pink-400 fill-pink-400'
                           />
                         )
                       )}
@@ -185,14 +220,14 @@ const TestimonialSection = () => {
                     <div className='pt-4'>
                       <div className='flex items-center space-x-4'>
                         <div className='relative'>
-                          <div className='w-16 h-16 rounded-full overflow-hidden ring-2 ring-blue-400/20'>
+                          <div className='w-16 h-16 rounded-full overflow-hidden ring-2 ring-pink-400/20'>
                             <img
                               src={testimonials[currentIndex].image}
                               alt={testimonials[currentIndex].name}
                               className='w-full h-full object-cover'
                             />
                           </div>
-                          <div className='absolute -bottom-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center ring-2 ring-blue-900'>
+                          <div className='absolute -bottom-1 -right-1 w-6 h-6 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full flex items-center justify-center ring-2 ring-purple-900'>
                             <motion.div
                               animate={{ scale: [1, 1.2, 1] }}
                               transition={{ duration: 2, repeat: Infinity }}
@@ -204,10 +239,10 @@ const TestimonialSection = () => {
                           <h4 className='text-xl font-semibold text-white'>
                             {testimonials[currentIndex].name}
                           </h4>
-                          <p className='text-blue-300'>
+                          <p className='text-pink-300'>
                             {testimonials[currentIndex].role}
                           </p>
-                          <p className='text-blue-400 text-sm'>
+                          <p className='text-fuchsia-400 text-sm'>
                             {testimonials[currentIndex].company}
                           </p>
                         </div>
@@ -216,13 +251,13 @@ const TestimonialSection = () => {
                   </div>
 
                   <div className='relative'>
-                    <div className='absolute inset-0 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 rounded-2xl transform rotate-3' />
+                    <div className='absolute inset-0 bg-gradient-to-br from-pink-500/20 to-purple-500/20 rounded-2xl transform rotate-3' />
                     <div className='relative bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/10'>
                       <div className='text-center mb-8'>
-                        <h3 className='text-7xl font-bold text-white mb-2'>
+                        <h3 className='text-7xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent mb-2'>
                           {testimonials[currentIndex].stats.improvement}
                         </h3>
-                        <p className='text-blue-300 text-lg'>
+                        <p className='text-fuchsia-300 text-lg'>
                           {testimonials[currentIndex].stats.metric}
                         </p>
                       </div>
@@ -237,7 +272,7 @@ const TestimonialSection = () => {
                               initial={{ width: 0 }}
                               animate={{ width: `${85 - i * 15}%` }}
                               transition={{ duration: 1, delay: i * 0.2 }}
-                              className='h-full bg-gradient-to-r from-blue-400 to-indigo-400'
+                              className='h-full bg-gradient-to-r from-pink-400 to-purple-400'
                             />
                           </div>
                         ))}
@@ -250,7 +285,7 @@ const TestimonialSection = () => {
           </motion.div>
         </AnimatePresence>
 
-        {/* Testimonial Preview Cards */}
+        {/* Enhanced Testimonial Preview Cards */}
         <div className='max-w-6xl mx-auto overflow-hidden'>
           <div
             ref={scrollRef}
@@ -275,13 +310,13 @@ const TestimonialSection = () => {
               >
                 <div
                   className={`
-                  h-24 rounded-xl p-4 transition-all duration-300
-                  ${
-                    currentIndex === index
-                      ? 'bg-gradient-to-r from-blue-500 to-indigo-500 shadow-lg shadow-blue-500/20'
-                      : 'bg-white/5 hover:bg-white/10'
-                  }
-                `}
+                    h-24 rounded-xl p-4 transition-all duration-300
+                    ${
+                      currentIndex === index
+                        ? 'bg-gradient-to-r from-pink-500 to-purple-500 shadow-lg shadow-purple-500/20'
+                        : 'bg-white/5 hover:bg-white/10'
+                    }
+                  `}
                 >
                   <div className='flex items-center space-x-3'>
                     <img
@@ -293,7 +328,7 @@ const TestimonialSection = () => {
                       <h4 className='text-white font-medium line-clamp-1'>
                         {testimonial.name}
                       </h4>
-                      <p className='text-blue-300 text-sm line-clamp-1'>
+                      <p className='text-pink-300 text-sm line-clamp-1'>
                         {testimonial.company}
                       </p>
                     </div>
