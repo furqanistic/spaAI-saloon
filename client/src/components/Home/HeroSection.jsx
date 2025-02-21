@@ -2,64 +2,21 @@ import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
-  BarChart,
-  Bell,
   Calendar,
-  ChartBar,
-  ChartColumnBig,
   CheckCircle,
-  Heart,
-  MessageCircle,
   Shield,
   Sparkles,
   Stars,
   Users,
-  Zap,
 } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import {
+  GradientBlobs,
+  GridBackground,
+  WavyBackground,
+} from './BackgroundEffects'
+import BrandShowcase from './BrandShowcase'
 import PreviewDisplay from './PreviewDisplay'
-
-// Enhanced floating animation variants
-
-// Decorative SVG backgrounds
-const WavyBackground = () => (
-  <svg
-    className='absolute w-full h-full top-0 left-0 -z-10'
-    viewBox='0 0 1440 320'
-    preserveAspectRatio='none'
-  >
-    <motion.path
-      initial={{ opacity: 0.3 }}
-      animate={{ opacity: [0.3, 0.5, 0.3] }}
-      transition={{ duration: 5, repeat: Infinity }}
-      fill='rgba(124, 58, 237, 0.05)'
-      d='M0,96L48,112C96,128,192,160,288,165.3C384,171,480,149,576,149.3C672,149,768,171,864,165.3C960,160,1056,128,1152,117.3C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'
-    />
-    <motion.path
-      initial={{ opacity: 0.3 }}
-      animate={{ opacity: [0.3, 0.5, 0.3] }}
-      transition={{ duration: 5, repeat: Infinity, delay: 0.5 }}
-      fill='rgba(236, 72, 153, 0.05)'
-      d='M0,32L48,53.3C96,75,192,117,288,122.7C384,128,480,96,576,85.3C672,75,768,85,864,106.7C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'
-    />
-  </svg>
-)
-
-const GridBackground = () => (
-  <div className='absolute inset-0 -z-10 bg-white'>
-    <motion.div
-      className='absolute inset-0'
-      style={{
-        backgroundImage:
-          'radial-gradient(circle at 1px 1px, rgba(124, 58, 237, 0.05) 1px, transparent 0)',
-        backgroundSize: '40px 40px',
-      }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-    />
-  </div>
-)
+import TransparentBadgeSlider from './TransparentBadgeSlider'
 
 // Animated feature card component
 const FeatureCard = ({ icon: Icon, text, delay }) => (
@@ -94,20 +51,11 @@ const FloatingNotification = ({ icon: Icon, text, className }) => (
 )
 
 const HeroSection = () => {
-  const [isHovered, setIsHovered] = useState(false)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-
-  const handleMouseMove = (e) => {
-    const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
-    const x = (e.clientX - left) / width - 0.5
-    const y = (e.clientY - top) / height - 0.5
-    setMousePosition({ x, y })
-  }
-
   return (
     <section className='relative min-h-[90vh] w-full overflow-hidden bg-gradient-to-br from-white via-purple-50 to-pink-50'>
       <WavyBackground />
       <GridBackground />
+      <GradientBlobs />
 
       {/* Gradient Blobs */}
       <motion.div
@@ -141,20 +89,11 @@ const HeroSection = () => {
         text='2,500+ Active Users'
         className='top-32 right-48 lg:flex hidden'
       />
-      <FloatingNotification
-        icon={BarChart}
-        text='95% Client Retention'
-        className='bottom-48 right-24 lg:flex hidden'
-      />
+
       <FloatingNotification
         icon={Calendar}
         text='10k+ Appointments'
         className='top-24 left-1/3 lg:flex hidden' // New position for better visibility
-      />
-      <FloatingNotification
-        icon={Heart}
-        text='98% Satisfaction'
-        className='bottom-32 left-48 lg:flex hidden'
       />
 
       <div className='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16'>
@@ -276,6 +215,8 @@ const HeroSection = () => {
           </motion.div>
         </div>
       </div>
+      <BrandShowcase />
+      <TransparentBadgeSlider />
     </section>
   )
 }

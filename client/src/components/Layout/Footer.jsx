@@ -1,14 +1,40 @@
-import { ArrowUpRight, Mail, Phone } from 'lucide-react'
+import {
+  ArrowUpRight,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Mail,
+  Phone,
+} from 'lucide-react'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   const quickLinks = [
-    { name: 'Home', href: '#' },
-    { name: 'Features', href: '#' },
-    { name: 'Services', href: '#' },
-    { name: 'Pricing', href: '#' },
-    { name: 'About Us', href: '#' },
-    { name: 'Contact', href: '#' },
+    { name: 'Home', to: '/' },
+    { name: 'Features', to: '/features' },
+    { name: 'Services', to: '/services' },
+    { name: 'Pricing', to: '/pricing' },
+    { name: 'About Us', to: '/about' },
+    { name: 'Contact', to: '/contact' },
+  ]
+
+  const socialLinks = [
+    {
+      name: 'Facebook',
+      icon: Facebook,
+      href: 'https://www.facebook.com/radiantmdconsulting/',
+    },
+    {
+      name: 'Instagram',
+      icon: Instagram,
+      href: 'https://www.instagram.com/radiantmdsocialss',
+    },
+    {
+      name: 'LinkedIn',
+      icon: Linkedin,
+      href: 'https://www.linkedin.com/company/radiantmd-consulting',
+    },
   ]
 
   return (
@@ -44,12 +70,12 @@ const Footer = () => {
             <ul className='grid grid-cols-2 gap-2'>
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.to}
                     className='text-sm text-gray-600 hover:text-blue-500 transition-colors hover:translate-x-1 duration-200 block'
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -77,6 +103,27 @@ const Footer = () => {
               </a>
             </div>
           </div>
+
+          {/* Social Links */}
+          <div>
+            <h3 className='text-sm font-semibold text-gray-900 uppercase mb-4'>
+              Follow Us
+            </h3>
+            <div className='flex gap-4'>
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='text-gray-600 hover:text-blue-500 transition-colors'
+                  aria-label={`Follow us on ${social.name}`}
+                >
+                  <social.icon className='w-6 h-6' />
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Bottom Bar */}
@@ -85,19 +132,19 @@ const Footer = () => {
             © {new Date().getFullYear()} RadiantAI. All rights reserved.
           </p>
           <div className='flex items-center gap-4 text-sm'>
-            <a
-              href='terms'
+            <Link
+              to='/terms'
               className='text-gray-600 hover:text-blue-500 transition-colors'
             >
               Terms & Conditions
-            </a>
+            </Link>
             <span className='text-gray-300'>|</span>
-            <a
-              href='privacy-policy'
+            <Link
+              to='/privacy-policy'
               className='text-gray-600 hover:text-blue-500 transition-colors'
             >
               Privacy Policy
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,363 +1,211 @@
-import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
-import {
-  ArrowRight,
-  BarChart,
-  BookOpen,
-  Code,
-  FileText,
-  Headphones,
-  Lightbulb,
-  Newspaper,
-  Phone,
-  PieChart,
-  Play,
-  Settings,
-  Sparkles,
-  Star,
-  Users,
-  Zap,
-} from 'lucide-react'
-import React, { useRef, useState } from 'react'
+import { Card } from '@/components/ui/card'
+import { motion } from 'framer-motion'
+import { Play, X } from 'lucide-react'
+import React, { useState } from 'react'
+import Navbar from '../../components/Layout/Navbar'
 
-// Gradient Orb Component
-const GradientOrb = ({ delay = 0, className }) => (
-  <motion.div
-    initial={{ scale: 0.8, opacity: 0.5 }}
-    animate={{
-      scale: [0.8, 1.2, 0.8],
-      opacity: [0.5, 0.8, 0.5],
-    }}
-    transition={{
-      duration: 8,
-      repeat: Infinity,
-      delay,
-    }}
-    className={`absolute rounded-full blur-3xl ${className}`}
-  />
-)
+const TestimonialsPage = () => {
+  const [selectedVideo, setSelectedVideo] = useState(null)
 
-// Resource Card Component
-const ResourceCard = ({ resource, index }) => {
-  const [isHovered, setIsHovered] = useState(false)
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      className='group relative'
-    >
-      <div className='relative h-64 rounded-2xl overflow-hidden shadow-lg'>
-        <motion.div
-          className='absolute inset-0 bg-gradient-to-br from-gray-900/80 to-gray-900/40 z-10'
-          animate={{
-            opacity: isHovered ? 0.4 : 0.7,
-          }}
-          transition={{ duration: 0.3 }}
-        />
-        <motion.img
-          src={resource.image}
-          alt={resource.title}
-          className='w-full h-full object-cover'
-          animate={{
-            scale: isHovered ? 1.05 : 1,
-          }}
-          transition={{ duration: 0.4 }}
-        />
-
-        <div className='absolute inset-0 z-20 p-6 flex flex-col justify-between'>
-          <motion.div
-            className='flex items-center gap-2'
-            animate={{
-              y: isHovered ? -5 : 0,
-              opacity: isHovered ? 0 : 1,
-            }}
-          >
-            <div className='w-8 h-8 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center'>
-              {resource.typeIcon}
-            </div>
-            <span className='text-sm text-white/90'>{resource.type}</span>
-          </motion.div>
-
-          <motion.div
-            animate={{
-              y: isHovered ? -20 : 0,
-            }}
-          >
-            <h3 className='text-2xl font-semibold text-white mb-3'>
-              {resource.title}
-            </h3>
-            <div className='flex items-center gap-4 text-white/90 text-sm'>
-              <span>{resource.duration}</span>
-              {resource.difficulty && (
-                <span className='flex items-center gap-1'>
-                  <Star className='w-4 h-4 fill-current' />
-                  {resource.difficulty}
-                </span>
-              )}
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      <AnimatePresence>
-        {isHovered && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className='absolute inset-x-4 bottom-4 z-30 p-4 rounded-xl bg-white/95 backdrop-blur-sm shadow-2xl'
-          >
-            <p className='text-gray-600 mb-3'>{resource.description}</p>
-            <div className='flex items-center gap-4'>
-              <button className='px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors'>
-                Access Now
-              </button>
-              <button className='px-4 py-2 rounded-lg bg-gray-100 text-gray-600 text-sm font-medium hover:bg-gray-200 transition-colors'>
-                Save for Later
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  )
-}
-
-// Resource Section Component
-const ResourceSection = ({ category, scrollYProgress }) => {
-  const xLeft = useTransform(scrollYProgress, [0, 1], [-100, 100])
-  const xRight = useTransform(scrollYProgress, [0, 1], [100, -100])
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.9])
-
-  return (
-    <div className='py-32 px-4 lg:px-16 relative'>
-      <motion.div style={{ opacity, scale }} className='max-w-7xl mx-auto'>
-        {/* Category Header */}
-        <div className='mb-16'>
-          <motion.div
-            style={{ x: xLeft }}
-            className='flex items-center gap-4 mb-6'
-          >
-            <div className='w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg'>
-              {category.icon}
-            </div>
-            <div>
-              <h2 className='text-4xl font-bold text-gray-900 mb-2'>
-                {category.title}
-              </h2>
-              <p className='text-lg text-gray-600'>{category.description}</p>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Resources Grid */}
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-          {category.resources.map((resource, idx) => (
-            <ResourceCard key={idx} resource={resource} index={idx} />
-          ))}
-        </div>
-      </motion.div>
-    </div>
-  )
-}
-
-// Main Component
-const ResourcesPage = () => {
-  const categories = [
+  const testimonials = [
     {
-      title: 'Getting Started',
-      description:
-        'Begin your journey with RadiantAI through our comprehensive guides.',
-      icon: <Lightbulb className='w-8 h-8 text-white' />,
-      resources: [
-        {
-          title: 'Quick Start Guide',
-          type: 'Guide',
-          typeIcon: <FileText className='w-4 h-4 text-white' />,
-          duration: '15 min read',
-          difficulty: 'Beginner',
-          description:
-            "Get up and running with RadiantAI's core features in minutes.",
-          image: '/api/placeholder/600/400',
-        },
-        {
-          title: 'Video Walkthrough',
-          type: 'Video',
-          typeIcon: <Play className='w-4 h-4 text-white' />,
-          duration: '20 min',
-          difficulty: 'Beginner',
-          description: 'A complete video tour of the RadiantAI platform.',
-          image: '/api/placeholder/600/400',
-        },
-        {
-          title: 'Setup Wizard',
-          type: 'Interactive',
-          typeIcon: <Settings className='w-4 h-4 text-white' />,
-          duration: '10 min',
-          difficulty: 'Beginner',
-          description:
-            'Interactive guide to configure your RadiantAI instance.',
-          image: '/api/placeholder/600/400',
-        },
-      ],
+      id: 1,
+      title:
+        'How This Med Spa Turned $600 into $14,640 with Smart Marketing | Med Spa Growth Case Study',
+      description: `Lina wanted more bookings for her med spa but didn't want to waste money on ads that don't work.
+She spent just $600 on marketing and got $14,640 in return—without relying on deep discounts or referrals.
+In this video, she shares her experience and what made the biggest impact.`,
+      thumbnail: '/thumbnail/lina.webp',
+      videoId: 'IhZObs9oqpU',
+      duration: '00:31',
     },
     {
-      title: 'Advanced Features',
-      description: 'Master advanced capabilities and integrations.',
-      icon: <Zap className='w-8 h-8 text-white' />,
-      resources: [
-        {
-          title: 'AI Assistant Configuration',
-          type: 'Technical Guide',
-          typeIcon: <Code className='w-4 h-4 text-white' />,
-          duration: '30 min read',
-          difficulty: 'Advanced',
-          description: 'Deep dive into AI assistant customization options.',
-          image: '/api/placeholder/600/400',
-        },
-        {
-          title: 'API Integration',
-          type: 'Documentation',
-          typeIcon: <BookOpen className='w-4 h-4 text-white' />,
-          duration: '45 min read',
-          difficulty: 'Advanced',
-          description: 'Complete API documentation with examples.',
-          image: '/api/placeholder/600/400',
-        },
-        {
-          title: 'Automation Workflows',
-          type: 'Tutorial',
-          typeIcon: <Settings className='w-4 h-4 text-white' />,
-          duration: '25 min read',
-          difficulty: 'Intermediate',
-          description: 'Create powerful automation workflows.',
-          image: '/api/placeholder/600/400',
-        },
-      ],
+      id: 2,
+      title: 'This Is How Mozan Doubled Her Med Spa Bookings to 100+',
+      description: `Mozan was booking around 31 appointments a month. She knew her med spa could do more, but things just weren't clicking.
+Now? She's consistently getting 100+ appointments a month—and she didn't have to discount everything or rely on referrals.`,
+      thumbnail: '/thumbnail/movan.webp',
+      videoId: 'XgZpKqf3sNI',
+      duration: '00:43',
     },
     {
-      title: 'Business Growth',
-      description: 'Optimize operations and drive business growth.',
-      icon: <BarChart className='w-8 h-8 text-white' />,
-      resources: [
-        {
-          title: 'Growth Strategies',
-          type: 'Guide',
-          typeIcon: <PieChart className='w-4 h-4 text-white' />,
-          duration: '20 min read',
-          description: 'Proven strategies for med spa growth using RadiantAI.',
-          image: '/api/placeholder/600/400',
-        },
-        {
-          title: 'Client Success Stories',
-          type: 'Case Studies',
-          typeIcon: <Users className='w-4 h-4 text-white' />,
-          duration: '15 min read',
-          description: 'Real success stories from RadiantAI users.',
-          image: '/api/placeholder/600/400',
-        },
-        {
-          title: 'Expert Support',
-          type: 'Support',
-          typeIcon: <Headphones className='w-4 h-4 text-white' />,
-          duration: 'On-demand',
-          description: 'Connect with our med spa industry experts.',
-          image: '/api/placeholder/600/400',
-        },
-      ],
+      id: 3,
+      title:
+        'How She Grew Her Med Spa Revenue from $7,600 to $19,763 in 28 Days | Real-Life Testimonial',
+      description: `Yasmin was making $7,600 a month at her med spa, but she knew she could be doing more.
+Fast forward 28 days… she pulled in $19,763 cash collected.
+She's sharing her experience and what this growth has meant for her business.`,
+      thumbnail: '/thumbnail/ayah.webp',
+      videoId: 'j3yUJX3H_B8',
+      duration: '00:31',
+    },
+    {
+      id: 4,
+      title:
+        'How to Scale Your Med Spa FAST | From 14 to 60+ Appointments in Just 4 Weeks (Proven Strategy)',
+      description: `Rita was stuck and knew she could be making more—but she wasn't sure how.
+From just 14 appointments per month to over 60+ high-paying clients in ONLY 4 weeks—without discounts, endless referrals, or relying on word-of-mouth.`,
+      thumbnail: '/thumbnail/rita.webp',
+      videoId: '6Hoag5VLNj8',
+      duration: '1:10',
+    },
+    {
+      id: 5,
+      title:
+        'How We Took This Med Spa from 17 to 51 Appointments in 30 Days! 🚀 (Case Study)',
+      description: `Meet Viergela! She was stuck at just 17 appointments a month… but she didn't give up 💪 In just 30 days, she skyrocketed to 51 appointments for Semiglutide and Tirzepatide clients! 🙌`,
+      thumbnail: '/thumbnail/viergela.webp',
+      videoId: 'rdyoecMrtSM',
+      duration: '0:44',
     },
   ]
 
   return (
-    <div className='bg-gradient-to-b from-gray-50 to-white'>
-      {/* Hero Section */}
-      <div className='relative min-h-screen flex items-center justify-center py-20 px-4 lg:px-16 overflow-hidden'>
-        {/* Gradient Orbs */}
-        <div className='absolute inset-0 overflow-hidden'>
-          <GradientOrb
-            delay={0}
-            className='w-96 h-96 -top-48 -left-48 bg-blue-500/30'
-          />
-          <GradientOrb
-            delay={2}
-            className='w-96 h-96 top-1/4 -right-48 bg-purple-500/30'
-          />
-          <GradientOrb
-            delay={4}
-            className='w-96 h-96 -bottom-48 left-1/4 bg-pink-500/30'
+    <>
+      <Navbar />
+      <div className='min-h-screen bg-[#080B2F]'>
+        {/* Enhanced Animated Background */}
+        <div className='fixed inset-0 z-0'>
+          <div className='absolute inset-0 bg-gradient-to-br from-blue-950/50 via-purple-900/50 to-pink-900/50' />
+          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20" />
+          <div
+            className='absolute inset-0'
+            style={{
+              backgroundImage: `radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 8%)`,
+              backgroundSize: '24px 24px',
+              backgroundPosition: '0 0',
+            }}
           />
         </div>
 
-        <div className='relative z-10 text-center max-w-5xl mx-auto'>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className='mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm shadow-xl'
-          >
-            <Sparkles className='w-5 h-5 text-blue-600' />
-            <span className='text-gray-800 font-medium'>Resource Center</span>
-          </motion.div>
+        {/* Content */}
+        <div className='relative z-10'>
+          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16'>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className='text-center mb-16'
+            >
+              <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300'>
+                Success Stories
+              </h1>
+              <p className='text-lg md:text-xl text-gray-300/80 max-w-2xl mx-auto'>
+                See how businesses are transforming with RadiantAI
+              </p>
+            </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className='text-6xl lg:text-8xl font-bold mb-8'
-          >
-            <span className='bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600'>
-              Learn & Grow
-            </span>
-          </motion.h1>
+            <motion.div
+              className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'
+              initial='hidden'
+              animate='visible'
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
+              }}
+            >
+              {testimonials.map((testimonial) => (
+                <motion.div
+                  key={testimonial.id}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  whileHover={{ y: -8 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <Card className='group h-full bg-white/5 hover:bg-white/10 backdrop-blur border-0 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/10'>
+                    <div
+                      className='relative cursor-pointer'
+                      onClick={() => setSelectedVideo(testimonial)}
+                    >
+                      <div className='relative w-full pt-[100%]'>
+                        <div className='absolute inset-0 overflow-hidden rounded-t-xl'>
+                          <div className='absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-80' />
+                          <img
+                            src={testimonial.thumbnail}
+                            alt={testimonial.title}
+                            className='w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700'
+                          />
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className='text-xl lg:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto'
-          >
-            Explore our comprehensive resources to transform your med spa with
-            RadiantAI's cutting-edge solutions
-          </motion.p>
+                          {/* Default Play Button */}
+                          <div className='absolute inset-0 flex items-center justify-center'>
+                            <motion.div
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.95 }}
+                              className='bg-white/20 backdrop-blur-sm w-16 h-16 rounded-full flex items-center justify-center border border-white/30 shadow-lg transform group-hover:scale-110 transition-transform duration-300'
+                            >
+                              <Play className='w-8 h-8 text-white ml-1' />
+                            </motion.div>
+                          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className='flex flex-wrap justify-center gap-4'
-          >
-            <button className='px-8 py-4 rounded-xl bg-blue-600 text-white font-medium shadow-lg shadow-blue-500/25 hover:shadow-xl hover:scale-105 transition-all duration-200'>
-              Get Started
-            </button>
-            <button className='px-8 py-4 rounded-xl bg-white text-gray-800 font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200'>
-              Browse Categories
-            </button>
-          </motion.div>
-        </div>
-      </div>
+                          {/* Enhanced Duration Badge */}
+                          <div className='absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10'>
+                            <span className='text-xs font-medium text-white'>
+                              {testimonial.duration}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
 
-      {/* Resource Sections */}
-      {categories.map((category, index) => {
-        const sectionRef = useRef(null)
-        const { scrollYProgress } = useScroll({
-          target: sectionRef,
-          offset: ['start end', 'end start'],
-        })
-        return (
-          <div ref={sectionRef} key={index}>
-            <ResourceSection
-              category={category}
-              scrollYProgress={scrollYProgress}
-            />
+                      <div className='p-6 bg-gradient-to-b from-transparent to-black/5'>
+                        <h3 className='text-xl font-semibold text-white mb-3 line-clamp-2 group-hover:text-pink-300 transition-colors duration-300'>
+                          {testimonial.title}
+                        </h3>
+                        <p className='text-gray-400 text-sm line-clamp-3'>
+                          {testimonial.description}
+                        </p>
+                      </div>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
-        )
-      })}
-    </div>
+        </div>
+
+        {/* Enhanced Video Modal */}
+        {selectedVideo && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className='fixed inset-0 bg-black/95 backdrop-blur-xl flex items-center justify-center z-50 p-4'
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className='relative w-full max-w-5xl'
+            >
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setSelectedVideo(null)}
+                className='absolute -top-16 right-0 text-white/80 hover:text-white transition-colors'
+              >
+                <X className='w-8 h-8' />
+              </motion.button>
+
+              <div className='relative rounded-xl overflow-hidden shadow-2xl'>
+                <div className='aspect-video bg-black'>
+                  <iframe
+                    width='100%'
+                    height='100%'
+                    src={`https://www.youtube.com/embed/${selectedVideo.videoId}?autoplay=1`}
+                    title={selectedVideo.title}
+                    frameBorder='0'
+                    allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                    allowFullScreen
+                    className='w-full h-full'
+                  />
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </div>
+    </>
   )
 }
 
-export default ResourcesPage
+export default TestimonialsPage

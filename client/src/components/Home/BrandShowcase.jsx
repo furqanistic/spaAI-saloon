@@ -1,196 +1,119 @@
-import { motion } from 'framer-motion'
+import { motion, useAnimationControls } from 'framer-motion'
 import React, { useEffect, useRef, useState } from 'react'
 
 const BrandShowcase = () => {
   const [sliderWidth, setSliderWidth] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
   const containerRef = useRef(null)
+  const controls = useAnimationControls()
 
   const brands = [
-    {
-      name: 'Derma Lesions',
-      subtext: 'Med Spa',
-      logo: '/derma.png',
-      bgColor: 'bg-[#E8FFE8]', // Brighter mint
-      mix: 'mix-blend-multiply',
-    },
-    {
-      name: 'Urban Touch',
-      subtext: 'Halo Wellness',
-      logo: '/urban.jpg',
-      bgColor: 'bg-[#FFF5E6]', // Brighter peach
-      mix: 'mix-blend-multiply',
-    },
-    {
-      name: 'The Beauty',
-      subtext: 'Rezort',
-      logo: '/thebeauty.webp',
-      bgColor: 'bg-[#E6EEFF]', // Brighter blue
-      mix: 'mix-blend-multiply',
-    },
-    {
-      name: 'Radiant Medical',
-      subtext: 'Aesthetics',
-      logo: '/radiantmed.png',
-      bgColor: 'bg-[#E8FFE8]', // Brighter mint
-      mix: 'mix-blend-multiply',
-    },
-    {
-      name: 'Avous',
-      subtext: 'Med Spa',
-      logo: '/avous.png',
-      bgColor: 'bg-[#FFF5E6]', // Brighter peach
-      mix: 'mix-blend-multiply',
-    },
-    {
-      name: 'Nisa',
-      subtext: 'Med Spa',
-      logo: '/nisa.jpg',
-      bgColor: 'bg-[#E6EEFF]', // Brighter blue
-      mix: 'mix-blend-multiply',
-    },
-    {
-      name: 'Bionix',
-      subtext: 'Clinic',
-      logo: '/bionix.webp',
-      bgColor: 'bg-[#FFFDE6]', // Brighter yellow
-      mix: 'mix-blend-multiply',
-    },
-    {
-      name: 'Cosmetica',
-      subtext: 'Med Spa',
-      logo: '/Cosmetica.png',
-      bgColor: 'bg-[#FFE6F5]', // Brighter pink
-      mix: 'mix-blend-multiply',
-    },
-    {
-      name: 'Body Smoking',
-      subtext: 'Spa',
-      logo: '/bodysmoking.png',
-      bgColor: 'bg-[#E6FFFA]', // Brighter teal
-      mix: 'mix-blend-multiply',
-    },
-    {
-      name: "Relax N' Glow",
-      subtext: 'Spa',
-      logo: '/relax.png',
-      bgColor: 'bg-[#F5E6FF]', // Brighter purple
-      mix: 'mix-blend-multiply',
-    },
-    {
-      name: 'Skin Institute',
-      subtext: 'Dermatology Centre',
-      logo: '/skin.png',
-      bgColor: 'bg-[#E6FFF9]', // Brighter mint
-      mix: 'mix-blend-multiply',
-    },
+    { name: 'Derma Lesions', logo: '/derma.png' },
+    { name: 'Urban Touch', logo: '/urban.jpg' },
+    { name: 'The Beauty', logo: '/thebeauty.webp' },
+    { name: 'Radiant Medical', logo: '/radiantmed.png' },
+    { name: 'Avous', logo: '/avous.png' },
+    { name: 'Nisa', logo: '/nisa.jpg' },
+    { name: 'Bionix', logo: '/bionix.webp' },
+    { name: 'Cosmetica', logo: '/Cosmetica.png' },
+    { name: 'Body Smoking', logo: '/bodysmoking.png' },
+    { name: "Relax N' Glow", logo: '/relax.png' },
+    { name: 'Skin Institute', logo: '/skin.png' },
   ]
 
-  const duplicatedBrands = [...brands, ...brands, ...brands]
+  const duplicatedBrands = [...brands, ...brands, ...brands, ...brands]
 
   useEffect(() => {
     if (containerRef.current) {
-      setSliderWidth(containerRef.current.scrollWidth / 3)
+      setSliderWidth(containerRef.current.scrollWidth / 4)
     }
   }, [])
 
-  const sliderVariants = {
-    animate: {
-      x: [-sliderWidth, 0],
+  const startAnimation = () => {
+    controls.set({ x: 0 })
+    controls.start({
+      x: -sliderWidth,
       transition: {
-        x: {
-          repeat: Infinity,
-          repeatType: 'loop',
-          duration: 30,
-          ease: 'linear',
-        },
+        duration: 30,
+        ease: 'linear',
+        repeat: Infinity,
+        repeatType: 'loop',
+        repeatDelay: 0,
       },
-    },
-    paused: {
-      x: [-sliderWidth, 0],
-      transition: {
-        x: {
-          repeat: Infinity,
-          repeatType: 'loop',
-          duration: 0,
-          ease: 'linear',
-        },
-      },
-    },
+    })
   }
 
-  return (
-    <div className='relative bg-white overflow-hidden py-10'>
-      <div className='max-w-[1920px] mx-auto px-4 relative'>
-        {/* Header Section */}
-        <div className='text-center mb-5'>
-          <h2 className='text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-900 to-blue-500 text-transparent bg-clip-text'>
-            Our Proud Partners
-          </h2>
-        </div>
+  useEffect(() => {
+    let timeoutId
+    if (!isHovered) {
+      timeoutId = setTimeout(() => {
+        startAnimation()
+      }, 100)
+    } else {
+      controls.stop()
+    }
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId)
+    }
+  }, [isHovered, sliderWidth, controls])
 
-        {/* Infinite Slider */}
-        <div
+  return (
+    <div className='relative py-12 bg-transparent'>
+      <div className='max-w-7xl mx-auto'>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className='text-4xl font-bold text-center mb-8 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent'
+        >
+          Our Proud Partners
+        </motion.h2>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
           className='relative overflow-hidden mx-auto'
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          {/* Gradient Overlays */}
-          <div className='absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-white to-transparent z-10' />
-          <div className='absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-white to-transparent z-10' />
-
-          <div className='py-12' ref={containerRef}>
+          <div className='py-4' ref={containerRef}>
             <motion.div
               className='flex gap-8'
-              variants={sliderVariants}
-              animate={isHovered ? 'paused' : 'animate'}
+              animate={controls}
+              initial={{ x: 0 }}
             >
               {duplicatedBrands.map((brand, index) => (
                 <motion.div
                   key={index}
-                  className='flex-none w-64 md:w-72'
+                  className='flex-none w-40'
                   whileHover={{
-                    scale: 1.02,
-                    transition: { duration: 0.2 },
+                    scale: 1.05,
+                    transition: { duration: 0.2, ease: 'easeOut' },
                   }}
                 >
-                  <div className='relative group'>
-                    <div
-                      className={`relative flex flex-col items-center rounded-2xl ${brand.bgColor} 
-                      transition-all duration-300 hover:shadow-sm overflow-hidden`}
-                    >
-                      {/* Logo Container */}
-                      <div className='flex items-center justify-center h-44 w-full p-8'>
-                        <img
-                          src={brand.logo}
-                          alt={brand.name}
-                          className={`w-56 h-24 object-contain transition-all duration-300 
-                            group-hover:scale-105 ${brand.mix}`}
-                          onError={(e) => {
-                            e.target.onerror = null
-                            e.target.src = '/api/placeholder/240/120'
-                          }}
-                        />
-                      </div>
-
-                      {/* Brand Name Container */}
-                      <div className='w-full bg-white/60 backdrop-blur-sm py-4 px-4'>
-                        <div className='text-center'>
-                          <p className='text-lg font-semibold text-gray-800 leading-snug'>
-                            {brand.name}
-                          </p>
-                          <p className='text-sm text-gray-500 mt-0.5'>
-                            {brand.subtext}
-                          </p>
-                        </div>
-                      </div>
+                  <div className='bg-transparent p-3'>
+                    <div className='relative group'>
+                      <img
+                        src={brand.logo}
+                        alt={brand.name}
+                        className='w-full h-16 object-contain mix-blend-multiply filter brightness-95 contrast-105'
+                        style={{
+                          mixBlendMode: 'multiply',
+                          WebkitFilter: 'brightness(0.95) contrast(1.05)',
+                        }}
+                        onError={(e) => {
+                          e.target.onerror = null
+                          e.target.src = '/api/placeholder/128/64'
+                        }}
+                      />
                     </div>
                   </div>
                 </motion.div>
               ))}
             </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   )

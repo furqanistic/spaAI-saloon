@@ -268,7 +268,7 @@ const PaymentSection = () => {
                   payment processing
                 </span>
               </motion.p>
-
+              {/* 
               <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -285,7 +285,7 @@ const PaymentSection = () => {
                   START NOW
                   <ArrowRight className='ml-2 h-6 w-6' strokeWidth={2.5} />
                 </motion.a>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
           </motion.div>
         )}

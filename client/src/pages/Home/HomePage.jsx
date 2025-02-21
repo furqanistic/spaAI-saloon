@@ -1,4 +1,3 @@
-import React from 'react'
 import AnimatedHeadline from '../../components/Home/AnimatedHeadline'
 import AppointmentProcess from '../../components/Home/AppointmentProcess'
 import BrandShowcase from '../../components/Home/BrandShowcase'
@@ -18,8 +17,6 @@ const HomePage = () => {
     <div>
       <Navbar />
       <HeroSection />
-      <BrandShowcase />
-
       <ImageSlider />
       <WhoWeAre />
       <RadiantFeatures />

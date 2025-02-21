@@ -17,12 +17,13 @@ import {
   Gem,
   Menu,
   Phone,
+  Play,
   Sparkles,
   Users,
   X,
 } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -30,6 +31,10 @@ const Navbar = () => {
   const [activeSubmenu, setActiveSubmenu] = useState(null)
   const [visible, setVisible] = useState(true)
   const [prevScrollPos, setPrevScrollPos] = useState(0)
+  const navigate = useNavigate()
+  const handleClick = () => {
+    navigate('/demo')
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -251,6 +256,11 @@ const Navbar = () => {
                     icon: <DollarSign className='w-4 h-4' />,
                     path: '/pricing',
                   },
+                  {
+                    title: 'Resources',
+                    icon: <Play className='w-4 h-4' />,
+                    path: '/resource',
+                  },
 
                   {
                     title: 'About',
@@ -300,7 +310,10 @@ const Navbar = () => {
                     <div className='absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-600 rounded-lg opacity-75 blur transition-all duration-300 group-hover:opacity-100 group-hover:blur-lg' />
 
                     {/* Button content */}
-                    <button className='relative px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg text-white font-semibold shadow-lg transition-all duration-300 group-hover:shadow-xl'>
+                    <button
+                      onClick={handleClick}
+                      className='relative px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg text-white font-semibold shadow-lg transition-all duration-300 group-hover:shadow-xl'
+                    >
                       <span className='flex items-center justify-center space-x-2'>
                         <span>Book Demo</span>
                         <svg

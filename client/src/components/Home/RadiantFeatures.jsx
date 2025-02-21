@@ -1,21 +1,21 @@
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import {
   Award,
+  Banknote,
   Bot,
-  Building2,
   Calendar,
-  Headphones,
-  Hospital,
+  Clock,
+  Database,
+  HeartPulse,
   MessageSquare,
-  Scissors,
   Sparkles,
   Star,
-  Target,
   Users,
+  Wallet,
 } from 'lucide-react'
 import React, { useRef } from 'react'
 
-// Decorative Elements
+// Keeping all the decorative elements (CircuitLines, HexGrid, FloatingOrbs, AbstractShape) exactly the same
 const CircuitLines = () => (
   <svg className='absolute w-full h-full' viewBox='0 0 400 400'>
     <motion.path
@@ -143,7 +143,7 @@ const FeatureCard = ({ icon: Icon, title, description, index }) => {
   )
 }
 
-const ModernFeatures = () => {
+const RadiantFeatures = () => {
   const containerRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -155,59 +155,83 @@ const ModernFeatures = () => {
 
   const features = [
     {
-      icon: Target,
-      title: 'Lead Capture & Conversion',
-      description:
-        'Create custom landing pages that capture leads and convert them into paying clients with ease',
-    },
-    {
-      icon: MessageSquare,
-      title: 'Automated Follow-Ups',
-      description:
-        'Smart nurture campaigns automatically follow up with leads over 3 months until they are ready to book',
-    },
-    {
       icon: Calendar,
       title: 'Smart Scheduling',
       description:
-        'Sync appointments across platforms and send automated reminders to reduce no-shows',
-    },
-    {
-      icon: Sparkles,
-      title: 'AI-Powered Ads',
-      description:
-        'Our media buyers optimize ad campaigns for Facebook, Instagram, TikTok, and Google Ads',
-    },
-    {
-      icon: Star,
-      title: 'Reputation Building',
-      description:
-        'Automated SMS feedback requests turn happy clients into glowing online reviews',
-    },
-    {
-      icon: Users,
-      title: 'Client Management',
-      description:
-        'Centralize client data to track interactions, segment audiences, and build loyalty',
+        'Streamline your med spa bookings with automated scheduling, reminders, and waitlist management to maximize your calendar.',
     },
     {
       icon: Bot,
-      title: 'Marketing Automation',
+      title: 'AI Virtual Assistant',
       description:
-        'Automate email, SMS, and social media campaigns to engage clients at every stage',
+        'Our AI handles routine inquiries 24/7, answering treatment questions and helping patients book appointments automatically.',
     },
     {
-      icon: Headphones,
-      title: 'Human Support',
+      icon: HeartPulse,
+      title: 'Patient Experience',
       description:
-        'Our dedicated team acts as your virtual receptionist and sales team, ensuring no lead slips through the cracks',
+        'Track patient journeys, preferences, and treatment history to deliver personalized care and build lasting relationships.',
+    },
+    {
+      icon: MessageSquare,
+      title: 'Smart Follow-Ups',
+      description:
+        'Automated post-treatment check-ins and personalized care instructions ensure optimal patient recovery and satisfaction.',
+    },
+    {
+      icon: Database,
+      title: 'Treatment Tracking',
+      description:
+        'Maintain detailed treatment records, before/after photos, and patient notes in one secure, HIPAA-compliant platform.',
+    },
+    {
+      icon: Sparkles,
+      title: 'AI Marketing',
+      description:
+        'Our AI creates and optimizes your social media ads across platforms, targeting ideal clients for your specific treatments.',
+    },
+    {
+      icon: Star,
+      title: 'Review Generation',
+      description:
+        'Turn satisfied patients into powerful testimonials with automated review requests and reputation management.',
+    },
+    {
+      icon: Wallet,
+      title: 'Payment Solutions',
+      description:
+        'Handle deposits, treatment packages, and membership plans with integrated payment processing and automated billing.',
+    },
+    {
+      icon: Clock,
+      title: '24/7 Reception',
+      description:
+        'Our virtual receptionists handle calls, messages, and bookings around the clock, ensuring you never miss an opportunity.',
+    },
+    {
+      icon: Banknote,
+      title: 'Revenue Insights',
+      description:
+        'Track treatment popularity, revenue trends, and client retention with detailed analytics and forecasting.',
+    },
+    {
+      icon: Users,
+      title: 'Staff Management',
+      description:
+        'Optimize provider schedules, track performance, and manage commission structures all in one place.',
+    },
+    {
+      icon: MessageSquare,
+      title: 'Client Communication',
+      description:
+        'Send branded appointment confirmations, birthday offers, and treatment reminders via email, SMS, or WhatsApp.',
     },
   ]
 
-  const industries = [
-    { icon: Building2, name: 'Med Spas' },
-    { icon: Hospital, name: 'Clinics' },
-    { icon: Scissors, name: 'Beauty Salons' },
+  const practiceTypes = [
+    { name: 'Med Spas' },
+    { name: 'Aesthetic Clinics' },
+    { name: 'Beauty Centers' },
   ]
 
   return (
@@ -233,14 +257,11 @@ const ModernFeatures = () => {
             transition={{ duration: 0.6 }}
             className='inline-block mb-6'
           >
-            <div className='flex items-center gap-3 text-sm font-medium'>
-              {industries.map(({ icon: Icon, name }, i) => (
+            <div className='flex items-center justify-center gap-3 text-sm font-medium'>
+              {practiceTypes.map(({ name }, i) => (
                 <React.Fragment key={name}>
-                  <div className='flex items-center gap-1.5'>
-                    <Icon className='w-4 h-4 text-violet-400' />
-                    <span className='text-zinc-400'>{name}</span>
-                  </div>
-                  {i < industries.length - 1 && (
+                  <span className='text-zinc-400'>{name}</span>
+                  {i < practiceTypes.length - 1 && (
                     <span className='w-1 h-1 rounded-full bg-zinc-700' />
                   )}
                 </React.Fragment>
@@ -254,7 +275,7 @@ const ModernFeatures = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className='text-4xl md:text-5xl font-bold bg-gradient-to-r from-violet-200 via-fuchsia-200 to-violet-200 bg-clip-text text-transparent mb-6'
           >
-            Smart Tools for Growing Businesses
+            Transform Your Beauty Practice
           </motion.h2>
 
           <motion.p
@@ -263,8 +284,9 @@ const ModernFeatures = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className='text-lg text-zinc-400 max-w-2xl mx-auto'
           >
-            Powerful automation and AI tools combined with human expertise to
-            help you scale your business efficiently
+            RadiantAI combines intelligent automation with human expertise to
+            help you deliver exceptional patient experiences while growing your
+            practice
           </motion.p>
         </motion.div>
 
@@ -273,23 +295,9 @@ const ModernFeatures = () => {
             <FeatureCard key={index} {...feature} index={index} />
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className='mt-20 text-center'
-        >
-          <div className='inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10'>
-            <Award className='w-5 h-5 text-violet-400' />
-            <span className='text-sm text-zinc-400'>
-              Trusted by 500+ businesses worldwide
-            </span>
-          </div>
-        </motion.div>
       </div>
     </section>
   )
 }
 
-export default ModernFeatures
+export default RadiantFeatures

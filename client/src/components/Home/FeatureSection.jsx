@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Sparkles } from 'lucide-react'
+import { Sparkles, Star } from 'lucide-react'
 import React, { useRef } from 'react'
 
 const FeatureCard = ({ feature, scrollYProgress }) => {
@@ -10,12 +10,19 @@ const FeatureCard = ({ feature, scrollYProgress }) => {
   return (
     <motion.div
       style={{ y, scale }}
-      className='relative min-h-screen py-20 px-4 lg:px-16 max-w-7xl mx-auto'
+      className='relative min-h-screen py-24 px-6 lg:px-20 max-w-8xl mx-auto'
     >
       <motion.div
         style={{ opacity }}
-        className='flex flex-col lg:flex-row items-start gap-16 bg-gradient-to-br from-white/80 to-white/60 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20'
+        className='flex flex-col lg:flex-row items-center gap-20 bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-2xl rounded-[2.5rem] p-12 shadow-2xl border border-white/30 relative overflow-hidden'
       >
+        {/* Decorative Elements */}
+        <div className='absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none'>
+          <div className='absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-blue-100/30 to-transparent' />
+          <div className='absolute -top-32 -right-32 w-64 h-64 bg-purple-200/20 rounded-full blur-3xl' />
+          <div className='absolute -bottom-32 -left-32 w-64 h-64 bg-blue-200/20 rounded-full blur-3xl' />
+        </div>
+
         {/* Left Content */}
         <div className='w-full lg:w-1/2 relative z-10'>
           <motion.div
@@ -28,12 +35,13 @@ const FeatureCard = ({ feature, scrollYProgress }) => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className='mb-8'
+              className='mb-10'
             >
-              <span className='inline-block px-4 py-2 rounded-full bg-blue-100 text-blue-600 font-medium text-sm mb-4'>
+              <span className='inline-flex items-center px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 font-semibold text-sm mb-6 shadow-lg shadow-blue-100/50'>
+                <Star className='w-4 h-4 mr-2' />
                 {feature.subtitle}
               </span>
-              <h2 className='text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight'>
+              <h2 className='text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight leading-tight'>
                 {feature.title}
               </h2>
             </motion.div>
@@ -42,53 +50,32 @@ const FeatureCard = ({ feature, scrollYProgress }) => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className='text-lg text-gray-600 mb-8 leading-relaxed'
+              className='text-xl text-gray-600 mb-10 leading-relaxed'
             >
               {feature.description}
             </motion.p>
 
-            <div className='space-y-4 mb-8'>
+            <div className='space-y-6'>
               {feature.features.map((item, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.1 + 0.2 }}
-                  className='flex items-center gap-3 group'
+                  className='flex items-center gap-4 group'
                 >
                   <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    className='w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors duration-200'
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    className='w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-blue-100/50 transition-all duration-300'
                   >
-                    <Sparkles className='w-4 h-4 text-blue-600' />
+                    <Sparkles className='w-5 h-5 text-blue-600' />
                   </motion.div>
-                  <span className='text-gray-700 font-medium'>{item}</span>
+                  <span className='text-lg text-gray-700 font-medium group-hover:text-blue-600 transition-colors duration-200'>
+                    {item}
+                  </span>
                 </motion.div>
               ))}
             </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className='flex gap-4'
-            >
-              <motion.button
-                whileHover={{ scale: 1.02, y: -1 }}
-                whileTap={{ scale: 0.98 }}
-                className='px-6 py-3 bg-blue-600 text-white rounded-lg font-medium shadow-lg shadow-blue-500/20 transition-shadow duration-200'
-              >
-                Tour Features
-              </motion.button>
-
-              <motion.button
-                whileHover={{ scale: 1.02, y: -1 }}
-                whileTap={{ scale: 0.98 }}
-                className='px-6 py-3 bg-white text-gray-700 rounded-lg font-medium shadow-lg shadow-gray-100 transition-shadow duration-200'
-              >
-                Request Demo →
-              </motion.button>
-            </motion.div>
           </motion.div>
         </div>
 
@@ -100,45 +87,46 @@ const FeatureCard = ({ feature, scrollYProgress }) => {
             transition={{ duration: 0.8 }}
             className='relative'
           >
-            <div className='w-full h-96 rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 p-4'>
+            <div className='w-full h-[500px] rounded-3xl overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 p-6 shadow-2xl shadow-blue-100/50'>
               <div className='absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5' />
               <motion.img
                 src={feature.image}
                 alt={feature.imageAlt}
-                className='w-full h-full object-cover rounded-xl shadow-2xl'
-                whileHover={{ scale: 1.02 }}
+                className='w-full h-full object-cover rounded-2xl shadow-2xl'
+                whileHover={{ scale: 1.03 }}
                 transition={{ duration: 0.4 }}
               />
-            </div>
 
-            {/* Accent shapes */}
-            <div className='absolute -top-4 -right-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl' />
-            <div className='absolute -bottom-4 -left-4 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl' />
+              {/* Image overlay gradient */}
+              <div className='absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl' />
+            </div>
 
             {/* Floating elements */}
             <motion.div
-              className='absolute -top-2 -right-2 w-8 h-8 rounded-full bg-blue-400'
+              className='absolute -top-4 -right-4 w-20 h-20 rounded-full bg-gradient-to-br from-blue-400 to-blue-500 opacity-75'
               animate={{
-                y: [0, -10, 0],
+                y: [0, -15, 0],
                 opacity: [0.5, 0.8, 0.5],
+                scale: [1, 1.1, 1],
               }}
               transition={{
-                duration: 3,
+                duration: 4,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
             />
             <motion.div
-              className='absolute -bottom-2 -left-2 w-6 h-6 rounded-full bg-purple-400'
+              className='absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-gradient-to-br from-purple-400 to-purple-500 opacity-75'
               animate={{
-                y: [0, 10, 0],
+                y: [0, 15, 0],
                 opacity: [0.5, 0.8, 0.5],
+                scale: [1, 1.1, 1],
               }}
               transition={{
-                duration: 3,
+                duration: 4,
                 repeat: Infinity,
                 ease: 'easeInOut',
-                delay: 1.5,
+                delay: 2,
               }}
             />
           </motion.div>
@@ -166,8 +154,7 @@ const FeatureSection = () => {
       description:
         'Virtual assistants make it easier than ever to communicate with clients in real-time. Streamline operations by automating inquiries, bookings, and follow-ups while maintaining a personal touch.',
       features: ['24/7 Support', 'Automated Responses', 'Personalized Care'],
-      image:
-        'https://images.pexels.com/photos/8438979/pexels-photo-8438979.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      image: '/Virtual.png',
       imageAlt: 'Virtual Assistant Interface',
     },
     {
@@ -183,9 +170,10 @@ const FeatureSection = () => {
   ]
 
   return (
-    <div className='bg-gradient-to-b from-blue-50 to-white relative overflow-hidden'>
-      {/* Background accent */}
+    <div className='bg-gradient-to-b from-blue-50 via-white to-purple-50 relative overflow-hidden min-h-screen'>
+      {/* Enhanced background with grid and gradient */}
       <div className='absolute inset-0 bg-grid-gray-900/[0.02] -z-1' />
+      <div className='absolute inset-0 bg-gradient-to-br from-blue-100/20 via-transparent to-purple-100/20 -z-1' />
 
       {features.map((feature, index) => {
         const sectionRef = useRef(null)
