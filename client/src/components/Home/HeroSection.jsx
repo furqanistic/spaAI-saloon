@@ -216,7 +216,6 @@ const HeroSection = () => {
         </div>
       </div>
       <BrandShowcase />
-      <TransparentBadgeSlider />
     </section>
   )
 }

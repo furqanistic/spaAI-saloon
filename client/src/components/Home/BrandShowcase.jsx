@@ -21,11 +21,18 @@ const BrandShowcase = () => {
     { name: 'Skin Institute', logo: '/skin.png' },
   ]
 
-  const duplicatedBrands = [...brands, ...brands, ...brands, ...brands]
+  const duplicatedBrands = [
+    ...brands,
+    ...brands,
+    ...brands,
+    ...brands,
+    ...brands,
+    ...brands,
+  ]
 
   useEffect(() => {
     if (containerRef.current) {
-      setSliderWidth(containerRef.current.scrollWidth / 4)
+      setSliderWidth(containerRef.current.scrollWidth / 6)
     }
   }, [])
 
@@ -34,7 +41,7 @@ const BrandShowcase = () => {
     controls.start({
       x: -sliderWidth,
       transition: {
-        duration: 30,
+        duration: 20,
         ease: 'linear',
         repeat: Infinity,
         repeatType: 'loop',
@@ -57,29 +64,37 @@ const BrandShowcase = () => {
     }
   }, [isHovered, sliderWidth, controls])
 
+  // Brighter, more vibrant background colors
+  const bgColors = [
+    'bg-gradient-to-br from-purple-200 via-pink-100 to-rose-200',
+    'bg-gradient-to-br from-blue-200 via-cyan-100 to-teal-200',
+    'bg-gradient-to-br from-yellow-200 via-amber-100 to-orange-200',
+    'bg-gradient-to-br from-emerald-200 via-green-100 to-lime-200',
+    'bg-gradient-to-br from-indigo-200 via-violet-100 to-purple-200',
+  ]
+
   return (
-    <div className='relative py-12 bg-transparent'>
-      <div className='max-w-7xl mx-auto'>
+    <div className='relative py-6 bg-transparent w-screen'>
+      <div className='w-full'>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className='text-4xl font-bold text-center mb-8 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent'
         >
-          Our Proud Partners
+          Trusted by 150+ Beauty Practices
         </motion.h2>
-
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className='relative overflow-hidden mx-auto'
+          className='relative overflow-hidden'
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <div className='py-4' ref={containerRef}>
+          <div className='py-2' ref={containerRef}>
             <motion.div
-              className='flex gap-8'
+              className='flex gap-2'
               animate={controls}
               initial={{ x: 0 }}
             >
@@ -92,15 +107,19 @@ const BrandShowcase = () => {
                     transition: { duration: 0.2, ease: 'easeOut' },
                   }}
                 >
-                  <div className='bg-transparent p-3'>
-                    <div className='relative group'>
+                  <div
+                    className={`rounded-xl shadow-lg ${
+                      bgColors[index % bgColors.length]
+                    } border border-white/30 hover:border-white/50 transition-all duration-300 hover:shadow-xl`}
+                  >
+                    <div className='relative group p-4'>
                       <img
                         src={brand.logo}
                         alt={brand.name}
-                        className='w-full h-16 object-contain mix-blend-multiply filter brightness-95 contrast-105'
+                        className='w-full h-16 object-contain mix-blend-multiply filter brightness-100 contrast-100'
                         style={{
                           mixBlendMode: 'multiply',
-                          WebkitFilter: 'brightness(0.95) contrast(1.05)',
+                          WebkitFilter: 'brightness(1) contrast(1)',
                         }}
                         onError={(e) => {
                           e.target.onerror = null

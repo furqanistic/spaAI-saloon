@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { Circle, Pentagon, Quote, Sparkles, Star, Triangle } from 'lucide-react'
 import React, { useRef, useState } from 'react'
+import TransparentBadgeSlider from './TransparentBadgeSlider'
 
 const TestimonialSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -345,6 +346,7 @@ const TestimonialSection = () => {
           display: none;
         }
       `}</style>
+      <TransparentBadgeSlider />
     </div>
   )
 }

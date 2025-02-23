@@ -89,12 +89,10 @@ const FeatureCard = ({ feature, scrollYProgress }) => {
           >
             <div className='w-full h-[500px] rounded-3xl overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 p-6 shadow-2xl shadow-blue-100/50'>
               <div className='absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5' />
-              <motion.img
+              <img
                 src={feature.image}
                 alt={feature.imageAlt}
                 className='w-full h-full object-cover rounded-2xl shadow-2xl'
-                whileHover={{ scale: 1.03 }}
-                transition={{ duration: 0.4 }}
               />
 
               {/* Image overlay gradient */}
@@ -139,23 +137,30 @@ const FeatureCard = ({ feature, scrollYProgress }) => {
 const FeatureSection = () => {
   const features = [
     {
-      title: 'Smart AI Automation',
-      subtitle: 'Strengthen Client Experience',
+      title: 'AI Staff & Automations',
+      subtitle: 'Enhanced Efficiency',
       description:
-        'Med spas and clients work better together. Enhance customer experiences and increase efficiency through AI-powered automation in a unified platform.',
-      features: ['Booking System', 'Client Management', 'Smart Scheduling'],
-      image:
-        'https://images.pexels.com/photos/6153354/pexels-photo-6153354.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-      imageAlt: 'AI Automation Dashboard',
+        'Revolutionize your med spa operations with AI-powered staff and automations that ensure consistent service delivery and seamless scaling of your business.',
+      features: [
+        '24/7 availability',
+        'Consistent follow-ups',
+        'Effortless scaling',
+      ],
+      image: '/Virtual.png',
+      imageAlt: 'AI Staff Dashboard',
     },
     {
-      title: 'Virtual Assistant',
-      subtitle: 'Powered by Advanced AI',
+      title: 'Human Receptionist & Sales Team',
+      subtitle: 'Personal Touch',
       description:
-        'Virtual assistants make it easier than ever to communicate with clients in real-time. Streamline operations by automating inquiries, bookings, and follow-ups while maintaining a personal touch.',
-      features: ['24/7 Support', 'Automated Responses', 'Personalized Care'],
-      image: '/Virtual.png',
-      imageAlt: 'Virtual Assistant Interface',
+        'Combine the power of human connection with advanced technology to create meaningful relationships with your clients while driving business growth.',
+      features: [
+        'Build stronger client loyalty',
+        'Boost sales naturally',
+        'Solve problems instantly',
+      ],
+      image: '/humanRec.webp', // Replace with the actual path to your human assistant image
+      imageAlt: 'Human Receptionist Interface',
     },
     {
       title: 'Reputation Management',
@@ -164,7 +169,7 @@ const FeatureSection = () => {
         "Take control of your med spa's online presence with our comprehensive reputation management system. Automatically collect and showcase reviews while improving customer satisfaction.",
       features: ['Review Collection', 'Rating Management', 'Client Feedback'],
       image:
-        'https://images.pexels.com/photos/18069421/pexels-photo-18069421/free-photo-of-an-artist-s-illustration-of-artificial-intelligence-ai-this-image-depicts-how-ai-could-assist-in-genomic-studies-and-its-applications-it-was-created-by-artist-nidia-dias-as-part-of-the.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        'https://images.pexels.com/photos/18069421/pexels-photo-18069421/free-photo-of-artificial-intelligence-ai-this-image-depicts-how-ai-could-assist-in-genomic-studies-and-its-applications-it-was-created-by-artist-nidia-dias-as-part-of-the.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
       imageAlt: 'Reputation Dashboard',
     },
   ]
