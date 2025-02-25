@@ -15,63 +15,78 @@ import {
   Zap,
 } from 'lucide-react'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router'
 
 // Updated pricing plans data
 const PLANS = {
-  growth: {
-    plan: 'Growth-Touch',
-    tagline: 'Automate & Optimize',
+  premium: {
+    plan: 'Premium',
+    tagline: 'We Handle Everything For You',
     description:
-      'For med spas that need foundational automation to streamline bookings & client engagement.',
-    price: 'Starting at $199/month',
-    icon: Zap,
+      'For med spas that want a fully automated, hands-free system with expert human support.',
+    price: '$897',
+    period: '/ month',
+    icon: Shield,
     features: [
-      'All RadiantMD Core Features',
-      'Unlimited Automations',
-      'Google Review Booster',
-      'Smart Lead Follow-Ups',
-      'Comprehensive Client Database',
-      'Basic Appointment Scheduling',
-      'Client Engagement Tools',
+      'Everything in Pro, PLUS:',
+      'Unlimited Virtual Sales Team',
+      'High-Priority Support & Strategy Calls',
+      'Advanced Reputation & SEO Boost',
+      'White-Label Solutions',
+      '24/7 Priority Support',
+      'Dedicated Account Manager',
+      'Human Sales Support',
     ],
   },
-  scale: {
-    plan: 'Scale-Touch',
-    tagline: 'AI + Ads + Marketing Growth',
+  pro: {
+    plan: 'Pro',
+    tagline: 'Grow Faster with Expert Ads & AI',
     description:
       'For med spas ready to scale with AI-driven marketing, client retargeting & expert ad management.',
-    price: 'Custom Pricing',
+    price: '$547',
+    period: '/ month',
     icon: Bot,
     popular: true,
     features: [
-      'All Growth-Touch Features',
-      'AI-Driven Marketing Automation',
-      'Advanced Client Retargeting',
-      'Expert Ad Management',
+      'Everything in Core, PLUS:',
+      'Expert-Managed Ads',
+      'Smart Client Campaigns',
+      'AI Patient Revival System',
       'Enhanced Analytics Dashboard',
       'Marketing Campaign Tools',
       'Priority Support',
+      'Advanced Client Retargeting',
     ],
   },
-  elite: {
-    plan: 'Elite-Touch',
-    tagline: 'Full AI + Human Sales & Reputation Management',
+  core: {
+    plan: 'Core',
+    tagline: 'Automate the Basics',
     description:
-      'For med spas that want a fully automated, hands-free system with expert human support.',
-    price: 'Custom Pricing',
-    icon: Shield,
+      'For med spas that need foundational automation to streamline bookings & client engagement.',
+    price: '$397',
+    period: '/ month',
+    icon: Zap,
     features: [
-      'All Scale-Touch Features',
-      'Full AI Automation Suite',
-      'Dedicated Account Manager',
-      'Human Sales Support',
-      'Reputation Management',
-      'Custom Integration Options',
-      'White-Label Solutions',
-      '24/7 Priority Support',
+      'Online Booking System',
+      'Appointment Confirmations & Reminders',
+      'AI-Powered Lead & Client Follow-Ups',
+      'Google Review Requests',
+      'Comprehensive Client Database',
+      'Basic Appointment Scheduling',
+      'Client Engagement Tools',
+      'Unlimited Automations',
     ],
   },
 }
+
+const SHARED_FEATURES = [
+  'All RadiantMD Core Features',
+  'Unlimited Automations',
+  'Unlimited Observer Seats',
+  'Single Sign-on',
+  'Full Integration Library',
+  'Unlimited Docs',
+]
 
 const FeatureIcon = ({ icon: Icon, popular }) => (
   <motion.div
@@ -91,6 +106,7 @@ const PricingCard = ({
   tagline,
   description,
   price,
+  period,
   features = [],
   popular = false,
   icon = Users,
@@ -142,10 +158,11 @@ const PricingCard = ({
             </div>
 
             <div className='space-y-2'>
-              <div className='flex items-center'>
-                <span className='text-lg font-semibold text-gray-900'>
+              <div className='flex items-baseline'>
+                <span className='text-3xl font-bold text-gray-900'>
                   {price}
                 </span>
+                <span className='text-lg text-gray-600'>{period}</span>
               </div>
               <p className='text-sm text-gray-600'>{description}</p>
             </div>
@@ -179,7 +196,7 @@ const PricingCard = ({
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                Request Pricing
+                Free Trial
                 <ArrowRight className='w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform' />
               </Button>
             </motion.div>
@@ -190,25 +207,90 @@ const PricingCard = ({
   )
 }
 
+const SharedFeatures = () => {
+  return (
+    <div className='mt-20 w-full max-w-6xl mx-auto px-4'>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className='text-center mb-12'
+      >
+        <h2 className='text-3xl font-bold text-gray-900 mb-4'>
+          Included in All Plans
+        </h2>
+        <p className='text-lg text-gray-600 max-w-3xl mx-auto'>
+          The same set of core features no matter how you manage Customer
+          Success.
+        </p>
+      </motion.div>
+
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+        {SHARED_FEATURES.map((feature, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
+            className='flex items-center gap-3 p-4 rounded-lg bg-white shadow-sm border border-gray-100'
+          >
+            <div className='rounded-full p-1 bg-[#38b5ff]/10'>
+              <Check className='h-5 w-5 text-[#38b5ff]' />
+            </div>
+            <span className='text-gray-700 font-medium'>{feature}</span>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 const PricingSection = () => {
+  const navigate = useNavigate()
+
+  // Order from highest price (left) to lowest price (right)
   const plans = [
     {
-      ...PLANS.growth,
+      ...PLANS.premium,
     },
     {
-      ...PLANS.scale,
+      ...PLANS.pro,
     },
     {
-      ...PLANS.elite,
+      ...PLANS.core,
     },
   ]
 
   return (
-    <div className='mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8'>
-      {plans.map((plan) => (
-        <PricingCard key={plan.plan} {...plan} />
-      ))}
-    </div>
+    <>
+      <div className='mt-10 mb-16 text-center'>
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className='text-4xl md:text-5xl font-bold mb-6'
+        >
+          Three Plans, One Platform.
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          className='text-xl text-gray-600 max-w-3xl mx-auto'
+        >
+          We've created RadiantMD plans to scale based on your needs, with the
+          same set of features no matter how you manage Customer Success.
+        </motion.p>
+      </div>
+
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8'>
+        {plans.map((plan) => (
+          <PricingCard key={plan.plan} {...plan} />
+        ))}
+      </div>
+
+      <SharedFeatures />
+    </>
   )
 }
 

@@ -9,8 +9,7 @@ const badges = [
   { id: 8, imageSrc: '/Badges/badge5.webp', label: 'Impact' },
   { id: 6, imageSrc: '/Badges/badge6.png', label: 'Vision' },
   { id: 7, imageSrc: '/Badges/badge7.png', label: 'Success' },
-  { id: 5, imageSrc: '/Badges/badge8.png', label: 'Quality' },
-  { id: 2, imageSrc: '/Badges/badge9.png', label: 'Progress' },
+
   { id: 10, imageSrc: '/Badges/badge10.png', label: 'Achievement' },
 ]
 

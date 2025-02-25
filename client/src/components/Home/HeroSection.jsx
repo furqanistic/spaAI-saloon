@@ -135,9 +135,11 @@ const HeroSection = () => {
                 transition={{ delay: 0.2 }}
                 className='text-5xl sm:text-6xl font-bold tracking-tight'
               >
-                <span className='block text-gray-900'>Stop Losing Leads—</span>
+                <span className='block text-gray-900'>
+                  The Proven System Med Spas Need
+                </span>
                 <span className='block bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500 bg-clip-text text-transparent'>
-                  Start Building a Loyal Client Base
+                  to Boost Revenue & Client Loyalty
                 </span>
               </motion.h1>
 
@@ -147,9 +149,8 @@ const HeroSection = () => {
                 transition={{ delay: 0.3 }}
                 className='text-lg text-gray-600 max-w-xl'
               >
-                Automate lead follow-ups and ad campaigns, while our team
-                handles appointments, reputation management, and client
-                nurturing—all in one platform
+                Get more clients, more bookings, and more revenue—all from one
+                simple system.
               </motion.p>
             </div>
 

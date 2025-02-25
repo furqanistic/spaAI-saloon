@@ -141,13 +141,13 @@ const ImageSlider = () => {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 5, ease: 'linear' }}
-          key={currentIndex}
+          key={`progress-${currentIndex}`}
         />
       )}
 
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
-          key={currentIndex}
+          key={`slide-${currentIndex}`}
           custom={direction}
           variants={slideVariants}
           initial='enter'
@@ -178,8 +178,15 @@ const ImageSlider = () => {
               alt={slides[currentIndex].title}
               className='w-full h-full object-cover'
               initial={{ scale: 1.1 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 5 }}
+              animate={{ scale: isPlaying ? [1.1, 1, 1.05] : 1 }}
+              transition={{
+                scale: isPlaying
+                  ? {
+                      times: [0, 0.7, 1],
+                      duration: 7,
+                    }
+                  : { duration: 0.5 },
+              }}
             />
 
             {/* Gradient Overlay */}
@@ -206,7 +213,19 @@ const ImageSlider = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3 }}
                     >
-                      <CurrentIcon className='w-5 h-5 text-white' />
+                      <motion.div
+                        animate={{
+                          rotate: isPlaying ? [0, 10, -10, 0] : 0,
+                          scale: isPlaying ? [1, 1.2, 1] : 1,
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: isPlaying ? Infinity : 0,
+                          repeatDelay: 3,
+                        }}
+                      >
+                        <CurrentIcon className='w-5 h-5 text-white' />
+                      </motion.div>
                       <span className='inline-block px-4 py-1 bg-white/10 backdrop-blur-sm text-white rounded-full text-sm font-medium'>
                         {slides[currentIndex].tag}
                       </span>
@@ -235,11 +254,23 @@ const ImageSlider = () => {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.6 }}
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{
+                        scale: 1.05,
+                        boxShadow: '0 10px 25px -5px rgba(147, 51, 234, 0.5)',
+                      }}
                       whileTap={{ scale: 0.95 }}
                     >
                       {slides[currentIndex].cta}
-                      <ArrowRight className='w-5 h-5 group-hover:translate-x-1 transition-transform' />
+                      <motion.div
+                        animate={{ x: [0, 5, 0] }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          repeatType: 'loop',
+                        }}
+                      >
+                        <ArrowRight className='w-5 h-5 group-hover:translate-x-1 transition-transform' />
+                      </motion.div>
                     </motion.button>
                   </motion.div>
 
@@ -255,13 +286,23 @@ const ImageSlider = () => {
                       return (
                         <motion.div
                           key={stat.label}
-                          className='text-center p-6 rounded-2xl bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors group'
+                          className='text-center p-6 rounded-2xl bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors group cursor-pointer'
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.5 + index * 0.1 }}
+                          whileHover={{
+                            y: -5,
+                            boxShadow: '0 15px 30px -5px rgba(0, 0, 0, 0.3)',
+                            backgroundColor: 'rgba(255, 255, 255, 0.25)',
+                          }}
                         >
                           <motion.div
-                            className='inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 mb-4 group-hover:scale-110 transition-transform'
+                            className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${slides[
+                              currentIndex
+                            ].accent.replace(
+                              'bg-',
+                              'bg-'
+                            )}/20 mb-4 group-hover:scale-110 transition-transform`}
                             initial={{ scale: 0.5 }}
                             animate={{ scale: 1 }}
                             transition={{ delay: 0.6 + index * 0.1 }}
@@ -314,6 +355,23 @@ const ImageSlider = () => {
                   ? slides[currentIndex].accent + ' scale-125'
                   : 'bg-white/50 hover:bg-white/70'
               }`}
+              initial={index === currentIndex ? { scale: 0.8 } : { scale: 1 }}
+              animate={
+                index === currentIndex
+                  ? {
+                      scale: [1, 1.2, 1],
+                    }
+                  : { scale: 1 }
+              }
+              transition={
+                index === currentIndex
+                  ? {
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatType: 'loop',
+                    }
+                  : {}
+              }
             />
           ))}
         </div>
@@ -342,6 +400,23 @@ const ImageSlider = () => {
           )}
         </motion.button>
       </div>
+
+      {/* Slide number indicator */}
+      <motion.div
+        className='absolute top-4 left-4 z-30 text-white font-medium bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full'
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        <motion.span
+          key={currentIndex}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+        >
+          {currentIndex + 1}/{slides.length}
+        </motion.span>
+      </motion.div>
 
       {/* Decorative floating elements */}
       <motion.div

@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { motion } from 'framer-motion'
-import { Sparkles, Users } from 'lucide-react'
+import { Calendar, MessageSquare, Sparkles, Users } from 'lucide-react'
 import React from 'react'
 
 const Mission = () => {
@@ -80,8 +80,9 @@ const Mission = () => {
           {...fadeIn}
           transition={{ delay: 0.2 }}
         >
-          We've built an intelligent platform that seamlessly connects med spas
-          with their clients, combining powerful automation with a human touch.
+          We combine intelligent automation with a human touch to help med spas
+          connect with their clients, streamline operations, and drive business
+          growth.
         </motion.p>
       </motion.section>
 
@@ -110,9 +111,10 @@ const Mission = () => {
               automation and personalized service.
             </p>
             <p className='text-lg text-gray-600 mb-8'>
-              We believe in combining cutting-edge AI technology with the
-              irreplaceable human touch, creating a perfect balance that helps
-              your business thrive.
+              We believe in creating the perfect balance between cutting-edge AI
+              technology and the irreplaceable human touch, helping your
+              business grow while maintaining authentic connections with your
+              clients.
             </p>
             <div className='space-y-4'>
               <motion.div
@@ -141,6 +143,32 @@ const Mission = () => {
                   </CardContent>
                 </Card>
               </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Card className='border-l-4 border-[#38b5ff] bg-white/80 backdrop-blur-sm'>
+                  <CardContent className='p-4'>
+                    <div className='flex items-center space-x-3'>
+                      <Calendar className='h-6 w-6 text-[#38b5ff]' />
+                      <p className='font-medium'>Seamless Scheduling</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Card className='border-l-4 border-[#38b5ff] bg-white/80 backdrop-blur-sm'>
+                  <CardContent className='p-4'>
+                    <div className='flex items-center space-x-3'>
+                      <MessageSquare className='h-6 w-6 text-[#38b5ff]' />
+                      <p className='font-medium'>Smart Communication</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </div>
           </motion.div>
 
@@ -159,7 +187,7 @@ const Mission = () => {
             />
             <div className='relative rounded-2xl overflow-hidden'>
               <img
-                src='https://images.pexels.com/photos/163064/play-stone-network-networked-interactive-163064.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+                src='/db.png'
                 alt='Team collaboration'
                 className='w-full h-full object-cover'
               />

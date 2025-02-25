@@ -5,7 +5,15 @@ import {
   useSpring,
   useTransform,
 } from 'framer-motion'
-import { ArrowRight, ChevronDown, Sparkles, Star } from 'lucide-react'
+import {
+  ArrowRight,
+  BarChart,
+  Calendar,
+  ChevronDown,
+  RefreshCw,
+  Sparkles,
+  Star,
+} from 'lucide-react'
 import React, { useRef } from 'react'
 
 const Values = () => {
@@ -43,7 +51,7 @@ const Values = () => {
       title: 'Data-Driven Growth',
       description:
         'We empower med spas with actionable insights drawn from their data. By transforming complex data into clear, actionable strategies, we help our clients make informed decisions that drive business growth and improve client satisfaction.',
-      icon: ArrowRight,
+      icon: BarChart,
       gradient: 'from-purple-400 to-pink-400',
     },
     {
@@ -51,7 +59,7 @@ const Values = () => {
       title: 'Seamless Integration',
       description:
         'We understand that every med spa is unique. Our platform adapts to your existing workflows and systems, creating a unified experience that enhances rather than disrupts your established processes and client relationships.',
-      icon: Star,
+      icon: Calendar,
       gradient: 'from-pink-400 to-[#38b5ff]',
     },
     {
@@ -59,7 +67,7 @@ const Values = () => {
       title: 'Continuous Evolution',
       description:
         'The beauty and wellness industry never stands still, and neither do we. We continuously evolve our platform based on industry trends, client feedback, and technological advancements to keep our partners ahead of the curve.',
-      icon: Sparkles,
+      icon: RefreshCw,
       gradient: 'from-[#38b5ff] to-blue-600',
     },
   ]

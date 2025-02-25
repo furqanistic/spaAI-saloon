@@ -2,6 +2,8 @@ import { Card } from '@/components/ui/card'
 import { motion } from 'framer-motion'
 import { Play, X } from 'lucide-react'
 import React, { useState } from 'react'
+import FAQ from '../../components/About/FAQ'
+import Footer from '../../components/Layout/Footer'
 import Navbar from '../../components/Layout/Navbar'
 
 const TestimonialsPage = () => {
@@ -204,6 +206,8 @@ From just 14 appointments per month to over 60+ high-paying clients in ONLY 4 we
           </motion.div>
         )}
       </div>
+      <FAQ />
+      <Footer />
     </>
   )
 }

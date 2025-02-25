@@ -1,9 +1,35 @@
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Bot, Check, Info, Shield, X, Zap } from 'lucide-react'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router'
 
 const PlanComparison = () => {
   const [hoveredFeature, setHoveredFeature] = useState(null)
+  const navigate = useNavigate()
+  const handleClick = () => {
+    navigate('/demo')
+  }
+  // Updated plans to match new naming and pricing
+  const plans = [
+    {
+      name: 'Premium',
+      icon: Shield,
+      price: '$897',
+      popular: false,
+    },
+    {
+      name: 'Pro',
+      icon: Bot,
+      price: '$547',
+      popular: true,
+    },
+    {
+      name: 'Core',
+      icon: Zap,
+      price: '$397',
+      popular: false,
+    },
+  ]
 
   const features = [
     {
@@ -11,37 +37,37 @@ const PlanComparison = () => {
       items: [
         {
           name: 'RadiantMD Core Features',
-          growth: true,
-          scale: true,
-          elite: true,
+          core: true,
+          pro: true,
+          premium: true,
           info: 'Access to all essential RadiantMD platform features',
         },
         {
           name: 'Unlimited Automations',
-          growth: true,
-          scale: true,
-          elite: true,
+          core: true,
+          pro: true,
+          premium: true,
           info: 'Create unlimited automated workflows and sequences',
         },
         {
           name: 'Google Review Booster',
-          growth: true,
-          scale: true,
-          elite: true,
+          core: true,
+          pro: true,
+          premium: true,
           info: 'Automated system to increase Google reviews',
         },
         {
           name: 'Smart Lead Follow-Ups',
-          growth: true,
-          scale: true,
-          elite: true,
+          core: true,
+          pro: true,
+          premium: true,
           info: 'Automated lead nurturing and follow-up sequences',
         },
         {
           name: 'Client Database',
-          growth: true,
-          scale: true,
-          elite: true,
+          core: true,
+          pro: true,
+          premium: true,
           info: 'Comprehensive client management system',
         },
       ],
@@ -51,30 +77,37 @@ const PlanComparison = () => {
       items: [
         {
           name: 'AI-Driven Marketing',
-          growth: false,
-          scale: true,
-          elite: true,
+          core: false,
+          pro: true,
+          premium: true,
           info: 'Advanced AI marketing automation and optimization',
         },
         {
           name: 'Expert Ad Management',
-          growth: false,
-          scale: true,
-          elite: true,
+          core: false,
+          pro: true,
+          premium: true,
           info: 'Professional management of advertising campaigns',
         },
         {
           name: 'Client Retargeting',
-          growth: 'Basic',
-          scale: 'Advanced',
-          elite: 'Full Suite',
+          core: 'Basic',
+          pro: 'Advanced',
+          premium: 'Full Suite',
           info: 'Automated client re-engagement strategies',
         },
         {
+          name: 'Patient Revival System',
+          core: false,
+          pro: true,
+          premium: true,
+          info: 'AI-powered system to reactivate dormant patients',
+        },
+        {
           name: 'Human Sales Support',
-          growth: false,
-          scale: false,
-          elite: true,
+          core: false,
+          pro: false,
+          premium: true,
           info: 'Dedicated human sales support team',
         },
       ],
@@ -84,23 +117,30 @@ const PlanComparison = () => {
       items: [
         {
           name: 'Reputation Management',
-          growth: 'Basic',
-          scale: 'Advanced',
-          elite: 'Full Service',
+          core: 'Basic',
+          pro: 'Advanced',
+          premium: 'Full Service',
           info: 'Comprehensive reputation management system',
         },
         {
+          name: 'SEO Boost',
+          core: false,
+          pro: false,
+          premium: true,
+          info: 'Advanced SEO optimization for your med spa',
+        },
+        {
           name: 'Support Level',
-          growth: 'Standard',
-          scale: 'Priority',
-          elite: '24/7 Premium',
+          core: 'Standard',
+          pro: 'Priority',
+          premium: '24/7 Premium',
           info: 'Level of customer support provided',
         },
         {
           name: 'Account Management',
-          growth: 'Self-service',
-          scale: 'Guided',
-          elite: 'Dedicated Manager',
+          core: 'Self-service',
+          pro: 'Guided',
+          premium: 'Dedicated Manager',
           info: 'Type of account management provided',
         },
       ],
@@ -108,18 +148,11 @@ const PlanComparison = () => {
   ]
 
   const PlanIcon = ({ plan }) => {
-    const icons = {
-      growth: Zap,
-      scale: Bot,
-      elite: Shield,
-    }
-    const Icon = icons[plan.toLowerCase()]
-    const isPopular = plan === 'Scale'
-
+    const Icon = plan.icon
     return (
       <div
         className={`p-2 rounded-xl transition-transform hover:scale-105 ${
-          isPopular
+          plan.popular
             ? 'bg-gradient-to-br from-[#38b5ff] to-[#2da1e8] text-white'
             : 'bg-[#38b5ff]/10 text-[#38b5ff]'
         }`}
@@ -164,8 +197,8 @@ const PlanComparison = () => {
           Choose Your Growth Path
         </h2>
         <p className='text-gray-600 max-w-2xl mx-auto'>
-          Plans start at $199/month. Compare our solutions to find the perfect
-          fit for your med spa.
+          Find the perfect plan for your med spa's needs. All plans include our
+          core features.
         </p>
       </div>
 
@@ -175,14 +208,23 @@ const PlanComparison = () => {
             <thead>
               <tr className='border-b border-gray-200'>
                 <th className='py-6 px-6 text-left w-1/4'></th>
-                {['Growth', 'Scale', 'Elite'].map((plan) => (
-                  <th key={plan} className='py-6 px-6 w-1/4'>
+                {plans.map((plan) => (
+                  <th key={plan.name} className='py-6 px-6 w-1/4'>
                     <div className='flex flex-col items-center gap-4'>
                       <PlanIcon plan={plan} />
-                      <span className='font-semibold text-gray-900'>
-                        {plan}-Touch
-                      </span>
-                      {plan === 'Scale' && (
+                      <div className='flex flex-col items-center'>
+                        <span className='font-semibold text-gray-900'>
+                          {plan.name}
+                        </span>
+                        <span className='text-lg font-bold text-gray-900 mt-1'>
+                          {plan.price}
+                          <span className='text-sm font-normal text-gray-600'>
+                            {' '}
+                            / month
+                          </span>
+                        </span>
+                      </div>
+                      {plan.popular && (
                         <div className='px-4 py-1 bg-gradient-to-r from-[#38b5ff] to-[#2da1e8] text-white text-xs font-medium rounded-full'>
                           Most Popular
                         </div>
@@ -231,13 +273,13 @@ const PlanComparison = () => {
                         </div>
                       </td>
                       <td className='py-6 px-6 text-center'>
-                        {renderValue(feature.growth)}
+                        {renderValue(feature.premium)}
                       </td>
                       <td className='py-6 px-6 text-center bg-[#38b5ff]/5'>
-                        {renderValue(feature.scale)}
+                        {renderValue(feature.pro)}
                       </td>
                       <td className='py-6 px-6 text-center'>
-                        {renderValue(feature.elite)}
+                        {renderValue(feature.core)}
                       </td>
                     </tr>
                   ))}
@@ -253,9 +295,13 @@ const PlanComparison = () => {
           Not sure which plan is right for you? Let's find the perfect fit
           together.
         </p>
-        <div className='inline-block'>
-          <Button className='bg-gradient-to-r from-[#38b5ff] to-[#2da1e8] hover:opacity-90 shadow-lg group'>
-            Request Pricing
+        <div className='flex gap-4 justify-center'>
+          <Button
+            onClick={handleClick}
+            variant='outline'
+            className='border-[#38b5ff] text-[#38b5ff] hover:bg-[#38b5ff]/5 group'
+          >
+            Request Demo
             <ArrowRight className='w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform' />
           </Button>
         </div>
