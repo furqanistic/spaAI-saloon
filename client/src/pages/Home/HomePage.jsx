@@ -3,6 +3,7 @@ import AppointmentProcess from '../../components/Home/AppointmentProcess'
 import BrandShowcase from '../../components/Home/BrandShowcase'
 import CategorySlider from '../../components/Home/CategorySlider'
 import FeatureSection from '../../components/Home/FeatureSection'
+import FeaturesShowcase from '../../components/Home/FeaturesShowcase'
 import HeroSection from '../../components/Home/HeroSection'
 import ImageSlider from '../../components/Home/ImageSlider'
 import PosSystem from '../../components/Home/PosSystem'
@@ -22,7 +23,7 @@ const HomePage = () => {
       <RadiantFeatures />
 
       <CategorySlider />
-
+      <FeaturesShowcase />
       {/* <AppointmentProcess /> */}
       <FeatureSection />
       <PosSystem />
