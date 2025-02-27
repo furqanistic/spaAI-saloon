@@ -1,5 +1,4 @@
 import AnimatedHeadline from '../../components/Home/AnimatedHeadline'
-import AppointmentProcess from '../../components/Home/AppointmentProcess'
 import BrandShowcase from '../../components/Home/BrandShowcase'
 import CategorySlider from '../../components/Home/CategorySlider'
 import FeatureSection from '../../components/Home/FeatureSection'
@@ -24,9 +23,8 @@ const HomePage = () => {
 
       <CategorySlider />
       <FeaturesShowcase />
-      {/* <AppointmentProcess /> */}
       <FeatureSection />
-      <PosSystem />
+      {/* <PosSystem /> */}
       <AnimatedHeadline />
       <TestimonialSection />
       <Footer />

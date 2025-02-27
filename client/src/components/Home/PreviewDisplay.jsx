@@ -28,11 +28,14 @@ const PreviewDisplay = () => {
           </div>
         </div>
 
-        {/* GIF Display */}
+        {/* Video Display (replacing GIF) */}
         <div className='aspect-[4/3] relative overflow-hidden'>
-          <img
-            src='/PREVIEW.gif'
-            alt='Platform Dashboard'
+          <video
+            src='/PREVIEW.mp4'
+            autoPlay
+            loop
+            muted
+            playsInline
             className='w-full h-full object-cover'
           />
 

@@ -17,8 +17,11 @@ import {
   CheckCircle,
   Clock,
   Globe,
+  Heart,
   Mail,
   Phone,
+  Sparkles,
+  Star,
   Users,
 } from 'lucide-react'
 import React, { useState } from 'react'
@@ -38,6 +41,128 @@ const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
 }
+
+// Background decorations component
+const BackgroundDecorations = () => (
+  <div className='absolute inset-0 overflow-hidden pointer-events-none'>
+    {/* Top blob */}
+    <motion.div
+      className='absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-pink-200/30 to-purple-200/30 blur-3xl'
+      animate={{
+        scale: [1, 1.1, 1],
+        opacity: [0.2, 0.3, 0.2],
+      }}
+      transition={{
+        duration: 8,
+        repeat: Infinity,
+        repeatType: 'reverse',
+      }}
+    />
+
+    {/* Bottom blob */}
+    <motion.div
+      className='absolute bottom-0 left-0 w-[700px] h-[700px] rounded-full bg-gradient-to-tr from-cyan-200/30 to-blue-200/30 blur-3xl'
+      animate={{
+        scale: [1, 1.2, 1],
+        opacity: [0.2, 0.4, 0.2],
+      }}
+      transition={{
+        duration: 10,
+        repeat: Infinity,
+        repeatType: 'reverse',
+        delay: 1,
+      }}
+    />
+
+    {/* Floating elements */}
+    <motion.div
+      className='absolute top-24 left-10 opacity-50'
+      animate={{ y: [-5, 5, -5], rotate: [0, 5, 0] }}
+      transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+    >
+      <Heart size={20} className='text-pink-300' />
+    </motion.div>
+
+    <motion.div
+      className='absolute bottom-32 right-10 opacity-50'
+      animate={{ y: [5, -5, 5], rotate: [0, -5, 0] }}
+      transition={{
+        repeat: Infinity,
+        duration: 4,
+        ease: 'easeInOut',
+        delay: 1,
+      }}
+    >
+      <Star size={20} className='text-purple-300' />
+    </motion.div>
+
+    <motion.div
+      className='absolute top-1/2 right-16 opacity-50'
+      animate={{ y: [-8, 8, -8], rotate: [0, 10, 0] }}
+      transition={{
+        repeat: Infinity,
+        duration: 5,
+        ease: 'easeInOut',
+        delay: 0.5,
+      }}
+    >
+      <Sparkles size={16} className='text-sky-300' />
+    </motion.div>
+  </div>
+)
+
+// Feature item component with enhanced styling
+const FeatureItem = ({ icon, title, description }) => (
+  <motion.div
+    className='flex items-start gap-6 group'
+    variants={itemVariants}
+    whileHover={{ x: 5 }}
+    transition={{ type: 'spring', stiffness: 300 }}
+  >
+    <div
+      className='flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-pink-100 to-purple-100 
+      group-hover:from-pink-200 group-hover:to-purple-200
+      flex items-center justify-center transition-all duration-300 shadow-sm'
+    >
+      <div className='text-pink-600'>{icon}</div>
+    </div>
+    <div>
+      <h3 className='text-xl font-semibold text-gray-800 mb-2'>{title}</h3>
+      <p className='text-gray-600 leading-relaxed'>{description}</p>
+    </div>
+  </motion.div>
+)
+
+// Form field component for consistency
+const FormField = ({
+  id,
+  label,
+  icon,
+  placeholder,
+  value,
+  onChange,
+  type = 'text',
+}) => (
+  <div className='relative space-y-1.5'>
+    <Label htmlFor={id} className='text-sm font-medium text-gray-700'>
+      {label}
+      {label.includes('*') && <span className='text-pink-500'>*</span>}
+    </Label>
+    <div className='relative rounded-lg'>
+      <div className='absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none'>
+        {icon}
+      </div>
+      <Input
+        id={id}
+        type={type}
+        value={value}
+        onChange={onChange}
+        className='pl-10 h-12 bg-white border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 shadow-sm'
+        placeholder={placeholder}
+      />
+    </div>
+  </div>
+)
 
 const DemoRequestSection = () => {
   const [formData, setFormData] = useState({
@@ -108,14 +233,10 @@ const DemoRequestSection = () => {
   ]
 
   return (
-    <section className='pt-20 relative min-h-screen bg-[#f8fafc] py-20 px-4 md:px-8'>
-      {/* Decorative elements */}
-      <div className='absolute inset-0 overflow-hidden pointer-events-none'>
-        <div className='absolute top-0 left-1/2 w-[800px] h-[800px] bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-full filter blur-3xl opacity-50 -translate-x-1/2 -translate-y-1/2' />
-        <div className='absolute top-1/2 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-pink-50 via-rose-50 to-purple-50 rounded-full filter blur-3xl opacity-40' />
-      </div>
+    <section className='relative min-h-screen py-20 px-4 md:px-8 bg-gradient-to-b from-white to-gray-50 overflow-hidden'>
+      <BackgroundDecorations />
 
-      <div className='relative max-w-7xl mx-auto'>
+      <div className='relative max-w-7xl mx-auto z-10'>
         <motion.div
           initial='hidden'
           whileInView='visible'
@@ -128,19 +249,31 @@ const DemoRequestSection = () => {
             variants={itemVariants}
             className='text-center max-w-3xl mx-auto'
           >
-            <div className='inline-flex items-center bg-blue-50 px-4 py-2 rounded-full mb-8'>
-              <span className='text-blue-700 font-medium'>
+            <motion.div
+              className='inline-flex items-center px-4 py-2 rounded-full mb-8'
+              initial={{ scale: 0.9, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+              viewport={{ once: true }}
+              style={{
+                background: 'linear-gradient(to right, #fce7f3, #ede9fe)',
+                boxShadow: '0 2px 10px rgba(236, 72, 153, 0.1)',
+              }}
+            >
+              <span className='text-pink-600 font-medium'>
                 Built For Success. Ready For Scale.
               </span>
-            </div>
-            <h1 className='text-4xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight'>
+            </motion.div>
+
+            <h1 className='text-4xl md:text-6xl font-bold mb-6 leading-tight'>
               Transform Your Med Spa
-              <span className='bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600'>
+              <span className='bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600'>
                 {' '}
                 with AI
               </span>
             </h1>
-            <p className='text-lg md:text-xl text-slate-600'>
+
+            <p className='text-lg md:text-xl text-gray-600'>
               A new era of Med Spa Success has arrived. Traditional marketing
               and booking systems haven't kept up. It's time for something
               smarter.
@@ -151,11 +284,12 @@ const DemoRequestSection = () => {
           <div className='grid lg:grid-cols-2 gap-12 items-start'>
             {/* Left Column - Benefits */}
             <motion.div variants={itemVariants}>
-              <div className='bg-white rounded-2xl shadow-xl p-8 md:p-12 h-full'>
-                <h2 className='text-3xl font-bold text-slate-900 mb-8'>
+              <div className='bg-white rounded-2xl shadow-xl p-8 md:p-12 h-full border border-gray-100'>
+                <h2 className='text-3xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-8'>
                   Let's Talk Success
                 </h2>
-                <p className='text-lg text-slate-600 mb-12'>
+
+                <p className='text-lg text-gray-600 mb-12'>
                   Whether you're looking to increase revenue, automate
                   operations, or fill your calendar, our Med Spa growth experts
                   are ready to help.
@@ -163,26 +297,12 @@ const DemoRequestSection = () => {
 
                 <div className='space-y-8'>
                   {expectations.map((item, index) => (
-                    <motion.div
+                    <FeatureItem
                       key={index}
-                      className='flex items-start gap-6 group'
-                      variants={itemVariants}
-                    >
-                      <div
-                        className='flex-shrink-0 w-12 h-12 rounded-2xl bg-blue-50 group-hover:bg-blue-100 
-                        flex items-center justify-center transition-colors duration-300'
-                      >
-                        <div className='text-blue-600'>{item.icon}</div>
-                      </div>
-                      <div>
-                        <h3 className='text-xl font-semibold text-slate-900 mb-2'>
-                          {item.title}
-                        </h3>
-                        <p className='text-slate-600 leading-relaxed'>
-                          {item.description}
-                        </p>
-                      </div>
-                    </motion.div>
+                      icon={item.icon}
+                      title={item.title}
+                      description={item.description}
+                    />
                   ))}
                 </div>
               </div>
@@ -190,130 +310,82 @@ const DemoRequestSection = () => {
 
             {/* Right Column - Form */}
             <motion.div variants={itemVariants}>
-              <Card className='overflow-hidden border-0 shadow-xl bg-white'>
+              <Card className='overflow-hidden border border-purple-50 shadow-xl bg-white/95 backdrop-blur-sm'>
                 <CardContent className='p-8 md:p-12'>
-                  <h2 className='text-2xl font-bold text-slate-900 mb-8'>
+                  <h2 className='text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-8'>
                     Schedule Your Demo
                   </h2>
+
                   <form className='space-y-6'>
-                    <div className='space-y-6'>
-                      <div className='relative'>
-                        <Label
-                          htmlFor='name'
-                          className='text-sm font-medium text-slate-700'
-                        >
-                          Name*
-                        </Label>
-                        <Input
-                          id='name'
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          className='pl-4 h-12 bg-slate-50 border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                          placeholder='Enter your full name'
-                        />
-                      </div>
+                    <div className='space-y-4'>
+                      {/* Name field */}
+                      <FormField
+                        id='name'
+                        label='Name*'
+                        icon={<Users className='h-4 w-4 text-pink-400' />}
+                        placeholder='Enter your full name'
+                        value={formData.name}
+                        onChange={handleInputChange}
+                      />
 
-                      <div className='relative'>
-                        <Label
-                          htmlFor='phone'
-                          className='text-sm font-medium text-slate-700'
-                        >
-                          Phone Number*
-                        </Label>
-                        <div className='mt-1 relative rounded-lg'>
-                          <div className='absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none'>
-                            <Phone className='h-4 w-4 text-slate-400' />
-                          </div>
-                          <Input
-                            id='phone'
-                            value={formData.phone}
-                            onChange={handleInputChange}
-                            className='pl-10 h-12 bg-slate-50 border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                            placeholder='Enter your phone number'
-                          />
-                        </div>
-                      </div>
+                      {/* Phone field */}
+                      <FormField
+                        id='phone'
+                        label='Phone Number*'
+                        icon={<Phone className='h-4 w-4 text-pink-400' />}
+                        placeholder='Enter your phone number'
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                      />
 
-                      <div className='relative'>
-                        <Label
-                          htmlFor='email'
-                          className='text-sm font-medium text-slate-700'
-                        >
-                          Company Email*
-                        </Label>
-                        <div className='mt-1 relative rounded-lg'>
-                          <div className='absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none'>
-                            <Mail className='h-4 w-4 text-slate-400' />
-                          </div>
-                          <Input
-                            id='email'
-                            type='email'
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            className='pl-10 h-12 bg-slate-50 border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                            placeholder='Enter your company email'
-                          />
-                        </div>
-                      </div>
+                      {/* Email field */}
+                      <FormField
+                        id='email'
+                        label='Company Email*'
+                        type='email'
+                        icon={<Mail className='h-4 w-4 text-pink-400' />}
+                        placeholder='Enter your company email'
+                        value={formData.email}
+                        onChange={handleInputChange}
+                      />
 
-                      <div className='relative'>
-                        <Label
-                          htmlFor='jobTitle'
-                          className='text-sm font-medium text-slate-700'
-                        >
-                          Job Title*
-                        </Label>
-                        <div className='mt-1 relative rounded-lg'>
-                          <div className='absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none'>
-                            <Briefcase className='h-4 w-4 text-slate-400' />
-                          </div>
-                          <Input
-                            id='jobTitle'
-                            value={formData.jobTitle}
-                            onChange={handleInputChange}
-                            className='pl-10 h-12 bg-slate-50 border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                            placeholder='Enter your job title'
-                          />
-                        </div>
-                      </div>
+                      {/* Job title field */}
+                      <FormField
+                        id='jobTitle'
+                        label='Job Title*'
+                        icon={<Briefcase className='h-4 w-4 text-pink-400' />}
+                        placeholder='Enter your job title'
+                        value={formData.jobTitle}
+                        onChange={handleInputChange}
+                      />
 
-                      <div className='relative'>
-                        <Label
-                          htmlFor='companyUrl'
-                          className='text-sm font-medium text-slate-700'
-                        >
-                          Company URL*
-                        </Label>
-                        <div className='mt-1 relative rounded-lg'>
-                          <div className='absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none'>
-                            <Globe className='h-4 w-4 text-slate-400' />
-                          </div>
-                          <Input
-                            id='companyUrl'
-                            value={formData.companyUrl}
-                            onChange={handleInputChange}
-                            className='pl-10 h-12 bg-slate-50 border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                            placeholder='Enter your company website'
-                          />
-                        </div>
-                      </div>
+                      {/* Company URL field */}
+                      <FormField
+                        id='companyUrl'
+                        label='Company URL*'
+                        icon={<Globe className='h-4 w-4 text-pink-400' />}
+                        placeholder='Enter your company website'
+                        value={formData.companyUrl}
+                        onChange={handleInputChange}
+                      />
 
-                      <div className='relative'>
+                      {/* Company size field */}
+                      <div className='relative space-y-1.5'>
                         <Label
                           htmlFor='companySize'
-                          className='text-sm font-medium text-slate-700'
+                          className='text-sm font-medium text-gray-700'
                         >
                           Company Size
                         </Label>
-                        <div className='mt-1 relative rounded-lg'>
+                        <div className='relative rounded-lg'>
                           <div className='absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none'>
-                            <Users className='h-4 w-4 text-slate-400' />
+                            <Users className='h-4 w-4 text-pink-400' />
                           </div>
                           <Select
                             onValueChange={handleCompanySizeChange}
                             value={formData.companySize}
                           >
-                            <SelectTrigger className='pl-10 h-12 bg-slate-50 border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'>
+                            <SelectTrigger className='pl-10 h-12 bg-white border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 shadow-sm'>
                               <SelectValue placeholder='Select company size' />
                             </SelectTrigger>
                             <SelectContent>
@@ -336,23 +408,49 @@ const DemoRequestSection = () => {
                       </div>
                     </div>
 
-                    <Button
-                      type='button'
-                      onClick={handleChooseDateClick}
-                      className='w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 
-                    text-white font-semibold h-12 rounded-lg transition-all duration-300 flex items-center justify-center gap-2'
+                    <motion.div
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
                     >
-                      <Calendar className='w-5 h-5' />
-                      Choose Date
-                      <ArrowRight className='w-5 h-5' />
-                    </Button>
+                      <Button
+                        type='button'
+                        onClick={handleChooseDateClick}
+                        className='w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 
+                          text-white font-semibold h-12 rounded-lg transition-all duration-300 
+                          flex items-center justify-center gap-2 shadow-lg shadow-pink-500/20'
+                      >
+                        <Calendar className='w-5 h-5' />
+                        Choose Date & Time
+                        <ArrowRight className='w-5 h-5' />
+                      </Button>
+                    </motion.div>
                   </form>
                 </CardContent>
               </Card>
             </motion.div>
           </div>
+
+          {/* Testimonial area */}
+          <motion.div
+            variants={itemVariants}
+            className='text-center max-w-2xl mx-auto pt-8'
+          >
+            <div className='inline-flex mb-4'>
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className='w-5 h-5 text-pink-400 fill-pink-400' />
+              ))}
+            </div>
+            <p className='text-lg text-gray-700 italic'>
+              "The demo absolutely blew us away! We signed up immediately and
+              haven't looked back. Our bookings are up 37% in just two months."
+            </p>
+            <p className='mt-3 font-medium text-gray-900'>
+              – Jessica Williams, Pure Glow Medical Spa
+            </p>
+          </motion.div>
         </motion.div>
       </div>
+
       <SchedulingSystem
         isOpen={isSchedulingOpen}
         onClose={() => setIsSchedulingOpen(false)}
