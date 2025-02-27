@@ -16,7 +16,6 @@ import {
 } from './BackgroundEffects'
 import BrandShowcase from './BrandShowcase'
 import PreviewDisplay from './PreviewDisplay'
-import TransparentBadgeSlider from './TransparentBadgeSlider'
 
 // Animated feature card component
 const FeatureCard = ({ icon: Icon, text, delay }) => (

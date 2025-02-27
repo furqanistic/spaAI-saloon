@@ -562,23 +562,6 @@ const FeaturesShowcase = () => {
         </div>
 
         {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className='text-center relative'
-        >
-          <button className='bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-4 rounded-full font-medium text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center mx-auto'>
-            Get Started Today
-            <ArrowRight className='ml-2 h-5 w-5' />
-          </button>
-          <p className='mt-4 text-gray-500'>
-            Experience the future of med spa management
-          </p>
-
-          {/* Decorative CTA elements */}
-          <div className='absolute -top-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-pink-300 to-purple-300 rounded-full opacity-70'></div>
-        </motion.div>
       </div>
     </div>
   )
