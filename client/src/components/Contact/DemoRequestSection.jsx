@@ -266,7 +266,7 @@ const DemoRequestSection = () => {
             </motion.div>
 
             <h1 className='text-4xl md:text-6xl font-bold mb-6 leading-tight'>
-              Transform Your Med Spa
+              Transform Your Beauty Practice
               <span className='bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600'>
                 {' '}
                 with AI
@@ -274,9 +274,9 @@ const DemoRequestSection = () => {
             </h1>
 
             <p className='text-lg md:text-xl text-gray-600'>
-              A new era of Med Spa Success has arrived. Traditional marketing
-              and booking systems haven't kept up. It's time for something
-              smarter.
+              A new era of Beauty Practice Success has arrived. Traditional
+              marketing and booking systems haven't kept up. It's time for
+              something smarter.
             </p>
           </motion.div>
 
@@ -291,8 +291,8 @@ const DemoRequestSection = () => {
 
                 <p className='text-lg text-gray-600 mb-12'>
                   Whether you're looking to increase revenue, automate
-                  operations, or fill your calendar, our Med Spa growth experts
-                  are ready to help.
+                  operations, or fill your calendar, our Beauty Practice growth
+                  experts are ready to help.
                 </p>
 
                 <div className='space-y-8'>

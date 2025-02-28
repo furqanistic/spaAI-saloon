@@ -71,7 +71,7 @@ const Mission = () => {
           className='text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#38b5ff] to-blue-600'
           {...fadeIn}
         >
-          Transforming Med Spa Success
+          Transforming Beauty Practice Success
           <br />
           Starts With Us
         </motion.h1>

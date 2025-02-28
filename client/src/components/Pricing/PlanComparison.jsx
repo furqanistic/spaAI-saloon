@@ -127,7 +127,7 @@ const PlanComparison = () => {
           core: false,
           pro: false,
           premium: true,
-          info: 'Advanced SEO optimization for your med spa',
+          info: 'Advanced SEO optimization for your beauty practice',
         },
         {
           name: 'Support Level',
@@ -197,8 +197,8 @@ const PlanComparison = () => {
           Choose Your Growth Path
         </h2>
         <p className='text-gray-600 max-w-2xl mx-auto'>
-          Find the perfect plan for your med spa's needs. All plans include our
-          core features.
+          Find the perfect plan for your beauty practice's needs. All plans
+          include our core features.
         </p>
       </div>
 

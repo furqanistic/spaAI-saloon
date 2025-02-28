@@ -42,7 +42,7 @@ const Values = () => {
       number: '02',
       title: 'Excellence in Automation',
       description:
-        'We believe in intelligent automation that enhances human capabilities. Our platform streamlines routine tasks while preserving the personal touch that makes each med spa unique, creating perfect harmony between efficiency and personalization.',
+        'We believe in intelligent automation that enhances human capabilities. Our platform streamlines routine tasks while preserving the personal touch that makes each beauty practice unique, creating perfect harmony between efficiency and personalization.',
       icon: Star,
       gradient: 'from-blue-400 to-purple-400',
     },
@@ -58,7 +58,7 @@ const Values = () => {
       number: '04',
       title: 'Seamless Integration',
       description:
-        'We understand that every med spa is unique. Our platform adapts to your existing workflows and systems, creating a unified experience that enhances rather than disrupts your established processes and client relationships.',
+        'We understand that every beauty practice is unique. Our platform adapts to your existing workflows and systems, creating a unified experience that enhances rather than disrupts your established processes and client relationships.',
       icon: Calendar,
       gradient: 'from-pink-400 to-[#38b5ff]',
     },

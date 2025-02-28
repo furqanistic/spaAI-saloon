@@ -25,7 +25,7 @@ const ImageSlider = () => {
     {
       image:
         'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHNwYXxlbnwwfHwwfHx8Mg%3D%3D',
-      title: 'Transform Your Med Spa Experience',
+      title: 'Transform Your Beauty Practice Experience',
       description: 'AI-powered solutions that elevate every client interaction',
       tag: 'Platform Overview',
       color: 'from-fuchsia-600/90 to-purple-800/90',

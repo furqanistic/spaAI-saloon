@@ -69,7 +69,7 @@ const OnboardingSupport = () => {
       icon: <BookOpen className='w-6 h-6 text-[#38b5ff]' />,
     },
     {
-      title: 'Med Spa Strategy Consulting',
+      title: 'Beauty Practice Strategy Consulting',
       description: 'Expert guidance on marketing and operational strategies.',
       details: 'Industry-specific advice to grow your business.',
       icon: <Layers className='w-6 h-6 text-[#38b5ff]' />,
@@ -133,7 +133,8 @@ const OnboardingSupport = () => {
             className='text-gray-600 max-w-3xl mx-auto text-lg'
           >
             We're with you every step of the way, from implementation to ongoing
-            optimization, ensuring your med spa gets the most from our platform.
+            optimization, ensuring your beauty practice gets the most from our
+            platform.
           </motion.p>
         </div>
 
@@ -186,7 +187,7 @@ const OnboardingSupport = () => {
                 step: 1,
                 title: 'Discovery',
                 description:
-                  'We learn about your unique med spa needs and goals',
+                  'We learn about your unique beauty practice needs and goals',
                 icon: <HelpCircle className='w-6 h-6 text-[#38b5ff]' />,
               },
               {
@@ -334,9 +335,9 @@ const OnboardingSupport = () => {
 
           <div className='mt-6 text-center'>
             <p className='text-gray-600'>
-              Our support team has extensive experience in the med spa industry,
-              providing not just technical help, but valuable business insights
-              as well.
+              Our support team has extensive experience in the beauty practice
+              industry, providing not just technical help, but valuable business
+              insights as well.
             </p>
           </div>
         </motion.div>
@@ -351,7 +352,7 @@ const OnboardingSupport = () => {
           <h2 className='text-2xl font-bold mb-4'>Ready for Expert Support?</h2>
           <p className='mb-6 max-w-2xl mx-auto'>
             We're committed to your success with personalized onboarding and
-            ongoing support tailored to your med spa's needs.
+            ongoing support tailored to your beauty practice's needs.
           </p>
           <button
             onClick={handleDemoClick}

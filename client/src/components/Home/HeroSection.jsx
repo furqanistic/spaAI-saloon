@@ -95,14 +95,14 @@ const HeroSection = () => {
         className='top-24 left-1/3 lg:flex hidden' // New position for better visibility
       />
 
-      <div className='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16'>
-        <div className='grid lg:grid-cols-2 gap-16 items-center'>
-          {/* Left Column */}
+      <div className='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-32 pb-16 overflow-visible'>
+        <div className='grid lg:grid-cols-2 gap-8 items-center'>
+          {/* Left Column - keeping the original size */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
-            className='space-y-8'
+            className='space-y-8 order-2 lg:order-1'
           >
             {/* Enhanced Badge */}
             <motion.div
@@ -122,7 +122,7 @@ const HeroSection = () => {
               />
               <Sparkles className='w-4 h-4 mr-2 text-purple-600' />
               <span className='text-sm font-semibold text-purple-700'>
-                All-in-One Med Spa Solution
+                All-in-One Beauty Practice Solution
               </span>
             </motion.div>
 
@@ -132,7 +132,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className='text-5xl sm:text-6xl font-bold tracking-tight'
+                className='text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight'
               >
                 <span className='block text-gray-900'>
                   The Proven System Med Spas Need
@@ -204,14 +204,17 @@ const HeroSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Column - Enhanced Dashboard Preview */}
+          {/* Right Column - Enhanced Dashboard Preview that extends to the right edge */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
-            className='relative'
+            className='relative order-1 lg:order-2'
           >
-            <PreviewDisplay />
+            {/* Removed negative margin on mobile, only apply on larger screens */}
+            <div className='lg:mr-[-4rem] xl:mr-[-8rem] 2xl:mr-[-12rem] mx-auto max-w-md sm:max-w-lg md:max-w-xl lg:max-w-none'>
+              <PreviewDisplay />
+            </div>
           </motion.div>
         </div>
       </div>

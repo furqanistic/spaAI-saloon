@@ -53,7 +53,8 @@ const ContactPage = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className='text-lg sm:text-xl md:text-2xl text-blue-100 max-w-3xl text-center'
             >
-              Transform your med spa with RadiantAI's cutting-edge AI solutions
+              Transform your beauty practice with RadiantAI's cutting-edge AI
+              solutions
             </motion.p>
           </div>
 

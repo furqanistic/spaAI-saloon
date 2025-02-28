@@ -141,11 +141,11 @@ const Navbar = () => {
       ],
     },
     {
-      name: 'Med Spa Essentials',
+      name: 'Beauty Practice Essentials',
       items: [
         {
           title: 'Industry-Specific Features',
-          description: 'Med spa tailored campaigns & promotions',
+          description: 'Beauty practice tailored campaigns & promotions',
           icon: <Star className='w-5 h-5 text-cyan-500' />,
           path: '/services/industry-features',
         },
@@ -242,8 +242,8 @@ const Navbar = () => {
                             </h3>
                             <div className='h-1 w-20 bg-pink-500 mt-1'></div>
                             <p className='text-gray-600 mt-2 text-sm'>
-                              Comprehensive solutions to streamline your med spa
-                              operations
+                              Comprehensive solutions to streamline your beauty
+                              practice operations
                             </p>
                           </div>
                           {/* Service categories */}

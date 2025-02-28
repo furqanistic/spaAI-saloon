@@ -11,14 +11,15 @@ const FAQ = () => {
 
   const faqItems = [
     {
-      question: 'What makes RadiantAI different from other med spa software?',
+      question:
+        'What makes RadiantAI different from other beauty practice software?',
       answer:
         'RadiantAI stands out by combining AI-driven automation with a human touch. Unlike platforms that focus solely on automation, we offer a perfect balance that streamlines operations while maintaining the personal connections that drive client loyalty and business growth.',
     },
     {
       question: 'How does RadiantAI help with lead generation?',
       answer:
-        'Our platform includes high-converting landing pages optimized for med spa offers, lead forms with exit-intent pop-ups, seamless appointment booking widgets, and compliant SMS & email opt-in campaigns. All these features work together to capture and nurture more qualified leads for your med spa.',
+        'Our platform includes high-converting landing pages optimized for beauty practice offers, lead forms with exit-intent pop-ups, seamless appointment booking widgets, and compliant SMS & email opt-in campaigns. All these features work together to capture and nurture more qualified leads for your beauty practice.',
     },
     {
       question: 'Can RadiantAI integrate with my existing tools and systems?',
@@ -67,7 +68,7 @@ const FAQ = () => {
           </h2>
           <p className='text-lg text-gray-600 max-w-3xl mx-auto'>
             Common questions about our platform, features, and how we can help
-            your med spa grow.
+            your beauty practice grow.
           </p>
         </motion.div>
 

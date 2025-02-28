@@ -107,8 +107,8 @@ const PaymentProcessing = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className='text-gray-600 max-w-3xl mx-auto text-lg'
           >
-            Streamline your med spa's financial operations with secure payment
-            processing, subscription management, and insightful revenue
+            Streamline your beauty practice's financial operations with secure
+            payment processing, subscription management, and insightful revenue
             tracking.
           </motion.p>
         </div>

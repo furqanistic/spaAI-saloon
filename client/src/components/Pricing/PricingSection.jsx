@@ -546,7 +546,8 @@ const SharedFeatures = () => (
         Included in All Plans
       </h2>
       <p className='text-gray-600'>
-        The same set of core features to elevate your med spa experience.
+        The same set of core features to elevate your beauty practice
+        experience.
       </p>
     </div>
 
@@ -602,7 +603,7 @@ const PricingSection = () => {
           className='text-lg text-gray-600 max-w-2xl mx-auto'
         >
           We've created RadiantMD plans to scale based on your unique needs,
-          with beautiful solutions to help your med spa shine.
+          with beautiful solutions to help your beauty practice shine.
         </motion.p>
       </div>
 
@@ -636,7 +637,7 @@ const PricingSection = () => {
           </h3>
           <p className='text-gray-600 mb-6'>
             Our beauty experts are ready to help you find the perfect fit for
-            your med spa needs.
+            your beauty practice needs.
           </p>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button

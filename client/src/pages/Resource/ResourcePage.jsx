@@ -13,8 +13,8 @@ const TestimonialsPage = () => {
     {
       id: 1,
       title:
-        'How This Med Spa Turned $600 into $14,640 with Smart Marketing | Med Spa Growth Case Study',
-      description: `Lina wanted more bookings for her med spa but didn't want to waste money on ads that don't work.
+        'How This Beauty Practice Turned $600 into $14,640 with Smart Marketing | Beauty Practice Growth Case Study',
+      description: `Lina wanted more bookings for her beauty practice but didn't want to waste money on ads that don't work.
 She spent just $600 on marketing and got $14,640 in return—without relying on deep discounts or referrals.
 In this video, she shares her experience and what made the biggest impact.`,
       thumbnail: '/thumbnail/lina.webp',
@@ -23,8 +23,8 @@ In this video, she shares her experience and what made the biggest impact.`,
     },
     {
       id: 2,
-      title: 'This Is How Mozan Doubled Her Med Spa Bookings to 100+',
-      description: `Mozan was booking around 31 appointments a month. She knew her med spa could do more, but things just weren't clicking.
+      title: 'This Is How Mozan Doubled Her Beauty Practice Bookings to 100+',
+      description: `Mozan was booking around 31 appointments a month. She knew her beauty practice could do more, but things just weren't clicking.
 Now? She's consistently getting 100+ appointments a month—and she didn't have to discount everything or rely on referrals.`,
       thumbnail: '/thumbnail/movan.webp',
       videoId: 'XgZpKqf3sNI',
@@ -33,8 +33,8 @@ Now? She's consistently getting 100+ appointments a month—and she didn't have 
     {
       id: 3,
       title:
-        'How She Grew Her Med Spa Revenue from $7,600 to $19,763 in 28 Days | Real-Life Testimonial',
-      description: `Yasmin was making $7,600 a month at her med spa, but she knew she could be doing more.
+        'How She Grew Her Beauty Practice Revenue from $7,600 to $19,763 in 28 Days | Real-Life Testimonial',
+      description: `Yasmin was making $7,600 a month at her beauty practice, but she knew she could be doing more.
 Fast forward 28 days… she pulled in $19,763 cash collected.
 She's sharing her experience and what this growth has meant for her business.`,
       thumbnail: '/thumbnail/ayah.webp',
@@ -44,7 +44,7 @@ She's sharing her experience and what this growth has meant for her business.`,
     {
       id: 4,
       title:
-        'How to Scale Your Med Spa FAST | From 14 to 60+ Appointments in Just 4 Weeks (Proven Strategy)',
+        'How to Scale Your Beauty Practice FAST | From 14 to 60+ Appointments in Just 4 Weeks (Proven Strategy)',
       description: `Rita was stuck and knew she could be making more—but she wasn't sure how.
 From just 14 appointments per month to over 60+ high-paying clients in ONLY 4 weeks—without discounts, endless referrals, or relying on word-of-mouth.`,
       thumbnail: '/thumbnail/rita.webp',
@@ -54,7 +54,7 @@ From just 14 appointments per month to over 60+ high-paying clients in ONLY 4 we
     {
       id: 5,
       title:
-        'How We Took This Med Spa from 17 to 51 Appointments in 30 Days! 🚀 (Case Study)',
+        'How We Took This Beauty Practice from 17 to 51 Appointments in 30 Days! 🚀 (Case Study)',
       description: `Meet Viergela! She was stuck at just 17 appointments a month… but she didn't give up 💪 In just 30 days, she skyrocketed to 51 appointments for Semiglutide and Tirzepatide clients! 🙌`,
       thumbnail: '/thumbnail/viergela.webp',
       videoId: 'rdyoecMrtSM',

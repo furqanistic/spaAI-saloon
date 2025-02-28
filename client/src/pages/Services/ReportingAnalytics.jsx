@@ -99,7 +99,7 @@ const ReportingAnalytics = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className='text-gray-600 max-w-3xl mx-auto text-lg'
           >
-            Gain powerful insights into your med spa's performance with
+            Gain powerful insights into your beauty practice's performance with
             customizable analytics dashboards and comprehensive reporting tools.
           </motion.p>
         </div>
@@ -372,8 +372,8 @@ const ReportingAnalytics = () => {
           <div className='text-center'>
             <p className='text-gray-600 mb-4'>
               Fully customizable dashboards that give you real-time insights
-              into your med spa's performance. Track KPIs, identify trends, and
-              make data-driven decisions.
+              into your beauty practice's performance. Track KPIs, identify
+              trends, and make data-driven decisions.
             </p>
             <div className='flex flex-wrap justify-center gap-3'>
               {[
@@ -718,8 +718,9 @@ const ReportingAnalytics = () => {
             Ready to Make Data-Driven Decisions?
           </h2>
           <p className='mb-6 max-w-2xl mx-auto'>
-            Transform your med spa with powerful analytics tools that reveal
-            what's working, what's not, and where your best opportunities lie.
+            Transform your beauty practice with powerful analytics tools that
+            reveal what's working, what's not, and where your best opportunities
+            lie.
           </p>
           <button
             onClick={handleDemoClick}

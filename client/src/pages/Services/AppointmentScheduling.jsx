@@ -90,8 +90,8 @@ const AppointmentScheduling = () => {
             className='text-gray-600 max-w-3xl mx-auto text-lg'
           >
             Streamline your booking process, reduce no-shows, and maximize your
-            med spa's schedule with our intelligent appointment management
-            system.
+            beauty practice's schedule with our intelligent appointment
+            management system.
           </motion.p>
         </div>
 

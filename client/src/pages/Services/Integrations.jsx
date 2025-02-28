@@ -170,8 +170,9 @@ const Integrations = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className='text-gray-600 max-w-3xl mx-auto text-lg'
           >
-            Connect your med spa platform with your favorite tools and services
-            to create a seamless tech ecosystem that powers your business.
+            Connect your beauty practice platform with your favorite tools and
+            services to create a seamless tech ecosystem that powers your
+            business.
           </motion.p>
         </div>
 
@@ -346,8 +347,8 @@ const Integrations = () => {
             Ready to Connect Your Tools?
           </h2>
           <p className='mb-6 max-w-2xl mx-auto'>
-            Create a seamless tech ecosystem for your med spa with our extensive
-            integration options.
+            Create a seamless tech ecosystem for your beauty practice with our
+            extensive integration options.
           </p>
           <button
             onClick={handleDemoClick}

@@ -17,43 +17,30 @@ import React, { useEffect, useState } from 'react'
 const FeaturesShowcase = () => {
   const features = [
     {
-      id: 1,
-      title: 'Client Communication',
-      description:
-        'Real-time messaging with smart templates and automated follow-ups',
-      image: '/feature/fea1.png',
-      icon: <MessageSquare className='h-5 w-5' />,
-      color: 'from-pink-400 to-pink-600',
-      specialRender: false,
-    },
-    {
       id: 2,
       title: 'Automated Reminders',
       description:
         'Reduce no-shows with smart scheduling and personalized notifications',
-      image: '/feature/fea2.png',
+      image: '/feature/fea1.png',
       icon: <Clock className='h-5 w-5' />,
       color: 'from-purple-400 to-purple-600',
-      specialRender: false,
     },
     {
       id: 3,
       title: 'Content Calendar',
       description:
         'Plan and schedule your marketing with our AI-powered calendar',
-      image: '/feature/fea3.png',
+      image: '/feature/fea8.png',
       icon: <Calendar className='h-5 w-5' />,
       color: 'from-blue-400 to-blue-600',
-      specialRender: false,
     },
     {
       id: 4,
       title: 'Database Integration',
       description: 'Connect all your tools in one powerful central hub',
-      image: '/feature/fea4.png',
+      image: '/feature/fea7.png',
       icon: <BarChart3 className='h-5 w-5' />,
       color: 'from-indigo-400 to-indigo-600',
-      specialRender: false,
     },
     {
       id: 5,
@@ -63,36 +50,41 @@ const FeaturesShowcase = () => {
       image: '/feature/fea5.png',
       icon: <Zap className='h-5 w-5' />,
       color: 'from-teal-400 to-teal-600',
-      specialRender: false,
     },
     {
       id: 6,
       title: 'Patient Revival AI',
       description:
         'Re-engage dormant clients with intelligent, personalized campaigns',
-      image: '/feature/fea6.png',
+      image: '/feature/fea4.png',
       icon: <Users className='h-5 w-5' />,
       color: 'from-amber-400 to-amber-600',
-      specialRender: false, // This feature has a special render function
     },
     {
       id: 7,
       title: 'Reputation Management',
       description:
         'Build and manage your online presence with review automation',
-      image: '/feature/fea7.png',
+      image: '/feature/fea3.png',
       icon: <Star className='h-5 w-5' />,
       color: 'from-rose-400 to-rose-600',
-      specialRender: false,
+    },
+    {
+      id: 1,
+      title: 'Smart Nurture',
+      description: 'Guide prospects through personalized conversion journeys',
+      image: '/feature/fea2.png',
+      icon: <Sparkles className='h-5 w-5' />,
+      color: 'from-violet-400 to-violet-600',
     },
     {
       id: 8,
-      title: 'Smart Nurture',
-      description: 'Guide prospects through personalized conversion journeys',
-      image: '/feature/fea8.png',
-      icon: <Sparkles className='h-5 w-5' />,
-      color: 'from-violet-400 to-violet-600',
-      specialRender: false,
+      title: 'Client Communication',
+      description:
+        'Real-time messaging with smart templates and automated follow-ups',
+      image: '/feature/fea6.png',
+      icon: <MessageSquare className='h-5 w-5' />,
+      color: 'from-pink-400 to-pink-600',
     },
   ]
 
@@ -159,9 +151,8 @@ const FeaturesShowcase = () => {
     }),
   }
 
-  // Render Standard Feature
-
-  const renderStandardFeature = (feature) => {
+  // Render Feature - Standard for all features
+  const renderFeature = (feature) => {
     return (
       <div className='relative w-full h-full flex items-center justify-center p-6'>
         {/* Enhanced paper-like background with gradient matching feature color */}
@@ -184,7 +175,7 @@ const FeaturesShowcase = () => {
         ></motion.div>
 
         {/* Featured image with improved presentation - GREATLY ENLARGED */}
-        <div className='relative z-10 bg-white rounded-2xl shadow-lg p-5 border border-gray-100 transform transition-all duration-500 hover:scale-102 overflow-hidden flex items-center justify-center w-5/6 h-5/6'>
+        <div className='relative z-10 bg-white rounded-2xl shadow-lg p-4 border border-gray-100 transform transition-all duration-500 hover:scale-102 overflow-hidden flex items-center justify-center w-11/12 h-11/12'>
           {/* Gradient background that matches feature color */}
           <div
             className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-10`}
@@ -206,158 +197,6 @@ const FeaturesShowcase = () => {
         </div>
 
         {/* Feature label with improved design - moved slightly up to accommodate larger image */}
-        <div className='absolute bottom-10 backdrop-blur-md bg-white bg-opacity-90 border-2 border-white rounded-2xl shadow-lg px-6 py-3 flex items-center space-x-3 max-w-sm z-50'>
-          <div
-            className={`p-3 rounded-full bg-gradient-to-r ${feature.color} text-white shadow-md`}
-          >
-            {feature.icon}
-          </div>
-          <div className='flex-1 min-w-0'>
-            <h3 className='font-bold text-lg text-gray-800 truncate'>
-              {feature.title}
-            </h3>
-            <p className='text-sm text-gray-600 mt-1 line-clamp-2'>
-              {feature.description}
-            </p>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  // Updated Database Integration Feature with larger visuals
-
-  const renderDatabaseIntegration = () => {
-    return (
-      <div className='relative w-full h-full flex items-center justify-center p-6'>
-        {/* Paper-like background with lighter color - expanded */}
-        <div className='absolute inset-8 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl shadow-inner'></div>
-
-        {/* Central hub graphic - increased size */}
-        <div className='relative z-20 w-5/6 h-5/6 flex items-center justify-center'>
-          <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-28 h-28 bg-indigo-900 rounded-xl shadow-lg flex items-center justify-center z-30'>
-            <span className='text-white font-bold text-sm text-center'>
-              radiantAI
-            </span>
-          </div>
-
-          {/* Connection lines - thicker */}
-          <div className='absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-300 z-10 border-dashed border-gray-300'></div>
-          <div className='absolute top-1/2 left-0 transform -translate-y-1/2 h-1 w-full bg-gray-300 z-10 border-dashed border-gray-300'></div>
-
-          {/* Connection boxes - larger and more prominent */}
-          <div className='absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2 bg-white px-5 py-3 rounded-full shadow-md z-20 flex items-center gap-2'>
-            <span className='text-base font-medium'>Scheduling</span>
-            <div className='flex gap-1'>
-              <span className='w-6 h-6 rounded-full bg-orange-500'></span>
-              <span className='w-6 h-6 rounded-full bg-blue-500'></span>
-            </div>
-          </div>
-
-          <div className='absolute top-1/4 right-1/4 transform translate-x-1/2 -translate-y-1/2 bg-white px-5 py-3 rounded-full shadow-md z-20 flex items-center gap-2'>
-            <span className='text-base font-medium'>Payments</span>
-            <div className='flex gap-1'>
-              <span className='w-6 h-6 rounded-full bg-blue-500'></span>
-              <span className='w-6 h-6 rounded-full bg-gray-800'></span>
-            </div>
-          </div>
-
-          <div className='absolute bottom-1/4 left-1/4 transform -translate-x-1/2 translate-y-1/2 bg-white px-5 py-3 rounded-full shadow-md z-20 flex items-center gap-2'>
-            <span className='text-base font-medium'>Communication</span>
-            <div className='flex gap-1'>
-              <span className='w-6 h-6 rounded-full bg-green-500'></span>
-              <span className='w-6 h-6 rounded-full bg-red-500'></span>
-            </div>
-          </div>
-
-          <div className='absolute bottom-1/4 right-1/4 transform translate-x-1/2 translate-y-1/2 bg-white px-5 py-3 rounded-full shadow-md z-20 flex items-center gap-2'>
-            <span className='text-base font-medium'>Business Growth</span>
-            <div className='flex gap-1'>
-              <span className='w-6 h-6 rounded-full bg-blue-500'></span>
-              <span className='w-6 h-6 rounded-full bg-orange-500'></span>
-            </div>
-          </div>
-
-          <div className='absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-white px-5 py-3 rounded-full shadow-md z-20 flex items-center gap-2'>
-            <span className='text-base font-medium'>Platforms</span>
-            <div className='flex gap-1'>
-              <span className='w-6 h-6 rounded-full bg-black'></span>
-              <span className='w-6 h-6 rounded-full bg-pink-500'></span>
-              <span className='w-6 h-6 rounded-full bg-blue-500'></span>
-            </div>
-          </div>
-        </div>
-
-        {/* Feature label */}
-        <div className='absolute bottom-10 backdrop-blur-md bg-white bg-opacity-90 border-2 border-white rounded-2xl shadow-lg px-6 py-3 flex items-center space-x-3 max-w-sm z-50'>
-          <div
-            className={`p-3 rounded-full bg-gradient-to-r from-indigo-400 to-indigo-600 text-white shadow-md`}
-          >
-            <BarChart3 className='h-5 w-5' />
-          </div>
-          <div className='flex-1 min-w-0'>
-            <h3 className='font-bold text-lg text-gray-800 truncate'>
-              Database Integration
-            </h3>
-            <p className='text-sm text-gray-600 mt-1 line-clamp-2'>
-              Connect all your tools in one powerful central hub
-            </p>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  // Render Patient Revival AI Feature (ID: 6)
-
-  const renderPatientRevivalAI = () => {
-    return (
-      <div className='relative w-full h-full flex items-center justify-center p-6 overflow-visible'>
-        {/* Enhanced paper-like background with amber gradient */}
-        <div className='absolute inset-8 bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl shadow-inner z-10'></div>
-
-        {/* Single image container - GREATLY ENLARGED */}
-        <div className='relative z-30 flex items-center justify-center w-5/6 h-5/6'>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className='bg-white rounded-3xl p-5 shadow-xl transform transition-all duration-300 hover:scale-102 z-30 w-full h-full'
-          >
-            {/* Gradient background within the container */}
-            <div className='absolute inset-0 bg-gradient-to-br from-amber-400 to-amber-600 opacity-10 rounded-3xl'></div>
-
-            <div className='overflow-hidden rounded-2xl border border-gray-200 relative w-full h-full flex items-center justify-center'>
-              {/* Decorative elements */}
-              <div className='absolute -bottom-12 -right-12 w-48 h-48 bg-gradient-to-tl from-amber-400 to-amber-600 opacity-20 rounded-tl-full z-0'></div>
-              <div className='absolute -top-12 -left-12 w-36 h-36 bg-gradient-to-br from-amber-400 to-amber-600 opacity-20 rounded-br-full z-0'></div>
-
-              <img
-                src='/feature/fea6.png'
-                alt='Patient Revival AI'
-                className='w-full h-full object-contain z-10'
-              />
-            </div>
-            {/* Decorative elements */}
-            <div className='absolute -bottom-3 -right-3 w-8 h-8 bg-amber-200 rounded-full z-20'></div>
-            <div className='absolute -top-3 -left-3 w-6 h-6 bg-amber-300 rounded-full z-20'></div>
-          </motion.div>
-        </div>
-
-        {/* Feature label - positioned with highest z-index */}
-        <div className='absolute bottom-10 backdrop-blur-md bg-white bg-opacity-90 border-2 border-white rounded-2xl shadow-lg px-6 py-3 flex items-center space-x-3 max-w-sm z-50'>
-          <div className='p-3 rounded-full bg-gradient-to-r from-amber-400 to-amber-600 text-white shadow-md'>
-            <Users className='h-5 w-5' />
-          </div>
-          <div className='flex-1 min-w-0'>
-            <h3 className='font-bold text-lg text-gray-800 truncate'>
-              Patient Revival AI
-            </h3>
-            <p className='text-sm text-gray-600 mt-1 line-clamp-2'>
-              Re-engage dormant clients with intelligent, personalized campaigns
-            </p>
-          </div>
-        </div>
       </div>
     )
   }
@@ -410,7 +249,7 @@ const FeaturesShowcase = () => {
             className='text-4xl md:text-5xl font-bold mb-4'
           >
             <span className='bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600'>
-              Med Spa Reimagined
+              Beauty Practices Reimagined
             </span>
           </motion.h2>
           <motion.p
@@ -503,12 +342,8 @@ const FeaturesShowcase = () => {
                 ></div>
               </div>
 
-              {/* Choose between different feature displays based on the feature */}
-              {features[activeFeature].id === 4
-                ? renderDatabaseIntegration()
-                : features[activeFeature].id === 6
-                ? renderPatientRevivalAI()
-                : renderStandardFeature(features[activeFeature])}
+              {/* Use the standard render function for all features */}
+              {renderFeature(features[activeFeature])}
             </motion.div>
 
             {/* Improved navigation arrows */}

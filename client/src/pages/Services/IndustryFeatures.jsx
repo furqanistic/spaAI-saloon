@@ -197,7 +197,7 @@ const IndustryFeatures = () => {
           className='bg-gradient-to-r from-[#38b5ff] to-[#3888ff] rounded-2xl p-6 shadow-lg text-center text-white'
         >
           <h2 className='text-2xl font-bold mb-4'>
-            Ready to Use Med Spa Specific Tools?
+            Ready to Use Beauty Practice Specific Tools?
           </h2>
           <p className='mb-6 max-w-2xl mx-auto'>
             Our platform is designed specifically for med spas, with features

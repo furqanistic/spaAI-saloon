@@ -158,7 +158,7 @@ const RadiantFeatures = () => {
       icon: Calendar,
       title: 'Smart Scheduling',
       description:
-        'Streamline your med spa bookings with automated scheduling, reminders, and waitlist management to maximize your calendar.',
+        'Streamline your beauty practice bookings with automated scheduling, reminders, and waitlist management to maximize your calendar.',
     },
     {
       icon: Bot,

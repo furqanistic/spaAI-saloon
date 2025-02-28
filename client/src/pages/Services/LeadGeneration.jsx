@@ -44,7 +44,7 @@ const LeadGeneration = () => {
     {
       title: 'Custom Landing Pages',
       description:
-        'High-converting landing pages optimized for med spa offers (e.g., discounts, free consultations).',
+        'High-converting landing pages optimized for beauty practice offers (e.g., discounts, free consultations).',
       details: 'Mobile-friendly and customizable templates.',
       icon: <Layout className='w-6 h-6 text-[#38b5ff]' />,
     },
@@ -194,8 +194,8 @@ const LeadGeneration = () => {
             Ready to Boost Your Lead Generation?
           </h2>
           <p className='mb-6 max-w-2xl mx-auto'>
-            Transform your med spa's lead capture process and start converting
-            more visitors into paying clients today.
+            Transform your beauty practice's lead capture process and start
+            converting more visitors into paying clients today.
           </p>
           <Link to='/demo'>
             <button className='bg-white text-[#38b5ff] px-8 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-md flex items-center mx-auto'>

@@ -363,7 +363,7 @@ const FeatureSection = () => {
       title: 'AI Staff & Automations',
       subtitle: 'Enhanced Efficiency',
       description:
-        'Revolutionize your med spa operations with AI-powered staff and automations that ensure consistent service delivery and seamless scaling of your business.',
+        'Revolutionize your beauty practice operations with AI-powered staff and automations that ensure consistent service delivery and seamless scaling of your business.',
       features: [
         '24/7 availability',
         'Consistent follow-ups',
@@ -389,7 +389,7 @@ const FeatureSection = () => {
       title: 'Reputation Management',
       subtitle: 'Build Trust & Credibility',
       description:
-        "Take control of your med spa's online presence with our comprehensive reputation management system. Automatically collect and showcase reviews while improving customer satisfaction.",
+        "Take control of your beauty practice's online presence with our comprehensive reputation management system. Automatically collect and showcase reviews while improving customer satisfaction.",
       features: ['Review Collection', 'Rating Management', 'Client Feedback'],
       image:
         'https://images.pexels.com/photos/18069421/pexels-photo-18069421/free-photo-of-artificial-intelligence-ai-this-image-depicts-how-ai-could-assist-in-genomic-studies-and-its-applications-it-was-created-by-artist-nidia-dias-as-part-of-the.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',

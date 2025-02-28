@@ -42,8 +42,8 @@ const WhoWeAre = () => {
     {
       icon: <Building2 className='w-6 h-6' aria-hidden='true' />,
       secondaryIcon: <Trophy className='w-4 h-4' />,
-      title: 'Med Spa Excellence',
-      description: 'Leading med spa marketing agency in Alberta',
+      title: 'Beauty Practice Excellence',
+      description: 'Leading beauty practice marketing agency in Alberta',
       color: 'from-purple-600 to-pink-500',
       stats: { value: '150+', label: 'Active Spas' },
     },

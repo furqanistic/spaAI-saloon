@@ -82,7 +82,7 @@ const Footer = () => {
           <div className='flex flex-col md:flex-row items-center justify-between gap-6 relative z-10'>
             <div className='text-center md:text-left'>
               <h2 className='text-2xl font-bold text-white mb-2'>
-                Elevate Your Med Spa Experience
+                Elevate Your Beauty Practice Experience
               </h2>
               <p className='text-pink-100 max-w-md'>
                 Subscribe for tips, strategies, and insights to grow your

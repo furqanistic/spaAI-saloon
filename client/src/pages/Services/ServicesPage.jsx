@@ -137,7 +137,7 @@ const ServicesPage = () => {
       ],
     },
     {
-      name: 'Med Spa Essentials',
+      name: 'Beauty Practice Essentials',
       slug: 'med-spa-essentials',
       description:
         'Cutting-edge features designed specifically for modern med spas',
@@ -147,7 +147,8 @@ const ServicesPage = () => {
       items: [
         {
           title: 'Industry-Specific Features',
-          description: 'AI-enhanced med spa campaigns & smart promotions',
+          description:
+            'AI-enhanced beauty practice campaigns & smart promotions',
           icon: <Star className='w-5 h-5 text-cyan-500' />,
           path: '/services/industry-features',
         },
@@ -246,8 +247,8 @@ const ServicesPage = () => {
                 transition={{ delay: 0.3, duration: 0.6 }}
               >
                 Next-generation solutions designed to streamline operations,
-                enhance client experiences, and revolutionize your med spa
-                business.
+                enhance client experiences, and revolutionize your beauty
+                practice business.
               </motion.p>
 
               {/* Animated accent line */}
