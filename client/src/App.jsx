@@ -19,6 +19,7 @@ import MarketingAutomation from './pages/Services/MarketingAutomation'
 import OnboardingSupport from './pages/Services/OnboardingSupport'
 import PaymentProcessing from './pages/Services/PaymentProcessing'
 import ReportingAnalytics from './pages/Services/ReportingAnalytics'
+import ServicesPage from './pages/Services/ServicesPage'
 import WhiteLabelingBranding from './pages/Services/WhiteLabelingBranding'
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
             <Route path='/demo' element={<DemoPage />} />
             <Route path='/privacy-policy' element={<PrivacyPolicy />} />
             <Route path='/terms' element={<TermsConditions />} />
+            <Route path='/services' element={<ServicesPage />} />
             <Route
               path='/services/lead-generation'
               element={<LeadGeneration />}

@@ -250,6 +250,7 @@ const ImageSlider = () => {
                     </motion.p>
 
                     <motion.button
+                      onClick={() => (window.location.href = '/services')}
                       className={`group inline-flex items-center gap-2 px-8 py-4 ${slides[currentIndex].accent} rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25`}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}

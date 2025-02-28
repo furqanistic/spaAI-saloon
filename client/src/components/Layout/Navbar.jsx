@@ -217,7 +217,13 @@ const Navbar = () => {
                 </NavigationMenuItem>
                 {menuItems.map((item) => (
                   <NavigationMenuItem key={item.title}>
-                    <NavigationMenuTrigger className='flex items-center text-gray-700 hover:text-pink-500 px-3 py-2 text-sm bg-transparent'>
+                    <NavigationMenuTrigger
+                      onClick={(e) => {
+                        e.preventDefault()
+                        navigate('/services')
+                      }}
+                      className='flex items-center text-gray-700 hover:text-pink-500 px-3 py-2 text-sm bg-transparent'
+                    >
                       {item.icon}
                       <span>{item.title}</span>
                     </NavigationMenuTrigger>
@@ -415,20 +421,27 @@ const Navbar = () => {
 
                 {menuItems.map((item) => (
                   <div key={item.title} className='space-y-1'>
-                    <button
-                      onClick={() => toggleSubmenu(item.title)}
-                      className='w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:text-pink-500 hover:bg-gray-50 rounded-md text-sm'
-                    >
-                      <span className='flex items-center'>
+                    <div className='w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:text-pink-500 hover:bg-gray-50 rounded-md text-sm'>
+                      <button
+                        onClick={() => navigate('/services')}
+                        className='flex items-center text-left'
+                      >
                         {item.icon}
                         <span>{item.title}</span>
-                      </span>
-                      <ChevronDown
-                        className={`w-4 h-4 transition-transform duration-200 ${
-                          activeSubmenu === item.title ? 'rotate-180' : ''
-                        }`}
-                      />
-                    </button>
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          toggleSubmenu(item.title)
+                        }}
+                      >
+                        <ChevronDown
+                          className={`w-4 h-4 transition-transform duration-200 ${
+                            activeSubmenu === item.title ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </button>
+                    </div>
 
                     <AnimatePresence>
                       {activeSubmenu === item.title && (

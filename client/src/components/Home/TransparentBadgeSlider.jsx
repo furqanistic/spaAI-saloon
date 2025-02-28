@@ -9,7 +9,6 @@ const badges = [
   { id: 8, imageSrc: '/Badges/badge5.webp', label: 'Impact' },
   { id: 6, imageSrc: '/Badges/badge6.png', label: 'Vision' },
   { id: 7, imageSrc: '/Badges/badge7.png', label: 'Success' },
-
   { id: 10, imageSrc: '/Badges/badge10.png', label: 'Achievement' },
 ]
 
@@ -18,7 +17,7 @@ const AchievementBadge = ({ badge, index }) => {
 
   return (
     <motion.div
-      className='relative flex flex-col items-center justify-center p-4 group'
+      className='relative flex flex-col items-center justify-center p-1'
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -27,7 +26,7 @@ const AchievementBadge = ({ badge, index }) => {
     >
       {/* Enhanced background glow */}
       <motion.div
-        className='absolute w-32 h-32 rounded-full blur-2xl'
+        className='absolute w-32 h-32 rounded-full blur-xl'
         animate={{
           opacity: isHovered ? [0.4, 0.6, 0.4] : 0,
           scale: isHovered ? [1.2, 1.4, 1.2] : 1,
@@ -44,7 +43,7 @@ const AchievementBadge = ({ badge, index }) => {
 
       {/* Badge container with enhanced effects */}
       <motion.div
-        className='relative w-28 h-28 bg-gradient-to-br from-white/10 to-white/5 rounded-2xl p-2 backdrop-blur-sm border border-white/10'
+        className='relative w-28 h-28 bg-gradient-to-br from-white/10 to-white/5 rounded-xl p-2 backdrop-blur-sm border border-white/10'
         whileHover={{
           scale: 1.1,
           filter: 'brightness(1.2) contrast(1.1)',
@@ -123,7 +122,7 @@ const AchievementBadge = ({ badge, index }) => {
 
       {/* Badge label with animation */}
       <motion.div
-        className='mt-4 text-center'
+        className='mt-2 text-center'
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 10 }}
         transition={{ duration: 0.2 }}
@@ -137,33 +136,35 @@ const AchievementBadge = ({ badge, index }) => {
 }
 
 const TransparentBadgeSlider = () => {
-  const doubleBadges = [...badges, ...badges]
+  // Create a triple set of badges to ensure smooth loop transition
+  const tripleBadges = [...badges, ...badges, ...badges]
 
   return (
-    <div className='relative w-full overflow-hidden bg-gradient-to-b from-transparent to-purple-900/20 py-12'>
+    <div className='relative w-full overflow-hidden bg-gradient-to-b from-transparent to-purple-900/20 py-2'>
       {/* Ambient background effects */}
       <div className='absolute inset-0 bg-grid-white/[0.02]' />
       <div className='absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/5 to-transparent' />
 
-      {/* Main slider container */}
+      {/* Main slider container with faster animation */}
       <motion.div
-        className='flex items-center gap-6 py-8'
+        className='flex items-center gap-2 py-2'
         animate={{
-          x: [0, '-50%'],
+          x: [0, '-33.333%'],
         }}
         transition={{
           x: {
-            duration: 30,
+            duration: 20,
             repeat: Infinity,
             ease: 'linear',
+            repeatType: 'loop',
           },
         }}
       >
-        {doubleBadges.map((badge, index) => (
+        {tripleBadges.map((badge, index) => (
           <AchievementBadge
             key={`${badge.id}-${index}`}
             badge={badge}
-            index={index}
+            index={index % badges.length}
           />
         ))}
       </motion.div>

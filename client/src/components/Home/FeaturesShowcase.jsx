@@ -73,7 +73,7 @@ const FeaturesShowcase = () => {
       image: '/feature/fea6.png',
       icon: <Users className='h-5 w-5' />,
       color: 'from-amber-400 to-amber-600',
-      specialRender: true, // This feature has a special render function
+      specialRender: false, // This feature has a special render function
     },
     {
       id: 7,
@@ -160,107 +160,136 @@ const FeaturesShowcase = () => {
   }
 
   // Render Standard Feature
+
   const renderStandardFeature = (feature) => {
     return (
       <div className='relative w-full h-full flex items-center justify-center p-6'>
-        {/* Paper-like background for image */}
-        <div className='absolute inset-12 bg-gray-50 rounded-xl shadow-inner'></div>
+        {/* Enhanced paper-like background with gradient matching feature color */}
+        <div
+          className={`absolute inset-8 bg-gradient-to-br ${feature.color} opacity-10 rounded-xl shadow-inner`}
+        ></div>
 
         {/* Decorative elements */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className='absolute left-0 top-1/4 w-3 h-16 rounded-r-lg bg-gradient-to-b from-gray-100 to-gray-200'
+          className='absolute left-0 top-1/4 w-3 h-20 rounded-r-lg bg-gradient-to-b from-gray-100 to-gray-200'
         ></motion.div>
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className='absolute left-0 top-2/4 w-3 h-16 rounded-r-lg bg-gradient-to-b from-gray-100 to-gray-200'
+          className='absolute left-0 top-2/4 w-3 h-20 rounded-r-lg bg-gradient-to-b from-gray-100 to-gray-200'
         ></motion.div>
 
-        {/* Featured image with improved presentation */}
-        <div className='relative z-10 bg-white rounded-2xl shadow-lg p-3 border border-gray-100 transform transition-all duration-500 hover:scale-105 overflow-hidden flex items-center justify-center w-4/5 h-4/5'>
+        {/* Featured image with improved presentation - GREATLY ENLARGED */}
+        <div className='relative z-10 bg-white rounded-2xl shadow-lg p-5 border border-gray-100 transform transition-all duration-500 hover:scale-102 overflow-hidden flex items-center justify-center w-5/6 h-5/6'>
+          {/* Gradient background that matches feature color */}
+          <div
+            className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-10`}
+          ></div>
+
+          {/* Decorative corner accents */}
+          <div
+            className={`absolute -bottom-10 -right-10 w-40 h-40 bg-gradient-to-tl ${feature.color} opacity-30 rounded-tl-full`}
+          ></div>
+          <div
+            className={`absolute -top-10 -left-10 w-32 h-32 bg-gradient-to-br ${feature.color} opacity-20 rounded-br-full`}
+          ></div>
+
           <img
             src={feature.image}
             alt={feature.title}
-            className='w-full h-full object-contain rounded-md'
+            className='relative z-10 w-full h-full object-contain rounded-md'
           />
-          <div
-            className={`absolute -bottom-1 -right-1 w-24 h-24 bg-gradient-to-tl ${feature.color} opacity-20 rounded-tl-full`}
-          ></div>
         </div>
 
-        {/* Feature label with improved design */}
+        {/* Feature label with improved design - moved slightly up to accommodate larger image */}
+        <div className='absolute bottom-10 backdrop-blur-md bg-white bg-opacity-90 border-2 border-white rounded-2xl shadow-lg px-6 py-3 flex items-center space-x-3 max-w-sm z-50'>
+          <div
+            className={`p-3 rounded-full bg-gradient-to-r ${feature.color} text-white shadow-md`}
+          >
+            {feature.icon}
+          </div>
+          <div className='flex-1 min-w-0'>
+            <h3 className='font-bold text-lg text-gray-800 truncate'>
+              {feature.title}
+            </h3>
+            <p className='text-sm text-gray-600 mt-1 line-clamp-2'>
+              {feature.description}
+            </p>
+          </div>
+        </div>
       </div>
     )
   }
 
-  // Render Database Integration Feature (ID: 4)
+  // Updated Database Integration Feature with larger visuals
+
   const renderDatabaseIntegration = () => {
     return (
       <div className='relative w-full h-full flex items-center justify-center p-6'>
-        {/* Paper-like background with lighter color */}
-        <div className='absolute inset-12 bg-indigo-50 rounded-xl shadow-inner'></div>
+        {/* Paper-like background with lighter color - expanded */}
+        <div className='absolute inset-8 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl shadow-inner'></div>
 
-        {/* Central hub graphic */}
-        <div className='relative z-20 w-4/5 h-4/5 flex items-center justify-center'>
-          <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-indigo-900 rounded-xl shadow-lg flex items-center justify-center z-30'>
-            <span className='text-white font-bold text-xs text-center'>
+        {/* Central hub graphic - increased size */}
+        <div className='relative z-20 w-5/6 h-5/6 flex items-center justify-center'>
+          <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-28 h-28 bg-indigo-900 rounded-xl shadow-lg flex items-center justify-center z-30'>
+            <span className='text-white font-bold text-sm text-center'>
               radiantAI
             </span>
           </div>
 
-          {/* Connection lines */}
-          <div className='absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gray-300 z-10 border-dashed border-gray-300'></div>
-          <div className='absolute top-1/2 left-0 transform -translate-y-1/2 h-0.5 w-full bg-gray-300 z-10 border-dashed border-gray-300'></div>
+          {/* Connection lines - thicker */}
+          <div className='absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-300 z-10 border-dashed border-gray-300'></div>
+          <div className='absolute top-1/2 left-0 transform -translate-y-1/2 h-1 w-full bg-gray-300 z-10 border-dashed border-gray-300'></div>
 
-          {/* Connection boxes */}
-          <div className='absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2 bg-white px-4 py-2 rounded-full shadow-md z-20 flex items-center gap-2'>
-            <span className='text-sm font-medium'>Scheduling</span>
+          {/* Connection boxes - larger and more prominent */}
+          <div className='absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2 bg-white px-5 py-3 rounded-full shadow-md z-20 flex items-center gap-2'>
+            <span className='text-base font-medium'>Scheduling</span>
             <div className='flex gap-1'>
-              <span className='w-5 h-5 rounded-full bg-orange-500'></span>
-              <span className='w-5 h-5 rounded-full bg-blue-500'></span>
+              <span className='w-6 h-6 rounded-full bg-orange-500'></span>
+              <span className='w-6 h-6 rounded-full bg-blue-500'></span>
             </div>
           </div>
 
-          <div className='absolute top-1/4 right-1/4 transform translate-x-1/2 -translate-y-1/2 bg-white px-4 py-2 rounded-full shadow-md z-20 flex items-center gap-2'>
-            <span className='text-sm font-medium'>Payments</span>
+          <div className='absolute top-1/4 right-1/4 transform translate-x-1/2 -translate-y-1/2 bg-white px-5 py-3 rounded-full shadow-md z-20 flex items-center gap-2'>
+            <span className='text-base font-medium'>Payments</span>
             <div className='flex gap-1'>
-              <span className='w-5 h-5 rounded-full bg-blue-500'></span>
-              <span className='w-5 h-5 rounded-full bg-gray-800'></span>
+              <span className='w-6 h-6 rounded-full bg-blue-500'></span>
+              <span className='w-6 h-6 rounded-full bg-gray-800'></span>
             </div>
           </div>
 
-          <div className='absolute bottom-1/4 left-1/4 transform -translate-x-1/2 translate-y-1/2 bg-white px-4 py-2 rounded-full shadow-md z-20 flex items-center gap-2'>
-            <span className='text-sm font-medium'>Communication</span>
+          <div className='absolute bottom-1/4 left-1/4 transform -translate-x-1/2 translate-y-1/2 bg-white px-5 py-3 rounded-full shadow-md z-20 flex items-center gap-2'>
+            <span className='text-base font-medium'>Communication</span>
             <div className='flex gap-1'>
-              <span className='w-5 h-5 rounded-full bg-green-500'></span>
-              <span className='w-5 h-5 rounded-full bg-red-500'></span>
+              <span className='w-6 h-6 rounded-full bg-green-500'></span>
+              <span className='w-6 h-6 rounded-full bg-red-500'></span>
             </div>
           </div>
 
-          <div className='absolute bottom-1/4 right-1/4 transform translate-x-1/2 translate-y-1/2 bg-white px-4 py-2 rounded-full shadow-md z-20 flex items-center gap-2'>
-            <span className='text-sm font-medium'>Business Growth</span>
+          <div className='absolute bottom-1/4 right-1/4 transform translate-x-1/2 translate-y-1/2 bg-white px-5 py-3 rounded-full shadow-md z-20 flex items-center gap-2'>
+            <span className='text-base font-medium'>Business Growth</span>
             <div className='flex gap-1'>
-              <span className='w-5 h-5 rounded-full bg-blue-500'></span>
-              <span className='w-5 h-5 rounded-full bg-orange-500'></span>
+              <span className='w-6 h-6 rounded-full bg-blue-500'></span>
+              <span className='w-6 h-6 rounded-full bg-orange-500'></span>
             </div>
           </div>
 
-          <div className='absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-white px-4 py-2 rounded-full shadow-md z-20 flex items-center gap-2'>
-            <span className='text-sm font-medium'>Platforms</span>
+          <div className='absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-white px-5 py-3 rounded-full shadow-md z-20 flex items-center gap-2'>
+            <span className='text-base font-medium'>Platforms</span>
             <div className='flex gap-1'>
-              <span className='w-5 h-5 rounded-full bg-black'></span>
-              <span className='w-5 h-5 rounded-full bg-pink-500'></span>
-              <span className='w-5 h-5 rounded-full bg-blue-500'></span>
+              <span className='w-6 h-6 rounded-full bg-black'></span>
+              <span className='w-6 h-6 rounded-full bg-pink-500'></span>
+              <span className='w-6 h-6 rounded-full bg-blue-500'></span>
             </div>
           </div>
         </div>
 
         {/* Feature label */}
-        <div className='absolute bottom-8 backdrop-blur-md bg-white bg-opacity-90 border-2 border-white rounded-2xl shadow-lg px-6 py-3 flex items-center space-x-3 max-w-sm z-50'>
+        <div className='absolute bottom-10 backdrop-blur-md bg-white bg-opacity-90 border-2 border-white rounded-2xl shadow-lg px-6 py-3 flex items-center space-x-3 max-w-sm z-50'>
           <div
             className={`p-3 rounded-full bg-gradient-to-r from-indigo-400 to-indigo-600 text-white shadow-md`}
           >
@@ -280,50 +309,38 @@ const FeaturesShowcase = () => {
   }
 
   // Render Patient Revival AI Feature (ID: 6)
+
   const renderPatientRevivalAI = () => {
     return (
       <div className='relative w-full h-full flex items-center justify-center p-6 overflow-visible'>
-        {/* Paper-like background */}
-        <div className='absolute inset-12 bg-amber-50 rounded-xl shadow-inner z-10'></div>
+        {/* Enhanced paper-like background with amber gradient */}
+        <div className='absolute inset-8 bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl shadow-inner z-10'></div>
 
-        {/* Phones container */}
-        <div className='relative z-30 flex items-center justify-center gap-6'>
-          {/* Light mode phone */}
+        {/* Single image container - GREATLY ENLARGED */}
+        <div className='relative z-30 flex items-center justify-center w-5/6 h-5/6'>
           <motion.div
-            initial={{ opacity: 0, x: -20, y: 0 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className='bg-white rounded-3xl p-2 shadow-xl transform transition-all duration-300 hover:scale-105 hover:-rotate-2 z-30'
+            className='bg-white rounded-3xl p-5 shadow-xl transform transition-all duration-300 hover:scale-102 z-30 w-full h-full'
           >
-            <div className='overflow-hidden rounded-2xl border border-gray-200'>
-              <img
-                src='/api/placeholder/200/400'
-                alt='Patient Revival AI Light Mode'
-                className='w-36 h-auto object-cover'
-              />
-            </div>
-            {/* Decorative elements */}
-            <div className='absolute -bottom-3 -right-3 w-6 h-6 bg-amber-200 rounded-full z-20'></div>
-            <div className='absolute -top-3 -left-3 w-4 h-4 bg-amber-300 rounded-full z-20'></div>
-          </motion.div>
+            {/* Gradient background within the container */}
+            <div className='absolute inset-0 bg-gradient-to-br from-amber-400 to-amber-600 opacity-10 rounded-3xl'></div>
 
-          {/* Dark mode phone */}
-          <motion.div
-            initial={{ opacity: 0, x: 20, y: 0 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className='bg-gray-900 rounded-3xl p-2 shadow-xl transform transition-all duration-300 hover:scale-105 hover:rotate-2 z-30'
-          >
-            <div className='overflow-hidden rounded-2xl border border-gray-800'>
+            <div className='overflow-hidden rounded-2xl border border-gray-200 relative w-full h-full flex items-center justify-center'>
+              {/* Decorative elements */}
+              <div className='absolute -bottom-12 -right-12 w-48 h-48 bg-gradient-to-tl from-amber-400 to-amber-600 opacity-20 rounded-tl-full z-0'></div>
+              <div className='absolute -top-12 -left-12 w-36 h-36 bg-gradient-to-br from-amber-400 to-amber-600 opacity-20 rounded-br-full z-0'></div>
+
               <img
-                src='/api/placeholder/200/400'
-                alt='Patient Revival AI Dark Mode'
-                className='w-36 h-auto object-cover'
+                src='/feature/fea6.png'
+                alt='Patient Revival AI'
+                className='w-full h-full object-contain z-10'
               />
             </div>
             {/* Decorative elements */}
-            <div className='absolute -bottom-3 -left-3 w-6 h-6 bg-amber-300 rounded-full z-20'></div>
-            <div className='absolute -top-3 -right-3 w-4 h-4 bg-amber-200 rounded-full z-20'></div>
+            <div className='absolute -bottom-3 -right-3 w-8 h-8 bg-amber-200 rounded-full z-20'></div>
+            <div className='absolute -top-3 -left-3 w-6 h-6 bg-amber-300 rounded-full z-20'></div>
           </motion.div>
         </div>
 
@@ -341,35 +358,6 @@ const FeaturesShowcase = () => {
             </p>
           </div>
         </div>
-
-        {/* Feature highlight bubbles */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className='absolute top-10 left-1/3 bg-white shadow-md rounded-full px-3 py-1 flex items-center gap-2 z-40'
-        >
-          <span className='p-1 bg-amber-100 rounded-full text-amber-500'>
-            <Heart className='h-3 w-3' />
-          </span>
-          <span className='text-xs font-medium text-gray-700'>
-            Re-engage Clients
-          </span>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className='absolute top-10 right-1/3 bg-white shadow-md rounded-full px-3 py-1 flex items-center gap-2 z-40'
-        >
-          <span className='p-1 bg-amber-100 rounded-full text-amber-500'>
-            <Calendar className='h-3 w-3' />
-          </span>
-          <span className='text-xs font-medium text-gray-700'>
-            Holiday Campaigns
-          </span>
-        </motion.div>
       </div>
     )
   }
@@ -437,8 +425,8 @@ const FeaturesShowcase = () => {
         </div>
 
         {/* Main Feature Showcase */}
-        <div className='grid grid-cols-1 lg:grid-cols-5 gap-8 mb-16 items-center min-h-[640px]'>
-          {/* Feature Tabs - Left Side on Desktop */}
+        <div className='grid grid-cols-1 lg:grid-cols-6 gap-8 mb-16 items-center min-h-[740px]'>
+          {/* Feature Tabs - Left Side on Desktop (reduced width) */}
           <div className='lg:col-span-2 flex flex-col space-y-3 order-2 lg:order-1 self-center py-2'>
             {features.map((feature, index) => (
               <motion.button
@@ -478,11 +466,11 @@ const FeaturesShowcase = () => {
             ))}
           </div>
 
-          {/* Feature Image - Right Side on Desktop */}
-          <div className='lg:col-span-3 relative h-[500px] bg-white rounded-3xl overflow-hidden shadow-xl order-1 lg:order-2 border border-gray-100 self-center flex items-center justify-center'>
+          {/* Feature Image - Right Side on Desktop (expanded width and height) */}
+          <div className='lg:col-span-4 relative h-[600px] bg-white rounded-3xl overflow-hidden shadow-xl order-1 lg:order-2 border border-gray-100 self-center flex items-center justify-center'>
             {/* Fancy decorative elements for right section */}
-            <div className='absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-pink-200 to-pink-50 rounded-bl-full z-0'></div>
-            <div className='absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-purple-200 to-purple-50 rounded-tr-full z-0'></div>
+            <div className='absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-pink-200 to-pink-50 rounded-bl-full z-0'></div>
+            <div className='absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-purple-200 to-purple-50 rounded-tr-full z-0'></div>
 
             {/* Scattered beauty elements */}
             <div className='absolute top-8 left-8 w-3 h-3 bg-pink-300 rounded-full'></div>
@@ -508,10 +496,10 @@ const FeaturesShowcase = () => {
               ></div>
               <div className='absolute top-0 left-0 w-full h-full opacity-20'>
                 <div
-                  className={`absolute top-10 right-10 w-32 h-32 rounded-full bg-gradient-to-r ${features[activeFeature].color} filter blur-xl transform -rotate-12`}
+                  className={`absolute top-10 right-10 w-40 h-40 rounded-full bg-gradient-to-r ${features[activeFeature].color} filter blur-xl transform -rotate-12`}
                 ></div>
                 <div
-                  className={`absolute bottom-10 left-10 w-24 h-24 rounded-full bg-gradient-to-r ${features[activeFeature].color} filter blur-lg`}
+                  className={`absolute bottom-10 left-10 w-32 h-32 rounded-full bg-gradient-to-r ${features[activeFeature].color} filter blur-lg`}
                 ></div>
               </div>
 

@@ -1,19 +1,41 @@
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card } from '@/components/ui/card'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
   Bot,
+  Briefcase,
+  Calendar,
   Check,
+  Globe,
   Heart,
+  Mail,
+  Phone,
   Shield,
   Sparkles,
   Star,
+  Users,
+  X,
   Zap,
 } from 'lucide-react'
-import React from 'react'
-import { useNavigate } from 'react-router'
+import React, { useState } from 'react'
 
 // Pricing data
 const PLANS = [
@@ -86,6 +108,272 @@ const SHARED_FEATURES = [
   'Free Mobile App',
 ]
 
+// Form field component for consistency - now more compact
+const FormField = ({
+  id,
+  label,
+  icon,
+  placeholder,
+  value,
+  onChange,
+  type = 'text',
+}) => (
+  <div className='relative space-y-1'>
+    <Label htmlFor={id} className='text-xs font-medium text-gray-700'>
+      {label}
+      {label.includes('*') && <span className='text-pink-500'>*</span>}
+    </Label>
+    <div className='relative rounded-md'>
+      <div className='absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none'>
+        {icon}
+      </div>
+      <Input
+        id={id}
+        type={type}
+        value={value}
+        onChange={onChange}
+        className='pl-8 py-1 h-9 text-sm bg-white'
+        placeholder={placeholder}
+      />
+    </div>
+  </div>
+)
+
+// Trial Form Dialog Component
+const TrialFormDialog = ({ isOpen, onClose, selectedPlan }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    jobTitle: '',
+    companyUrl: '',
+    companySize: '',
+  })
+
+  // Handle form input changes
+  const handleInputChange = (e) => {
+    const { id, value } = e.target
+    setFormData((prev) => ({
+      ...prev,
+      [id]: value,
+    }))
+  }
+
+  // Handle company size selection
+  const handleCompanySizeChange = (value) => {
+    setFormData((prev) => ({
+      ...prev,
+      companySize: value,
+    }))
+  }
+
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('Form submitted:', formData)
+    console.log('Selected plan:', selectedPlan)
+    // Here you would typically send this data to your backend
+
+    // Show success and close
+    alert('Thank you for your interest! We will contact you shortly.')
+    onClose()
+  }
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className='sm:max-w-xs md:max-w-sm p-0 overflow-hidden bg-white rounded-lg border shadow-md'>
+        <div className='relative'>
+          {/* Header with gradient background */}
+          <div
+            className='p-4 text-white'
+            style={{
+              background: selectedPlan
+                ? `linear-gradient(to right, ${selectedPlan.color}, ${selectedPlan.color}dd)`
+                : 'linear-gradient(to right, #ec4899, #8b5cf6)',
+            }}
+          >
+            <DialogHeader className='space-y-1 pb-0'>
+              <DialogTitle className='text-lg font-bold text-white flex items-center gap-2'>
+                {selectedPlan ? (
+                  <>
+                    <selectedPlan.icon size={18} />
+                    Start Your {selectedPlan.name} Trial
+                  </>
+                ) : (
+                  <>Start Your Free Trial</>
+                )}
+              </DialogTitle>
+              <DialogDescription className='text-white/80 text-xs'>
+                Fill out the form to get started
+              </DialogDescription>
+            </DialogHeader>
+          </div>
+
+          {/* Form content */}
+          <div className='p-4'>
+            <form onSubmit={handleSubmit} className='space-y-3'>
+              <div className='grid grid-cols-2 gap-3'>
+                <div className='col-span-2'>
+                  <Label
+                    htmlFor='name'
+                    className='text-xs font-medium mb-1 block'
+                  >
+                    Name<span className='text-pink-500'>*</span>
+                  </Label>
+                  <div className='relative'>
+                    <div className='absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none'>
+                      <Users className='h-3.5 w-3.5 text-pink-400' />
+                    </div>
+                    <Input
+                      id='name'
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className='pl-8 py-1 h-9 text-sm'
+                      placeholder='Full name'
+                    />
+                  </div>
+                </div>
+
+                <div className='col-span-1'>
+                  <Label
+                    htmlFor='phone'
+                    className='text-xs font-medium mb-1 block'
+                  >
+                    Phone<span className='text-pink-500'>*</span>
+                  </Label>
+                  <div className='relative'>
+                    <div className='absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none'>
+                      <Phone className='h-3.5 w-3.5 text-pink-400' />
+                    </div>
+                    <Input
+                      id='phone'
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className='pl-8 py-1 h-9 text-sm'
+                      placeholder='Phone number'
+                    />
+                  </div>
+                </div>
+
+                <div className='col-span-1'>
+                  <Label
+                    htmlFor='email'
+                    className='text-xs font-medium mb-1 block'
+                  >
+                    Email<span className='text-pink-500'>*</span>
+                  </Label>
+                  <div className='relative'>
+                    <div className='absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none'>
+                      <Mail className='h-3.5 w-3.5 text-pink-400' />
+                    </div>
+                    <Input
+                      id='email'
+                      type='email'
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className='pl-8 py-1 h-9 text-sm'
+                      placeholder='Company email'
+                    />
+                  </div>
+                </div>
+
+                <div className='col-span-1'>
+                  <Label
+                    htmlFor='jobTitle'
+                    className='text-xs font-medium mb-1 block'
+                  >
+                    Job Title<span className='text-pink-500'>*</span>
+                  </Label>
+                  <div className='relative'>
+                    <div className='absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none'>
+                      <Briefcase className='h-3.5 w-3.5 text-pink-400' />
+                    </div>
+                    <Input
+                      id='jobTitle'
+                      value={formData.jobTitle}
+                      onChange={handleInputChange}
+                      className='pl-8 py-1 h-9 text-sm'
+                      placeholder='Your position'
+                    />
+                  </div>
+                </div>
+
+                <div className='col-span-1'>
+                  <Label
+                    htmlFor='companyUrl'
+                    className='text-xs font-medium mb-1 block'
+                  >
+                    Website<span className='text-pink-500'>*</span>
+                  </Label>
+                  <div className='relative'>
+                    <div className='absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none'>
+                      <Globe className='h-3.5 w-3.5 text-pink-400' />
+                    </div>
+                    <Input
+                      id='companyUrl'
+                      value={formData.companyUrl}
+                      onChange={handleInputChange}
+                      className='pl-8 py-1 h-9 text-sm'
+                      placeholder='Company website'
+                    />
+                  </div>
+                </div>
+
+                <div className='col-span-2'>
+                  <Label
+                    htmlFor='companySize'
+                    className='text-xs font-medium mb-1 block'
+                  >
+                    Company Size
+                  </Label>
+                  <div className='relative'>
+                    <div className='absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none'>
+                      <Users className='h-3.5 w-3.5 text-pink-400' />
+                    </div>
+                    <Select
+                      onValueChange={handleCompanySizeChange}
+                      value={formData.companySize}
+                    >
+                      <SelectTrigger className='pl-8 py-1 h-9 text-sm'>
+                        <SelectValue placeholder='Select size' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='1-5'>1-5 employees</SelectItem>
+                        <SelectItem value='6-25'>6-25 employees</SelectItem>
+                        <SelectItem value='26-50'>26-50 employees</SelectItem>
+                        <SelectItem value='51-100'>51-100 employees</SelectItem>
+                        <SelectItem value='101+'>101+ employees</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </div>
+
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className='pt-2'
+              >
+                <Button
+                  type='submit'
+                  className={`w-full py-2 h-9 text-sm text-white border-none ${
+                    selectedPlan
+                      ? selectedPlan.buttonColor
+                      : 'bg-pink-600 hover:bg-pink-700'
+                  }`}
+                >
+                  Start Free Trial
+                  <ArrowRight className='w-3.5 h-3.5 ml-2' />
+                </Button>
+              </motion.div>
+            </form>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
 // Decorative elements
 const Decorations = () => (
   <div className='absolute inset-0 overflow-hidden pointer-events-none'>
@@ -150,7 +438,7 @@ const FeatureItem = ({ children, color }) => (
 )
 
 // Plan card component
-const PlanCard = ({ plan }) => {
+const PlanCard = ({ plan, onStartTrial }) => {
   const {
     name,
     icon: Icon,
@@ -230,7 +518,7 @@ const PlanCard = ({ plan }) => {
                 className={`w-full ${
                   popular ? 'py-6' : 'py-5'
                 } ${buttonColor} text-white border-none`}
-                onClick={() => (window.location.href = '/demo')}
+                onClick={() => onStartTrial(plan)}
               >
                 {popular ? 'Start Free Trial' : 'Free Trial'}
                 <ArrowRight className='w-4 h-4 ml-2' />
@@ -284,7 +572,13 @@ const SharedFeatures = () => (
 
 // Main pricing section component
 const PricingSection = () => {
-  const navigate = useNavigate()
+  const [isFormOpen, setIsFormOpen] = useState(false)
+  const [selectedPlan, setSelectedPlan] = useState(null)
+
+  const handleStartTrial = (plan) => {
+    setSelectedPlan(plan)
+    setIsFormOpen(true)
+  }
 
   return (
     <div className='relative pt-16 pb-24 px-4 lg:px-8 overflow-hidden bg-gradient-to-b from-white to-gray-50'>
@@ -316,7 +610,11 @@ const PricingSection = () => {
       <div className='relative max-w-6xl mx-auto z-10'>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
           {PLANS.map((plan) => (
-            <PlanCard key={plan.id} plan={plan} />
+            <PlanCard
+              key={plan.id}
+              plan={plan}
+              onStartTrial={handleStartTrial}
+            />
           ))}
         </div>
       </div>
@@ -343,7 +641,10 @@ const PricingSection = () => {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
               className='bg-gradient-to-r from-pink-500 to-purple-500 text-white py-6 px-8 shadow-lg shadow-pink-500/20'
-              onClick={() => (window.location.href = '/demo')}
+              onClick={() => {
+                setSelectedPlan(null)
+                setIsFormOpen(true)
+              }}
             >
               Schedule a Free Consultation
               <ArrowRight className='w-4 h-4 ml-2' />
@@ -351,6 +652,13 @@ const PricingSection = () => {
           </motion.div>
         </div>
       </motion.div>
+
+      {/* Trial Form Dialog */}
+      <TrialFormDialog
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+        selectedPlan={selectedPlan}
+      />
     </div>
   )
 }
