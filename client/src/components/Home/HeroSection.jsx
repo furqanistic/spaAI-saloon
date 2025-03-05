@@ -37,12 +37,12 @@ const FeatureCard = ({ icon: Icon, text, delay }) => (
   </motion.div>
 )
 
-// Floating notification component
+// Floating notification component - Updated to be responsive
 const FloatingNotification = ({ icon: Icon, text, className }) => (
   <motion.div
     initial='initial'
     animate='animate'
-    className={`absolute ${className} flex items-center gap-2 p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg`}
+    className={`absolute hidden md:flex items-center gap-2 p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg ${className}`}
   >
     <Icon className='w-4 h-4 text-purple-500' />
     <span className='text-xs font-medium text-purple-700'>{text}</span>
@@ -51,14 +51,14 @@ const FloatingNotification = ({ icon: Icon, text, className }) => (
 
 const HeroSection = () => {
   return (
-    <section className='relative min-h-[90vh] w-full overflow-hidden bg-gradient-to-br from-white via-purple-50 to-pink-50'>
+    <section className='relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-white via-purple-50 to-pink-50'>
       <WavyBackground />
       <GridBackground />
       <GradientBlobs />
 
       {/* Gradient Blobs */}
       <motion.div
-        className='absolute w-96 h-96 rounded-full blur-3xl opacity-30 bg-purple-400 top-0 right-0'
+        className='absolute w-64 h-64 sm:w-96 sm:h-96 rounded-full blur-3xl opacity-30 bg-purple-400 top-0 right-0'
         animate={{
           scale: [1, 1.2, 1],
           rotate: [0, 90, 0],
@@ -70,7 +70,7 @@ const HeroSection = () => {
         }}
       />
       <motion.div
-        className='absolute w-96 h-96 rounded-full blur-3xl opacity-30 bg-pink-400 bottom-0 left-0'
+        className='absolute w-64 h-64 sm:w-96 sm:h-96 rounded-full blur-3xl opacity-30 bg-pink-400 bottom-0 left-0'
         animate={{
           scale: [1.2, 1, 1.2],
           rotate: [90, 0, 90],
@@ -82,33 +82,33 @@ const HeroSection = () => {
         }}
       />
 
-      {/* Floating Notifications */}
+      {/* Floating Notifications - Updated positions for better visibility across screen sizes */}
       <FloatingNotification
         icon={Users}
         text='2,500+ Active Users'
-        className='top-32 right-48 lg:flex hidden'
+        className='top-32 right-10 lg:right-48'
       />
 
       <FloatingNotification
         icon={Calendar}
         text='10k+ Appointments'
-        className='top-24 left-1/3 lg:flex hidden' // New position for better visibility
+        className='top-24 left-10 lg:left-1/3'
       />
 
-      <div className='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-32 pb-16 overflow-visible'>
-        <div className='grid lg:grid-cols-2 gap-8 items-center'>
-          {/* Left Column - keeping the original size */}
+      <div className='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 md:pt-32 pb-16 overflow-visible'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 items-center'>
+          {/* Left Column - Content */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
-            className='space-y-8 order-2 lg:order-1'
+            className='space-y-6 md:space-y-8 order-2 lg:order-1 pt-6 lg:pt-0'
           >
             {/* Enhanced Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className='relative inline-flex items-center px-6 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-200 backdrop-blur-sm group'
+              className='relative inline-flex items-center px-4 sm:px-6 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-200 backdrop-blur-sm group'
             >
               <motion.div
                 className='absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300'
@@ -121,18 +121,18 @@ const HeroSection = () => {
                 }}
               />
               <Sparkles className='w-4 h-4 mr-2 text-purple-600' />
-              <span className='text-sm font-semibold text-purple-700'>
+              <span className='text-xs sm:text-sm font-semibold text-purple-700'>
                 All-in-One Beauty Practice Solution
               </span>
             </motion.div>
 
-            {/* Main Heading */}
+            {/* Main Heading - More responsive text sizes */}
             <div className='space-y-2'>
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className='text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight'
+                className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight'
               >
                 <span className='block text-gray-900'>
                   The Proven System Med Spas Need
@@ -146,7 +146,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className='text-lg text-gray-600 max-w-xl'
+                className='text-base md:text-lg text-gray-600 max-w-xl'
               >
                 Get more clients, more bookings, and more revenue—all from one
                 simple system.
@@ -154,7 +154,7 @@ const HeroSection = () => {
             </div>
 
             {/* Enhanced Features */}
-            <div className='space-y-4 pt-4'>
+            <div className='space-y-3 md:space-y-4 pt-2 md:pt-4'>
               <FeatureCard
                 icon={CheckCircle}
                 text='Automated lead nurturing & follow-ups'
@@ -172,16 +172,16 @@ const HeroSection = () => {
               />
             </div>
 
-            {/* Enhanced CTAs */}
+            {/* Enhanced CTAs - Better mobile layout */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
-              className='flex flex-col sm:flex-row gap-4 pt-6'
+              className='flex flex-col sm:flex-row gap-4 pt-4 md:pt-6'
             >
               <Button
                 onClick={() => (window.location.href = '/pricing/')}
-                className='relative h-14 px-8 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 shadow-lg group overflow-hidden'
+                className='relative h-12 sm:h-14 px-6 sm:px-8 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 shadow-lg group overflow-hidden w-full sm:w-auto'
               >
                 <motion.div
                   className='absolute inset-0 bg-white opacity-0 group-hover:opacity-20'
@@ -200,7 +200,7 @@ const HeroSection = () => {
               </Button>
               <Button
                 variant='outline'
-                className='h-14 px-8 border-2 border-purple-200 hover:bg-purple-50 transition-all duration-300'
+                className='h-12 sm:h-14 px-6 sm:px-8 border-2 border-purple-200 hover:bg-purple-50 transition-all duration-300 w-full sm:w-auto'
                 onClick={() => (window.location.href = '/demo/')}
               >
                 Book Live Demo
@@ -208,15 +208,15 @@ const HeroSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Column - Enhanced Dashboard Preview that extends to the right edge */}
+          {/* Right Column - Preview Display with responsive scaling */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
-            className='relative order-1 lg:order-2'
+            className='relative order-1 lg:order-2 mx-auto max-w-sm sm:max-w-md md:max-w-lg lg:max-w-none'
           >
-            {/* Removed negative margin on mobile, only apply on larger screens */}
-            <div className='lg:mr-[-4rem] xl:mr-[-8rem] 2xl:mr-[-12rem] mx-auto max-w-md sm:max-w-lg md:max-w-xl lg:max-w-none'>
+            {/* Removed negative margin completely on mobile */}
+            <div className='lg:mr-0 xl:mr-0 2xl:mr-0'>
               <PreviewDisplay />
             </div>
           </motion.div>
