@@ -1,50 +1,31 @@
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
+
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
   Bot,
-  Briefcase,
-  Calendar,
   Check,
-  Globe,
   Heart,
-  Mail,
-  Phone,
   Shield,
   Sparkles,
   Star,
-  Users,
   X,
   Zap,
 } from 'lucide-react'
 import React, { useState } from 'react'
 
-// Pricing data
+// Pricing data with updated prices
 const PLANS = [
   {
     id: 'premium',
     name: 'Premium',
     icon: Shield,
     tagline: 'We Handle Everything For You',
-    price: '$847',
+    price: "Let's Talk!",
+    isCustomPrice: true,
     color: '#9333ea', // purple-600
     gradient: 'from-purple-400 to-purple-600',
     lightColor: '#f3e8ff', // purple-100
@@ -63,7 +44,7 @@ const PLANS = [
     name: 'Pro',
     icon: Bot,
     tagline: 'Grow Faster with Expert Ads & AI',
-    price: '$547',
+    price: '$299',
     color: '#ec4899', // pink-600
     gradient: 'from-pink-400 to-pink-600',
     lightColor: '#fce7f3', // pink-100
@@ -83,7 +64,7 @@ const PLANS = [
     name: 'Core',
     icon: Zap,
     tagline: 'Automate the Basics',
-    price: '$347',
+    price: '$199',
     color: '#0ea5e9', // sky-500
     gradient: 'from-sky-400 to-sky-600',
     lightColor: '#e0f2fe', // sky-100
@@ -99,274 +80,51 @@ const PLANS = [
   },
 ]
 
-const SHARED_FEATURES = [
-  'Custom Branded Client Portal',
-  'Unlimited Automations',
-  'Unlimited Team Members',
-  'HIPAA-Compliant System',
-  'EMR/Practice Software Integrations',
-  'Free Mobile App',
-]
-
-// Form field component for consistency - now more compact
-const FormField = ({
-  id,
-  label,
-  icon,
-  placeholder,
-  value,
-  onChange,
-  type = 'text',
-}) => (
-  <div className='relative space-y-1'>
-    <Label htmlFor={id} className='text-xs font-medium text-gray-700'>
-      {label}
-      {label.includes('*') && <span className='text-pink-500'>*</span>}
-    </Label>
-    <div className='relative rounded-md'>
-      <div className='absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none'>
-        {icon}
-      </div>
-      <Input
-        id={id}
-        type={type}
-        value={value}
-        onChange={onChange}
-        className='pl-8 py-1 h-9 text-sm bg-white'
-        placeholder={placeholder}
-      />
-    </div>
-  </div>
-)
-
-// Trial Form Dialog Component
-const TrialFormDialog = ({ isOpen, onClose, selectedPlan }) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    jobTitle: '',
-    companyUrl: '',
-    companySize: '',
-  })
-
-  // Handle form input changes
-  const handleInputChange = (e) => {
-    const { id, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [id]: value,
-    }))
-  }
-
-  // Handle company size selection
-  const handleCompanySizeChange = (value) => {
-    setFormData((prev) => ({
-      ...prev,
-      companySize: value,
-    }))
-  }
-
-  // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('Form submitted:', formData)
-    console.log('Selected plan:', selectedPlan)
-    // Here you would typically send this data to your backend
-
-    // Show success and close
-    alert('Thank you for your interest! We will contact you shortly.')
-    onClose()
-  }
-
+// External Form Dialog Component
+const ExternalFormDialog = ({ isOpen, onClose, selectedPlan }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className='sm:max-w-xs md:max-w-sm p-0 overflow-hidden bg-white rounded-lg border shadow-md'>
-        <div className='relative'>
-          {/* Header with gradient background */}
+      <DialogContent className='p-0 sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto my-8 overflow-hidden bg-white rounded-xl border-0 shadow-2xl'>
+        <div className='relative w-full h-full flex flex-col'>
+          {/* Remove the DialogHeader component that was creating duplicate X button */}
           <div
-            className='p-4 text-white'
+            className='p-5 text-white relative'
             style={{
               background: selectedPlan
-                ? `linear-gradient(to right, ${selectedPlan.color}, ${selectedPlan.color}dd)`
-                : 'linear-gradient(to right, #ec4899, #8b5cf6)',
+                ? `linear-gradient(135deg, ${selectedPlan.color}, ${selectedPlan.color}aa)`
+                : 'linear-gradient(135deg, #ec4899, #8b5cf6)',
             }}
           >
-            <DialogHeader className='space-y-1 pb-0'>
-              <DialogTitle className='text-lg font-bold text-white flex items-center gap-2'>
-                {selectedPlan ? (
-                  <>
-                    <selectedPlan.icon size={18} />
-                    Start Your {selectedPlan.name} Trial
-                  </>
-                ) : (
-                  <>Start Your Free Trial</>
-                )}
-              </DialogTitle>
-              <DialogDescription className='text-white/80 text-xs'>
-                Fill out the form to get started
-              </DialogDescription>
-            </DialogHeader>
+            <div className='flex items-center gap-2 mb-1'>
+              {selectedPlan && (
+                <div className='bg-white/20 p-1.5 rounded-md'>
+                  <selectedPlan.icon size={20} />
+                </div>
+              )}
+              <h2 className='text-xl font-bold text-white'>
+                {selectedPlan
+                  ? `Book a ${selectedPlan.name} Plan Demo`
+                  : 'Book Your Live Demo'}
+              </h2>
+            </div>
+            <p className='text-white/80 text-sm'>
+              Schedule a personalized demo with our experts
+            </p>
           </div>
 
-          {/* Form content */}
-          <div className='p-4'>
-            <form onSubmit={handleSubmit} className='space-y-3'>
-              <div className='grid grid-cols-2 gap-3'>
-                <div className='col-span-2'>
-                  <Label
-                    htmlFor='name'
-                    className='text-xs font-medium mb-1 block'
-                  >
-                    Name<span className='text-pink-500'>*</span>
-                  </Label>
-                  <div className='relative'>
-                    <div className='absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none'>
-                      <Users className='h-3.5 w-3.5 text-pink-400' />
-                    </div>
-                    <Input
-                      id='name'
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className='pl-8 py-1 h-9 text-sm'
-                      placeholder='Full name'
-                    />
-                  </div>
-                </div>
-
-                <div className='col-span-1'>
-                  <Label
-                    htmlFor='phone'
-                    className='text-xs font-medium mb-1 block'
-                  >
-                    Phone<span className='text-pink-500'>*</span>
-                  </Label>
-                  <div className='relative'>
-                    <div className='absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none'>
-                      <Phone className='h-3.5 w-3.5 text-pink-400' />
-                    </div>
-                    <Input
-                      id='phone'
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className='pl-8 py-1 h-9 text-sm'
-                      placeholder='Phone number'
-                    />
-                  </div>
-                </div>
-
-                <div className='col-span-1'>
-                  <Label
-                    htmlFor='email'
-                    className='text-xs font-medium mb-1 block'
-                  >
-                    Email<span className='text-pink-500'>*</span>
-                  </Label>
-                  <div className='relative'>
-                    <div className='absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none'>
-                      <Mail className='h-3.5 w-3.5 text-pink-400' />
-                    </div>
-                    <Input
-                      id='email'
-                      type='email'
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className='pl-8 py-1 h-9 text-sm'
-                      placeholder='Company email'
-                    />
-                  </div>
-                </div>
-
-                <div className='col-span-1'>
-                  <Label
-                    htmlFor='jobTitle'
-                    className='text-xs font-medium mb-1 block'
-                  >
-                    Job Title<span className='text-pink-500'>*</span>
-                  </Label>
-                  <div className='relative'>
-                    <div className='absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none'>
-                      <Briefcase className='h-3.5 w-3.5 text-pink-400' />
-                    </div>
-                    <Input
-                      id='jobTitle'
-                      value={formData.jobTitle}
-                      onChange={handleInputChange}
-                      className='pl-8 py-1 h-9 text-sm'
-                      placeholder='Your position'
-                    />
-                  </div>
-                </div>
-
-                <div className='col-span-1'>
-                  <Label
-                    htmlFor='companyUrl'
-                    className='text-xs font-medium mb-1 block'
-                  >
-                    Website<span className='text-pink-500'>*</span>
-                  </Label>
-                  <div className='relative'>
-                    <div className='absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none'>
-                      <Globe className='h-3.5 w-3.5 text-pink-400' />
-                    </div>
-                    <Input
-                      id='companyUrl'
-                      value={formData.companyUrl}
-                      onChange={handleInputChange}
-                      className='pl-8 py-1 h-9 text-sm'
-                      placeholder='Company website'
-                    />
-                  </div>
-                </div>
-
-                <div className='col-span-2'>
-                  <Label
-                    htmlFor='companySize'
-                    className='text-xs font-medium mb-1 block'
-                  >
-                    Company Size
-                  </Label>
-                  <div className='relative'>
-                    <div className='absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none'>
-                      <Users className='h-3.5 w-3.5 text-pink-400' />
-                    </div>
-                    <Select
-                      onValueChange={handleCompanySizeChange}
-                      value={formData.companySize}
-                    >
-                      <SelectTrigger className='pl-8 py-1 h-9 text-sm'>
-                        <SelectValue placeholder='Select size' />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value='1-5'>1-5 employees</SelectItem>
-                        <SelectItem value='6-25'>6-25 employees</SelectItem>
-                        <SelectItem value='26-50'>26-50 employees</SelectItem>
-                        <SelectItem value='51-100'>51-100 employees</SelectItem>
-                        <SelectItem value='101+'>101+ employees</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </div>
-
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className='pt-2'
-              >
-                <Button
-                  type='submit'
-                  className={`w-full py-2 h-9 text-sm text-white border-none ${
-                    selectedPlan
-                      ? selectedPlan.buttonColor
-                      : 'bg-pink-600 hover:bg-pink-700'
-                  }`}
-                >
-                  Start Free Trial
-                  <ArrowRight className='w-3.5 h-3.5 ml-2' />
-                </Button>
-              </motion.div>
-            </form>
+          {/* iFrame content with padding */}
+          <div className='flex-1 p-2 bg-gray-50'>
+            <div className='w-full h-[580px] rounded-lg overflow-hidden bg-white shadow-sm'>
+              <iframe
+                src='https://app.radiantmdconsulting.com/widget/form/qu8IlTjqwMOQRHu0ANvP'
+                width='100%'
+                height='100%'
+                frameBorder='0'
+                title='RadiantMD Consulting Form'
+                className='w-full h-full'
+                allowFullScreen
+              ></iframe>
+            </div>
           </div>
         </div>
       </DialogContent>
@@ -437,13 +195,14 @@ const FeatureItem = ({ children, color }) => (
   </div>
 )
 
-// Plan card component
+// Update the PlanCard component to handle the special "Let's Talk!" pricing
 const PlanCard = ({ plan, onStartTrial }) => {
   const {
     name,
     icon: Icon,
     tagline,
     price,
+    isCustomPrice,
     color,
     gradient,
     lightColor,
@@ -462,7 +221,7 @@ const PlanCard = ({ plan, onStartTrial }) => {
       className='h-full'
     >
       <Card
-        className={`h-full overflow-hidden ${
+        className={`h-full overflow-hidden flex flex-col ${
           popular ? 'border-2 shadow-xl relative' : 'border shadow'
         }`}
         style={{ borderColor: popular ? color : '' }}
@@ -474,45 +233,49 @@ const PlanCard = ({ plan, onStartTrial }) => {
             </Badge>
           </div>
         )}
-
-        <div className='h-full flex flex-col'>
-          {/* Header with colored background for the plan name */}
-          <div
-            className='p-6 text-white'
-            style={{
-              background: `linear-gradient(to right, ${color}, ${color}dd)`,
-            }}
-          >
-            <div className='flex items-center gap-3 mb-2'>
-              <div className='p-2 bg-white/20 rounded-lg'>
-                <Icon size={20} />
-              </div>
-              <h3 className='text-xl font-bold'>{name}</h3>
+        {/* Header with colored background */}
+        <div
+          className='p-6 text-white'
+          style={{
+            background: `linear-gradient(to right, ${color}, ${color}dd)`,
+          }}
+        >
+          <div className='flex items-center gap-3 mb-2'>
+            <div className='p-2 bg-white/20 rounded-lg'>
+              <Icon size={20} />
             </div>
-            <p className='text-white/80 text-sm'>{tagline}</p>
+            <h3 className='text-xl font-bold'>{name}</h3>
           </div>
+          <p className='text-white/80 text-sm'>{tagline}</p>
+        </div>
 
-          <div className='px-6 py-5 bg-white'>
+        <div className='flex flex-col flex-1 px-6 py-5 bg-white'>
+          {/* Content section */}
+          <div className='flex-1'>
             <div className='mb-4'>
               <div className='flex items-baseline'>
                 <span className='text-3xl font-bold' style={{ color }}>
                   {price}
                 </span>
-                <span className='text-gray-500 ml-1'>/ month</span>
+                {!isCustomPrice && (
+                  <span className='text-gray-500 ml-1'>/ month</span>
+                )}
               </div>
               <p className='text-gray-600 text-sm mt-2 leading-snug'>
                 {description}
               </p>
             </div>
-
-            <div className='space-y-0.5 mb-6'>
+            <div className='space-y-0.5'>
               {features.map((feature, index) => (
                 <FeatureItem key={index} color={color}>
                   {feature}
                 </FeatureItem>
               ))}
             </div>
+          </div>
 
+          {/* Button section - always at bottom */}
+          <div className='pt-6'>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
               <Button
                 className={`w-full ${
@@ -520,7 +283,7 @@ const PlanCard = ({ plan, onStartTrial }) => {
                 } ${buttonColor} text-white border-none`}
                 onClick={() => onStartTrial(plan)}
               >
-                {popular ? 'Start Free Trial' : 'Free Trial'}
+                Book Live Demo
                 <ArrowRight className='w-4 h-4 ml-2' />
               </Button>
             </motion.div>
@@ -532,6 +295,7 @@ const PlanCard = ({ plan, onStartTrial }) => {
 }
 
 // Shared features section
+// Updated SharedFeatures component to reflect new feature list
 const SharedFeatures = () => (
   <motion.div
     initial={{ opacity: 0, y: 30 }}
@@ -543,16 +307,22 @@ const SharedFeatures = () => (
     <div className='text-center mb-10'>
       <div className='w-16 h-1 mx-auto bg-gradient-to-r from-pink-400 to-purple-400 rounded-full mb-4'></div>
       <h2 className='text-2xl font-bold text-gray-800 mb-2'>
-        Included in All Plans
+        Included in Every Plan
       </h2>
       <p className='text-gray-600'>
-        The same set of core features to elevate your beauty practice
-        experience.
+        Essential features to help your beauty practice thrive
       </p>
     </div>
-
     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
-      {SHARED_FEATURES.map((feature, index) => (
+      {[
+        'All RadiantMD Core Features',
+        'Unlimited Automations',
+        'Client Reactivation System',
+        'Built-in Referral System',
+        'Google Review Accelerator',
+        'AI-Powered Lead Follow-Ups',
+        'Smart Booking System',
+      ].map((feature, index) => (
         <motion.div
           key={index}
           initial={{ opacity: 0, y: 10 }}
@@ -602,8 +372,8 @@ const PricingSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className='text-lg text-gray-600 max-w-2xl mx-auto'
         >
-          We've created RadiantMD plans to scale based on your unique needs,
-          with beautiful solutions to help your beauty practice shine.
+          We&apos;ve created RadiantMD plans to scale based on your unique
+          needs, with beautiful solutions to help your beauty practice shine.
         </motion.p>
       </div>
 
@@ -647,15 +417,15 @@ const PricingSection = () => {
                 setIsFormOpen(true)
               }}
             >
-              Schedule a Free Consultation
+              Book Live Demo
               <ArrowRight className='w-4 h-4 ml-2' />
             </Button>
           </motion.div>
         </div>
       </motion.div>
 
-      {/* Trial Form Dialog */}
-      <TrialFormDialog
+      {/* External Form Dialog */}
+      <ExternalFormDialog
         isOpen={isFormOpen}
         onClose={() => setIsFormOpen(false)}
         selectedPlan={selectedPlan}

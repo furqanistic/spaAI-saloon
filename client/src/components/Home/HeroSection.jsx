@@ -179,7 +179,10 @@ const HeroSection = () => {
               transition={{ delay: 0.7 }}
               className='flex flex-col sm:flex-row gap-4 pt-6'
             >
-              <Button className='relative h-14 px-8 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 shadow-lg group overflow-hidden'>
+              <Button
+                onClick={() => (window.location.href = '/pricing/')}
+                className='relative h-14 px-8 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 shadow-lg group overflow-hidden'
+              >
                 <motion.div
                   className='absolute inset-0 bg-white opacity-0 group-hover:opacity-20'
                   animate={{
@@ -198,8 +201,9 @@ const HeroSection = () => {
               <Button
                 variant='outline'
                 className='h-14 px-8 border-2 border-purple-200 hover:bg-purple-50 transition-all duration-300'
+                onClick={() => (window.location.href = '/demo/')}
               >
-                Watch Demo
+                Book Live Demo
               </Button>
             </motion.div>
           </motion.div>
