@@ -5,6 +5,8 @@ import {
   BarChart3,
   Calendar,
   Clock,
+  Eye,
+  EyeOff,
   Heart,
   MessageSquare,
   Sparkles,
@@ -122,7 +124,16 @@ const FeaturesShowcase = () => {
     setAutoplay(false)
   }
 
-  // Animation variants
+  // Mobile info tooltip toggle - now true by default to show the label
+  const [showTooltip, setShowTooltip] = useState(true)
+
+  // Toggle mobile tooltip
+  const toggleTooltip = () => {
+    setShowTooltip(!showTooltip)
+    // Reset autoplay when tooltip is toggled
+    setAutoplay(false)
+  }
+
   const slideVariants = {
     enter: (direction) => ({
       x: direction > 0 ? 1000 : -1000,
@@ -151,7 +162,7 @@ const FeaturesShowcase = () => {
     }),
   }
 
-  // Render Feature - Standard for all features
+  // Render Feature - Modified to include the label overlay on mobile with improved visibility
   const renderFeature = (feature) => {
     return (
       <div className='relative w-full h-full flex items-center justify-center p-6'>
@@ -175,10 +186,10 @@ const FeaturesShowcase = () => {
         ></motion.div>
 
         {/* Featured image with improved presentation - GREATLY ENLARGED */}
-        <div className='relative z-10 bg-white rounded-2xl shadow-lg p-4 border border-gray-100 transform transition-all duration-500 hover:scale-102 overflow-hidden flex items-center justify-center w-11/12 h-11/12'>
-          {/* Gradient background that matches feature color */}
+        <div className='relative z-10 bg-white rounded-2xl shadow-lg p-4 border border-gray-100 transform transition-all duration-500 hover:scale-102 overflow-hidden flex flex-col items-center justify-center w-11/12 h-11/12'>
+          {/* Enhanced background color for better contrast */}
           <div
-            className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-10`}
+            className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-15`}
           ></div>
 
           {/* Decorative corner accents */}
@@ -189,20 +200,88 @@ const FeaturesShowcase = () => {
             className={`absolute -top-10 -left-10 w-32 h-32 bg-gradient-to-br ${feature.color} opacity-20 rounded-br-full`}
           ></div>
 
-          <img
-            src={feature.image}
-            alt={feature.title}
-            className='relative z-10 w-full h-full object-contain rounded-md'
-          />
-        </div>
+          {/* Additional subtle gradient overlay to lighten the image slightly for better text contrast */}
+          <div className='absolute inset-0 bg-white/5 z-10'></div>
 
-        {/* Feature label with improved design - moved slightly up to accommodate larger image */}
+          {/* Image container - Now takes up most but not all of the height */}
+          <div className='relative z-5 w-full h-[85%] flex items-center justify-center'>
+            <img
+              src={feature.image}
+              alt={feature.title}
+              className='object-contain rounded-md p-2 max-h-full'
+            />
+          </div>
+
+          {/* Feature label - Now positioned at the bottom of the container and visible in mobile and tablet views */}
+          <div
+            className={`lg:hidden relative z-20 mt-auto w-full transition-all duration-300 max-h-[30%] ${
+              showTooltip
+                ? 'opacity-100 transform translate-y-0'
+                : 'opacity-0 transform translate-y-4 pointer-events-none'
+            }`}
+          >
+            <div
+              className={`p-3 rounded-lg bg-gradient-to-r ${feature.color} shadow-md`}
+              style={{ minHeight: '80px' }}
+            >
+              <div className='flex items-center'>
+                <div className='p-2 rounded-full bg-white/20 shadow-sm flex-shrink-0'>
+                  {feature.icon}
+                </div>
+                <div className='ml-3 text-white overflow-hidden'>
+                  <h3 className='font-semibold text-lg truncate'>
+                    {feature.title}
+                  </h3>
+                  <p className='text-sm text-white font-medium line-clamp-2'>
+                    {feature.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Function to render mobile feature selector - redesigned for better visibility and interaction
+  const renderMobileSelector = () => {
+    return (
+      <div className='lg:hidden flex justify-center my-8'>
+        <div className='bg-white/95 shadow-xl rounded-xl p-3 flex space-x-2 overflow-x-auto max-w-full border border-gray-100 backdrop-blur-sm'>
+          {features.map((feature, index) => (
+            <button
+              key={feature.id}
+              onClick={() => handleFeatureChange(index)}
+              className={`flex-shrink-0 px-4 py-3 rounded-lg transition-all ${
+                activeFeature === index
+                  ? `bg-gradient-to-r ${feature.color} text-white shadow-md`
+                  : 'bg-gray-50 text-gray-700 border border-gray-200'
+              }`}
+            >
+              <div className='flex items-center'>
+                <div
+                  className={`p-1.5 rounded-full ${
+                    activeFeature === index
+                      ? 'bg-white bg-opacity-20'
+                      : `bg-gradient-to-r ${feature.color} text-white`
+                  }`}
+                >
+                  {feature.icon}
+                </div>
+                <span className='ml-2 text-sm font-medium whitespace-nowrap'>
+                  {feature.title}
+                </span>
+              </div>
+            </button>
+          ))}
+        </div>
       </div>
     )
   }
 
   return (
-    <div className='w-full py-16 overflow-hidden relative'>
+    <div className='w-full py-12 lg:py-16 overflow-hidden relative'>
       {/* Feminine, elegant background elements */}
       <div className='absolute inset-0 bg-gradient-to-br from-pink-50 to-purple-50 opacity-90'></div>
 
@@ -264,9 +343,9 @@ const FeaturesShowcase = () => {
         </div>
 
         {/* Main Feature Showcase */}
-        <div className='grid grid-cols-1 lg:grid-cols-6 gap-8 mb-16 items-center min-h-[740px]'>
-          {/* Feature Tabs - Left Side on Desktop (reduced width) */}
-          <div className='lg:col-span-2 flex flex-col space-y-3 order-2 lg:order-1 self-center py-2'>
+        <div className='grid grid-cols-1 lg:grid-cols-6 gap-8 mb-16 items-center min-h-[600px] lg:min-h-[740px]'>
+          {/* Feature Tabs - Left Side on Desktop (reduced width) - Hidden on mobile */}
+          <div className='hidden lg:flex lg:col-span-2 flex-col space-y-3 order-2 lg:order-1 self-center py-2'>
             {features.map((feature, index) => (
               <motion.button
                 key={feature.id}
@@ -306,7 +385,19 @@ const FeaturesShowcase = () => {
           </div>
 
           {/* Feature Image - Right Side on Desktop (expanded width and height) */}
-          <div className='lg:col-span-4 relative h-[600px] bg-white rounded-3xl overflow-hidden shadow-xl order-1 lg:order-2 border border-gray-100 self-center flex items-center justify-center'>
+          <div className='lg:col-span-4 relative h-[500px] lg:h-[600px] bg-white rounded-3xl overflow-hidden shadow-xl order-1 lg:order-2 border border-gray-100 self-center flex items-center justify-center'>
+            {/* Mobile Info Button */}
+            <button
+              onClick={toggleTooltip}
+              className='lg:hidden absolute bottom-4 right-4 z-30 bg-white/90 shadow-lg p-3 rounded-full border border-gray-200 hover:bg-white'
+              aria-label={showTooltip ? 'Hide information' : 'Show information'}
+            >
+              {showTooltip ? (
+                <EyeOff className='h-5 w-5 text-gray-700' />
+              ) : (
+                <Eye className='h-5 w-5 text-gray-700' />
+              )}
+            </button>
             {/* Fancy decorative elements for right section */}
             <div className='absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-pink-200 to-pink-50 rounded-bl-full z-0'></div>
             <div className='absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-purple-200 to-purple-50 rounded-tr-full z-0'></div>
@@ -360,8 +451,8 @@ const FeaturesShowcase = () => {
               <ArrowRight className='h-5 w-5 text-gray-700 group-hover:text-pink-500' />
             </button>
 
-            {/* Enhanced progress indicators */}
-            <div className='absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3 bg-white bg-opacity-70 backdrop-blur-sm px-6 py-3 rounded-full shadow-md z-50'>
+            {/* Enhanced progress indicators - Moved higher up on mobile */}
+            <div className='absolute top-4 left-1/2 transform -translate-x-1/2 flex space-x-3 bg-white bg-opacity-85 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg z-50 lg:bottom-4 lg:top-auto'>
               {features.map((_, index) => (
                 <button
                   key={index}
@@ -384,7 +475,8 @@ const FeaturesShowcase = () => {
           </div>
         </div>
 
-        {/* Call to Action */}
+        {/* Mobile Feature Selector - Hidden now */}
+        {/* {renderMobileSelector()} */}
       </div>
     </div>
   )

@@ -10,7 +10,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Footer = () => {
   const navigate = useNavigate()
@@ -23,7 +23,7 @@ const Footer = () => {
     { name: 'Services', to: '/services' },
     { name: 'Pricing', to: '/pricing' },
     { name: 'About Us', to: '/about' },
-    { name: 'Contact', to: '/contact' },
+    { name: 'Contact', to: '/demo' },
   ]
 
   const socialLinks = [
@@ -153,15 +153,15 @@ const Footer = () => {
             <ul className='grid grid-cols-1 gap-3'>
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.to}
+                  <a
+                    href={link.to}
                     className='text-gray-600 hover:text-pink-500 transition-colors flex items-center gap-2 group'
                   >
                     <ChevronRight className='w-4 h-4 text-pink-300 group-hover:text-pink-500' />
                     <span className='group-hover:translate-x-1 transition-transform'>
                       {link.name}
                     </span>
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -198,13 +198,13 @@ const Footer = () => {
               <p className='text-sm text-gray-600 mb-3'>
                 See how RadiantAI can transform your business operations
               </p>
-              <button
-                onClick={handleDemo}
+              <a
+                href='/demo'
                 className='w-full py-2 px-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-shadow flex items-center justify-center gap-2 text-sm'
               >
                 Schedule Now
                 <ArrowUpRight className='w-3 h-3' />
-              </button>
+              </a>
             </div>
           </motion.div>
         </motion.div>
@@ -215,18 +215,18 @@ const Footer = () => {
             © {new Date().getFullYear()} RadiantAI. All rights reserved.
           </p>
           <div className='flex items-center gap-6 text-sm'>
-            <Link
-              to='/terms'
+            <a
+              href='/terms'
               className='text-gray-600 hover:text-pink-500 transition-colors'
             >
               Terms & Conditions
-            </Link>
-            <Link
-              to='/privacy-policy'
+            </a>
+            <a
+              href='/privacy-policy'
               className='text-gray-600 hover:text-pink-500 transition-colors'
             >
               Privacy Policy
-            </Link>
+            </a>
           </div>
         </div>
       </div>

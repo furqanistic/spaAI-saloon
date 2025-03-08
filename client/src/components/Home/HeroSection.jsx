@@ -194,7 +194,7 @@ const HeroSection = () => {
                   }}
                 />
                 <span className='flex items-center gap-2'>
-                  Get Started Free
+                  Book Your Free 30-Day Trial
                   <ArrowRight className='w-4 h-4 group-hover:translate-x-1 transition-transform' />
                 </span>
               </Button>

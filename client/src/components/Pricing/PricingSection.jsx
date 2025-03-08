@@ -80,55 +80,29 @@ const PLANS = [
   },
 ]
 
-// External Form Dialog Component
+// Completely minimal form embed with no custom styling
 const ExternalFormDialog = ({ isOpen, onClose, selectedPlan }) => {
-  return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className='p-0 sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto my-8 overflow-hidden bg-white rounded-xl border-0 shadow-2xl'>
-        <div className='relative w-full h-full flex flex-col'>
-          {/* Remove the DialogHeader component that was creating duplicate X button */}
-          <div
-            className='p-5 text-white relative'
-            style={{
-              background: selectedPlan
-                ? `linear-gradient(135deg, ${selectedPlan.color}, ${selectedPlan.color}aa)`
-                : 'linear-gradient(135deg, #ec4899, #8b5cf6)',
-            }}
-          >
-            <div className='flex items-center gap-2 mb-1'>
-              {selectedPlan && (
-                <div className='bg-white/20 p-1.5 rounded-md'>
-                  <selectedPlan.icon size={20} />
-                </div>
-              )}
-              <h2 className='text-xl font-bold text-white'>
-                {selectedPlan
-                  ? `Book a ${selectedPlan.name} Plan Demo`
-                  : 'Book Your Live Demo'}
-              </h2>
-            </div>
-            <p className='text-white/80 text-sm'>
-              Schedule a personalized demo with our experts
-            </p>
-          </div>
+  if (!isOpen) return null
 
-          {/* iFrame content with padding */}
-          <div className='flex-1 p-2 bg-gray-50'>
-            <div className='w-full h-[580px] rounded-lg overflow-hidden bg-white shadow-sm'>
-              <iframe
-                src='https://app.radiantmdconsulting.com/widget/form/qu8IlTjqwMOQRHu0ANvP'
-                width='100%'
-                height='100%'
-                frameBorder='0'
-                title='RadiantMD Consulting Form'
-                className='w-full h-full'
-                allowFullScreen
-              ></iframe>
-            </div>
-          </div>
-        </div>
-      </DialogContent>
-    </Dialog>
+  return (
+    <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/50'>
+      <div className='relative'>
+        <button
+          onClick={() => onClose(false)}
+          className='absolute -top-10 right-0 p-2 text-white hover:text-gray-300'
+        >
+          <X size={24} />
+        </button>
+        <iframe
+          src='https://app.radiantmdconsulting.com/widget/form/qu8IlTjqwMOQRHu0ANvP'
+          width='500'
+          height='700px'
+          frameBorder='0'
+          title='RadiantMD Consulting Form'
+          allowFullScreen
+        ></iframe>
+      </div>
+    </div>
   )
 }
 
@@ -283,7 +257,7 @@ const PlanCard = ({ plan, onStartTrial }) => {
                 } ${buttonColor} text-white border-none`}
                 onClick={() => onStartTrial(plan)}
               >
-                Book Live Demo
+                Book Your Free 30-Day Trial
                 <ArrowRight className='w-4 h-4 ml-2' />
               </Button>
             </motion.div>
@@ -417,7 +391,7 @@ const PricingSection = () => {
                 setIsFormOpen(true)
               }}
             >
-              Book Live Demo
+              Book Your Free 30-Day Trial
               <ArrowRight className='w-4 h-4 ml-2' />
             </Button>
           </motion.div>

@@ -1,31 +1,64 @@
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { motion } from 'framer-motion'
 import {
-  ArrowRight,
-  Briefcase,
   Calendar,
   CheckCircle,
   Clock,
-  Globe,
   Heart,
-  Mail,
-  Phone,
+  Loader,
   Sparkles,
   Star,
-  Users,
 } from 'lucide-react'
-import React, { useState } from 'react'
-import SchedulingSystem from './SchedulingSystem'
+import React, { useEffect, useState } from 'react'
+
+// Iframe with Loader Component
+const IframeWithLoader = ({ src, title }) => {
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false)
+    }, 2500) // Fallback in case onLoad doesn't trigger
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  const handleIframeLoad = () => {
+    setLoading(false)
+  }
+
+  return (
+    <div className='relative h-full w-full'>
+      {loading && (
+        <div className='absolute inset-0 flex items-center justify-center bg-white'>
+          <div className='flex flex-col items-center justify-center'>
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+              className='text-pink-500 mb-3'
+            >
+              <Loader size={30} />
+            </motion.div>
+            <p className='text-gray-600 text-sm'>Loading booking calendar...</p>
+          </div>
+        </div>
+      )}
+
+      <iframe
+        src={src}
+        className='w-full h-full'
+        style={{
+          height: '100%',
+          opacity: loading ? 0 : 1,
+          transition: 'opacity 0.3s ease',
+        }}
+        frameBorder='0'
+        title={title}
+        onLoad={handleIframeLoad}
+        allowFullScreen
+      />
+    </div>
+  )
+}
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -133,84 +166,7 @@ const FeatureItem = ({ icon, title, description }) => (
   </motion.div>
 )
 
-// Form field component for consistency
-const FormField = ({
-  id,
-  label,
-  icon,
-  placeholder,
-  value,
-  onChange,
-  type = 'text',
-}) => (
-  <div className='relative space-y-1.5'>
-    <Label htmlFor={id} className='text-sm font-medium text-gray-700'>
-      {label}
-      {label.includes('*') && <span className='text-pink-500'>*</span>}
-    </Label>
-    <div className='relative rounded-lg'>
-      <div className='absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none'>
-        {icon}
-      </div>
-      <Input
-        id={id}
-        type={type}
-        value={value}
-        onChange={onChange}
-        className='pl-10 h-12 bg-white border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 shadow-sm'
-        placeholder={placeholder}
-      />
-    </div>
-  </div>
-)
-
 const DemoRequestSection = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    jobTitle: '',
-    companyUrl: '',
-    companySize: '',
-  })
-
-  // State for scheduling dialog
-  const [isSchedulingOpen, setIsSchedulingOpen] = useState(false)
-
-  // Handle form input changes
-  const handleInputChange = (e) => {
-    const { id, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [id]: value,
-    }))
-  }
-
-  // Handle company size selection
-  const handleCompanySizeChange = (value) => {
-    setFormData((prev) => ({
-      ...prev,
-      companySize: value,
-    }))
-  }
-
-  // Handle scheduling complete
-  const handleSchedulingComplete = (schedulingData) => {
-    console.log('Scheduling completed:', schedulingData)
-    console.log('Form data:', formData)
-    // Here you can handle the submission of both form and scheduling data
-  }
-
-  // Validate form before opening scheduler
-  const handleChooseDateClick = () => {
-    // Basic form validation
-    if (!formData.name || !formData.email || !formData.phone) {
-      alert('Please fill in all required fields')
-      return
-    }
-    setIsSchedulingOpen(true)
-  }
-
   const expectations = [
     {
       icon: <Calendar className='w-5 h-5' />,
@@ -283,19 +239,26 @@ const DemoRequestSection = () => {
           {/* Main Content Grid */}
           <div className='grid lg:grid-cols-2 gap-12 items-start'>
             {/* Left Column - Benefits */}
-            <motion.div variants={itemVariants}>
-              <div className='bg-white rounded-2xl shadow-xl p-8 md:p-12 h-full border border-gray-100'>
+            <motion.div variants={itemVariants} className='flex'>
+              <div
+                className='bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100'
+                style={{
+                  height: '600px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
                 <h2 className='text-3xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-8'>
                   Let's Talk Success
                 </h2>
 
-                <p className='text-lg text-gray-600 mb-12'>
+                <p className='text-lg text-gray-600 mb-8'>
                   Whether you're looking to increase revenue, automate
                   operations, or fill your calendar, our Beauty Practice growth
                   experts are ready to help.
                 </p>
 
-                <div className='space-y-8'>
+                <div className='space-y-8 flex-grow'>
                   {expectations.map((item, index) => (
                     <FeatureItem
                       key={index}
@@ -308,125 +271,17 @@ const DemoRequestSection = () => {
               </div>
             </motion.div>
 
-            {/* Right Column - Form */}
-            <motion.div variants={itemVariants}>
-              <Card className='overflow-hidden border border-purple-50 shadow-xl bg-white/95 backdrop-blur-sm'>
-                <CardContent className='p-8 md:p-12'>
-                  <h2 className='text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-8'>
-                    Schedule Your Demo
-                  </h2>
-
-                  <form className='space-y-6'>
-                    <div className='space-y-4'>
-                      {/* Name field */}
-                      <FormField
-                        id='name'
-                        label='Name*'
-                        icon={<Users className='h-4 w-4 text-pink-400' />}
-                        placeholder='Enter your full name'
-                        value={formData.name}
-                        onChange={handleInputChange}
-                      />
-
-                      {/* Phone field */}
-                      <FormField
-                        id='phone'
-                        label='Phone Number*'
-                        icon={<Phone className='h-4 w-4 text-pink-400' />}
-                        placeholder='Enter your phone number'
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                      />
-
-                      {/* Email field */}
-                      <FormField
-                        id='email'
-                        label='Company Email*'
-                        type='email'
-                        icon={<Mail className='h-4 w-4 text-pink-400' />}
-                        placeholder='Enter your company email'
-                        value={formData.email}
-                        onChange={handleInputChange}
-                      />
-
-                      {/* Job title field */}
-                      <FormField
-                        id='jobTitle'
-                        label='Job Title*'
-                        icon={<Briefcase className='h-4 w-4 text-pink-400' />}
-                        placeholder='Enter your job title'
-                        value={formData.jobTitle}
-                        onChange={handleInputChange}
-                      />
-
-                      {/* Company URL field */}
-                      <FormField
-                        id='companyUrl'
-                        label='Company URL*'
-                        icon={<Globe className='h-4 w-4 text-pink-400' />}
-                        placeholder='Enter your company website'
-                        value={formData.companyUrl}
-                        onChange={handleInputChange}
-                      />
-
-                      {/* Company size field */}
-                      <div className='relative space-y-1.5'>
-                        <Label
-                          htmlFor='companySize'
-                          className='text-sm font-medium text-gray-700'
-                        >
-                          Company Size
-                        </Label>
-                        <div className='relative rounded-lg'>
-                          <div className='absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none'>
-                            <Users className='h-4 w-4 text-pink-400' />
-                          </div>
-                          <Select
-                            onValueChange={handleCompanySizeChange}
-                            value={formData.companySize}
-                          >
-                            <SelectTrigger className='pl-10 h-12 bg-white border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 shadow-sm'>
-                              <SelectValue placeholder='Select company size' />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value='1-5'>1-5 employees</SelectItem>
-                              <SelectItem value='6-25'>
-                                6-25 employees
-                              </SelectItem>
-                              <SelectItem value='26-50'>
-                                26-50 employees
-                              </SelectItem>
-                              <SelectItem value='51-100'>
-                                51-100 employees
-                              </SelectItem>
-                              <SelectItem value='101+'>
-                                101+ employees
-                              </SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-                    </div>
-
-                    <motion.div
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                    >
-                      <Button
-                        type='button'
-                        onClick={handleChooseDateClick}
-                        className='w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 
-                          text-white font-semibold h-12 rounded-lg transition-all duration-300 
-                          flex items-center justify-center gap-2 shadow-lg shadow-pink-500/20'
-                      >
-                        <Calendar className='w-5 h-5' />
-                        Choose Date & Time
-                        <ArrowRight className='w-5 h-5' />
-                      </Button>
-                    </motion.div>
-                  </form>
-                </CardContent>
-              </Card>
+            {/* Right Column - Iframe with loader */}
+            <motion.div variants={itemVariants} className='flex'>
+              <div
+                className='bg-white rounded-2xl shadow-xl p-0 border border-gray-100 overflow-hidden w-full'
+                style={{ height: '600px' }}
+              >
+                <IframeWithLoader
+                  src='https://app.radiantmdconsulting.com/widget/booking/ez3275vnjyOjJs6c3k3Z'
+                  title='RadiantMD Booking Widget'
+                />
+              </div>
             </motion.div>
           </div>
 
@@ -450,13 +305,6 @@ const DemoRequestSection = () => {
           </motion.div>
         </motion.div>
       </div>
-
-      <SchedulingSystem
-        isOpen={isSchedulingOpen}
-        onClose={() => setIsSchedulingOpen(false)}
-        formData={formData}
-        onSchedulingComplete={handleSchedulingComplete}
-      />
     </section>
   )
 }
